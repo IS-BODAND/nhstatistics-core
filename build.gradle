@@ -1,0 +1,61 @@
+plugins {
+    id 'scala'
+}
+
+group 'tk.iscorp'
+version '1.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // Scala - Standard library
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.6'
+
+    // Scala XML - XML library
+    compile group: 'org.scala-lang.modules', name: 'scala-xml_2.12', version: '1.1.0'
+
+    // Logback - Logger
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // Apache Commons IO - IO tools
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    // Apache Commons Validator - Validating data
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+
+    // Apache HttpComponents HttpClient - HTTP library
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+
+    // Apache Spark - Data processing
+    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.1'
+
+    // Jetbrains Annotations - Annotating
+    compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
+
+    // Scala test
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.5'
+
+    // jUnit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // Scalactic
+    testCompile group: 'org.scalactic', name: 'scalactic_2.12', version: '3.0.5'
+}
+
+jar {
+    manifest {
+        attributes "Name": 'NHentaiStatistics'
+        attributes "Specification-Title": 'Statistics app about nhentai doujinshi'
+        attributes "Specification-Version": "$version"
+        attributes "Specification-Vendor": "InfoSoft Corporation"
+        attributes "Main-Class": "tk.iscorp.nhs.MainObj"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
