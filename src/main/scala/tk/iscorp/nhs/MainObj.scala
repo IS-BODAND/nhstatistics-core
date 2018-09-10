@@ -12,6 +12,6 @@ object MainObj {
     val httpResponse = httpClientWrapper.getHttpFromUri("https://nhentai.net/")
     val xmlSerializer = new StringToXML
     val htmlInXml = xmlSerializer.toXML(httpResponse)
-    FileUtils.writeStringToFile(new File("nhentaiFrontpage.html"),htmlInXml.toString, "UTF-8")
+    FileUtils.writeStringToFile(new File("nhentaiFrontpage.bodandkeep.html"), htmlInXml.toString, "UTF-8")
   }
 }

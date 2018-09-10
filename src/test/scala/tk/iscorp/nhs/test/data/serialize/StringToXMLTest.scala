@@ -22,5 +22,10 @@ class StringToXMLTest extends WordSpec {
         assertEquals(None, stringToXML.toXML(invalidXML))
       }
     }
+    "return valid xml" when {
+      "html is valid" in {
+        assertNotEquals(None, stringToXML.toXML(responseString))
+      }
+    }
   }
 }
