@@ -33,7 +33,7 @@ class Gallery(@NonNls @NotNull val name: String,
 
   private
   def stringifyArray(array: Array[_ <: HentaiData]): String = {
-    array map (_.toString) mkString ","
+    array map (_.toString) mkString ", "
   }
 
   private
@@ -45,12 +45,14 @@ class Gallery(@NonNls @NotNull val name: String,
 }
 
 object Gallery {
-  def dummy(): Gallery = {
-    new Gallery("Dummy Gallery",
-                "Dummi Garreri",
+  def dummy(name: String = "Dummy Gallery",
+            japName: String = "Dummi Garreri",
+            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1))): Gallery = {
+    new Gallery(name,
+                japName,
                 Array(new HentaiParody("InfoSoft The Animation", 1)),
                 Array(new HentaiCharacter("genderbent-bodand", -1)),
-                Array(new HentaiTag("Mindfucking", 1)),
+                tags,
                 Array(new HentaiArtist("Broccodile", 69)),
                 Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
                 new EnglishHentai(69),
