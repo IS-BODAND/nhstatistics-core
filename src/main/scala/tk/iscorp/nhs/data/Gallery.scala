@@ -26,6 +26,10 @@ class Gallery(@NonNls @NotNull val name: String,
        |${makeStringPossiblyPlural(artists.length, "Artist")}: ${stringifyArray(artists)}
        |${makeStringPossiblyPlural(groups.length, "Group")}: ${stringifyArray(groups)}
        |
+       |Language: ${language.toString}
+       |
+       |Category: ${category.toString}
+       |
        |${makeStringPossiblyPlural(pageCount, "Page")}: $pageCount
        |Uploaded: $uploadDate
      """.stripMargin
