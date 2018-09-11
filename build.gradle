@@ -23,12 +23,15 @@ dependencies {
     // Apache HttpComponents HttpClient - HTTP library
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     // Apache Spark - Data processing
-    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.1'
+//    compile(group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.1') {
+//        exclude group: "org.slf4j" // I only need one logger bitch
+//        exclude group: "log4j"
+//    }
     // Jetbrains Annotations - Annotating
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
     // jSoup - HTML Parser
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
-
+    
     // Scala test
     testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.5'
     // jUnit
@@ -39,11 +42,11 @@ dependencies {
 
 jar {
     manifest {
+        attributes "Main-Class": "tk.iscorp.nhs.MainObj"
         attributes "Name": 'NHentaiStatistics'
         attributes "Specification-Title": 'Statistics app about nhentai doujinshi'
         attributes "Specification-Version": "$version"
         attributes "Specification-Vendor": "InfoSoft Corporation"
-        attributes "Main-Class": "tk.iscorp.nhs.MainObj"
     }
 
     from {
