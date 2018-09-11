@@ -7,7 +7,6 @@ trait HentaiData {
   @NotNull
   def name: String
 
-  @NonNls
   @NotNull
   def amount: Int
 

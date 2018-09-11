@@ -1,15 +1,17 @@
 package tk.iscorp.nhs.data.hentai
 
-import org.jetbrains.annotations.{NonNls, NotNull}
+import org.jetbrains.annotations.NotNull
 
-sealed abstract case class HentaiCategory() extends HentaiData {
+sealed abstract case class HentaiCategory() extends HentaiData
+
+class MangaHentai(@NotNull override val amount: Int) extends HentaiCategory {
+  override val name: String = "Manga"
 }
 
-class MangaHentai(@NonNls @NotNull override val name: String,
-                  @NonNls @NotNull override val amount: Int) extends HentaiCategory
+class DoujinshiHentai(@NotNull override val amount: Int) extends HentaiCategory {
+  override val name: String = "Doujinshi"
+}
 
-class DoujinshiHentai(@NonNls @NotNull override val name: String,
-                      @NonNls @NotNull override val amount: Int) extends HentaiCategory
-
-class OtherCategoryHentai(@NonNls @NotNull override val name: String,
-                          @NonNls @NotNull override val amount: Int) extends HentaiCategory
+class OtherCategoryHentai(@NotNull override val amount: Int) extends HentaiCategory {
+  override val name: String = "Other"
+}

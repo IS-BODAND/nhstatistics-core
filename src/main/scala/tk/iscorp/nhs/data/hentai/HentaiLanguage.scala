@@ -1,17 +1,21 @@
 package tk.iscorp.nhs.data.hentai
 
-import org.jetbrains.annotations.{NonNls, NotNull}
+import org.jetbrains.annotations.NotNull
 
 sealed abstract case class HentaiLanguage() extends HentaiData
 
-class EnglishHentai(@NonNls @NotNull override val name: String,
-                    @NonNls @NotNull override val amount: Int) extends HentaiLanguage
+class EnglishHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override def name: String = "English"
+}
 
-class JapaneseHentai(@NonNls @NotNull override val name: String,
-                     @NonNls @NotNull override val amount: Int) extends HentaiLanguage
+class JapaneseHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override def name: String = "Japanese"
+}
 
-class ChineseHentai(@NonNls @NotNull override val name: String,
-                    @NonNls @NotNull override val amount: Int) extends HentaiLanguage
+class ChineseHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override def name: String = "Chinese" //Who the fuck reads chinese hentai
+}
 
-class OtherLanguageHentai(@NonNls @NotNull override val name: String,
-                          @NonNls @NotNull override val amount: Int) extends HentaiLanguage
+class OtherLanguageHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override def name: String = "Other"
+}
