@@ -11,28 +11,72 @@ class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val tags: Array[HentaiTag],
               @NonNls @NotNull val artists: Array[HentaiArtist],
               @NonNls @NotNull val groups: Array[HentaiGroup],
-              @NotNull val language: HentaiLanguage,
+              @NotNull val languages: Array[HentaiLanguage],
               @NotNull val category: HentaiCategory,
               @NotNull val pageCount: Int,
               @NonNls @NotNull val uploadDate: String) {
 
   override
   def toString: String = {
-    s"""$name ($japName)
+    s"""$name ${if (japName != "") s"($japName)" else ""}
        |
-       |${makeStringPossiblyPlural(parodies.length, "Parod", "y", "ies")}: ${stringifyArray(parodies)}
-       |${makeStringPossiblyPlural(characters.length, "Character")}: ${stringifyArray(characters)}
-       |${makeStringPossiblyPlural(tags.length, "Tag")}: ${stringifyArray(tags)}
-       |${makeStringPossiblyPlural(artists.length, "Artist")}: ${stringifyArray(artists)}
-       |${makeStringPossiblyPlural(groups.length, "Group")}: ${stringifyArray(groups)}
+       |$printParodiesConditionally
        |
-       |Language: ${language.toString}
+       |$printCharactersConditionally
+       |
+       |$printTagsConditionally
+       |
+       |$printArtistsConditionally
+       |
+       |$printGroupsConditionally
+       |
+       |${makeStringPossiblyPlural(languages.length, "Language")}: ${stringifyArray(languages)}
        |
        |Category: ${category.toString}
        |
-       |${makeStringPossiblyPlural(pageCount, "Page")}: $pageCount
+       |${makeStringPossiblyPlural(pageCount, "Page")}: WIP $pageCount
        |Uploaded: $uploadDate
      """.stripMargin
+  }
+
+  private def printArtistsConditionally = {
+    if (artists.length > 0) {
+      s"${makeStringPossiblyPlural(artists.length, "Artist")}: ${
+        stringifyArray(artists)
+      }"
+    } else {
+      "{No artists specified}"
+    }
+  }
+
+  private def printTagsConditionally = {
+    if (tags.length > 0) s"${makeStringPossiblyPlural(tags.length, "Tag")}: ${stringifyArray(tags)}" else ""
+  }
+
+  private def printCharactersConditionally = {
+    if (characters.length > 0) {
+      s"${makeStringPossiblyPlural(characters.length, "Character")}: " +
+         s"${stringifyArray(characters)}"
+    } else {
+      "{No characters specified}"
+    }
+  }
+
+  private def printParodiesConditionally = {
+    if (parodies.length > 0) {
+      s"${makeStringPossiblyPlural(parodies.length, "Parod", "y", "ies")}: " +
+         s"${stringifyArray(parodies)}"
+    } else {
+      "{No parodies specified}"
+    }
+  }
+
+  private def printGroupsConditionally: String = {
+    if (groups.length > 0) {
+      s"${makeStringPossiblyPlural(groups.length, "Group")}: ${stringifyArray(groups)}"
+    } else {
+      "{No groups specified}"
+    }
   }
 
   private
@@ -59,7 +103,7 @@ object Gallery {
                 tags,
                 Array(new HentaiArtist("Broccodile", 69)),
                 Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
-                new EnglishHentai(69),
+                Array(new EnglishHentai(69)),
                 new MangaHentai(96), 85, "20XX-01-01")
   }
 }

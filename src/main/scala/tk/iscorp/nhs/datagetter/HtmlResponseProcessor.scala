@@ -13,10 +13,19 @@ import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect.{ClassTag, _}
 
 class HtmlResponseProcessor {
+  private val regexText                        = "([\\s\\w-]+)\\s+".r
+  private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
+
   def processHtmlToGallery(html: String): Gallery = {
     val document = Jsoup.parse(html)
     val name: String = document.selectFirst("div#info h1").childNode(0).toString
-    val japName: String = document.selectFirst("div#info h2").childNode(0).toString
+    val japName: String = try {
+      document.selectFirst("div#info h2").childNode(0).toString
+    } catch {
+      case _: NullPointerException ⇒
+        Utils.logger.info("Gallery has no secondary name")
+        ""
+    }
 
     val allTags = document.select("div#info section div.tag-container span.tags")
 
@@ -26,7 +35,7 @@ class HtmlResponseProcessor {
         tagExtractor[HentaiParody, HentaiParodyFactory](parodiesRAW.children())
       } else {
         Array.empty[HentaiParody]
-      } //todo
+      }
     }
     val charactersRAW = allTags.remove(0)
     val characters: Array[HentaiCharacter] = {
@@ -34,7 +43,7 @@ class HtmlResponseProcessor {
         tagExtractor[HentaiCharacter, HentaiCharacterFactory](charactersRAW.children())
       } else {
         Array.empty[HentaiCharacter]
-      } //todo
+      }
     }
     val tagsRAW = allTags.remove(0)
     val tags: Array[HentaiTag] = {
@@ -61,23 +70,47 @@ class HtmlResponseProcessor {
       }
     }
     val languagesRAW = allTags.remove(0)
+    val languages: Array[HentaiLanguage] = {
+      if (languagesRAW.childNodeSize() > 0) {
+        tagExtractor[HentaiLanguage, HentaiLanguageFactory](languagesRAW.children())
+      } else {
+        Array.empty[HentaiLanguage]
+      }
+    }
     val categoryRAW = allTags.remove(0)
+    val category = {
+      val name = categoryRAW.child(0).ownText()
+      val amount = categoryRAW.child(0).child(0).ownText() match {
+        case regexNumberWithCommaEmparethised(n, m) ⇒
+          if (m != null) n + m toInt else n toInt
+        case _ ⇒
+          Utils.logger.error(s"""Error parsing category amount: "$name"""")
+          0
+      }
+      name match {
+        case "manga" ⇒
+          new MangaHentai(amount)
+        case "doujinshi" ⇒
+          new DoujinshiHentai(amount)
+        case _ ⇒
+          Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category " +
+                               s"found: $name" +
+                               s"expected: manga|doujinshi")
+          new OtherCategoryHentai(amount)
+      }
+    }
 
-    new Gallery(name, japName, parodies, characters, tags, artists, groups, new EnglishHentai(0), new MangaHentai(0),
+    new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
                 66, "2001-09-11")
   }
 
-  def tagExtractor[E <: HentaiData : ClassTag,
-  EConst <: HentaiDataFactory[E] : ClassTag](elem: Elements): Array[E] = {
+  def tagExtractor[E <: HentaiData : ClassTag, EConst <: HentaiDataFactory[E] : ClassTag](elem: Elements): Array[E] = {
     val constructorClass = classTag[EConst].runtimeClass
     val constructor = constructorClass.newInstance().asInstanceOf[EConst]
 
     val tmpArr: ArrayBuffer[E] = new ArrayBuffer[E]()
     var tmpName: String = ""
     var tmpInUse = false
-
-    val regexText = "([\\s\\w]+)\\s+".r
-    val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
     elem.traverse(new NodeVisitor {
       override def head(node: Node, depth: Int): Unit = {

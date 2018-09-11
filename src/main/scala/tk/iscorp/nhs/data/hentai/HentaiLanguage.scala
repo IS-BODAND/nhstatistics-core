@@ -5,17 +5,21 @@ import org.jetbrains.annotations.NotNull
 sealed abstract case class HentaiLanguage() extends HentaiData
 
 class EnglishHentai(@NotNull override val amount: Int) extends HentaiLanguage {
-  override def name: String = "English"
+  override val name: String = "English"
 }
 
 class JapaneseHentai(@NotNull override val amount: Int) extends HentaiLanguage {
-  override def name: String = "Japanese"
+  override val name: String = "Japanese"
 }
 
 class ChineseHentai(@NotNull override val amount: Int) extends HentaiLanguage {
-  override def name: String = "Chinese" //Who the fuck reads chinese hentai
+  override val name: String = "Chinese" //Who the fuck reads chinese hentai
+}
+
+class TranslatedHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override val name: String = "Translated"
 }
 
 class OtherLanguageHentai(@NotNull override val amount: Int) extends HentaiLanguage {
-  override def name: String = "Other"
+  override val name: String = "Other"
 }
