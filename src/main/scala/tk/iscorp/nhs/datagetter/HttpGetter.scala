@@ -1,11 +1,10 @@
 package tk.iscorp.nhs.datagetter
 
-import com.esotericsoftware.kryo.NotNull
 import org.apache.commons.validator.routines.UrlValidator
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{CloseableHttpClient, HttpClients}
 import org.apache.http.util.EntityUtils
-import org.jetbrains.annotations.{NonNls, Nullable}
+import org.jetbrains.annotations.{NonNls, NotNull, Nullable}
 
 import java.net.URI
 
