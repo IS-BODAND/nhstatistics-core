@@ -10,7 +10,9 @@ import org.jetbrains.annotations.{NonNls, Nullable}
 import java.net.URI
 
 class HttpGetter() {
+  @NotNull
   private val httpClient: CloseableHttpClient = HttpClients.createDefault()
+  @NotNull
   private val urlSchemes: Array[String] = Array("http", "https")
 
   @NotNull
