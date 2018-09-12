@@ -7,9 +7,9 @@ import tk.iscorp.nhs.inputparser.{ArgParser, ParseData}
 import java.io.File
 
 object MainObj {
-  private  val httpClientWrapper          = new HttpGetter
-  private  val htmlResponseProcessor      = new HtmlResponseProcessor
-  implicit var parsedArguments: ParseData = _
+  private      val httpClientWrapper          = new HttpGetter
+  private lazy val htmlResponseProcessor      = new HtmlResponseProcessor
+  implicit     var parsedArguments: ParseData = _
 
   def main(args: Array[String]): Unit = {
     val argParser = new ArgParser

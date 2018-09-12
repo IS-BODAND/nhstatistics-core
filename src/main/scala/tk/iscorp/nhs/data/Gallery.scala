@@ -20,9 +20,9 @@ class Gallery(@NonNls @NotNull val name: String,
               @NotNull val id: Int) {
 
   def toXml: Node = {
-<gallery id={id}>
-      <name>{name}</name>
-      <sec-name>{japName}</sec-name>
+<gallery id={s"$id"}>
+      <name>{s"$name"}</name>
+      <sec-name>{s"$japName"}</sec-name>
       <parodies>
         {parodies.map(_.toXml)}
       </parodies>
@@ -39,8 +39,8 @@ class Gallery(@NonNls @NotNull val name: String,
         {groups.map(_.toXml)}
       </groups>
       {category.toXml}
-      <pages size={pageCount} />
-      <upload>{uploadDate}</upload>
+      <pages size={s"$pageCount"} />
+      <upload>{s"$uploadDate"}</upload>
     </gallery>
 }
 

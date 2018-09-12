@@ -28,7 +28,7 @@ class HTMLCache(cacheXml: String) {
     val htmlFile = new File(s"cache/${uri.reverseIterator.takeWhile(_ != '/').toString()}.html")
     FileUtils.writeStringToFile(htmlFile, html, "UTF-8")
 
-    addChild(xml, <cache uri={uri} fileName={htmlFile.getName}/> )
+    addChild(xml, <cache uri={s"$uri"} fileName={s"${htmlFile.getName}"}/> )
   }
 
 

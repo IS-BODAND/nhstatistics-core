@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull
 import scala.xml.Node
 
 sealed abstract case class HentaiCategory() extends HentaiData {
-  override def toXml: Node = <category name={name} amount={amount}/>
+  override def toXml: Node = <category name={s"$name"} amount={s"$amount"}/>
 }
 
 class MangaHentai(@NotNull override val amount: Int) extends HentaiCategory {
