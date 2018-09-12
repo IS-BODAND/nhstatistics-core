@@ -1,7 +1,7 @@
 package tk.iscorp.nhs.datagetter
 
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Node
+import org.jsoup.nodes.{Element, Node}
 import org.jsoup.select.{Elements, NodeVisitor}
 import tk.iscorp.nhs.Utils
 import tk.iscorp.nhs.data.Gallery
@@ -26,82 +26,57 @@ class HtmlResponseProcessor {
         Utils.logger.info("Gallery has no secondary name")
         ""
     }
+    try {
+      val allTags = document.select("div#info section div.tag-container span.tags")
 
-    val allTags = document.select("div#info section div.tag-container span.tags")
+      val parodies: Array[HentaiParody] = getElements[HentaiParody, HentaiParodyFactory](allTags.remove(0))
+      val characters: Array[HentaiCharacter] = getElements[HentaiCharacter, HentaiCharacterFactory](allTags.remove(0))
+      val tags: Array[HentaiTag] = getElements[HentaiTag, HentaiTagFactory](allTags.remove(0))
+      val artists: Array[HentaiArtist] = getElements[HentaiArtist, HentaiArtistFactory](allTags.remove(0))
+      val groups: Array[HentaiGroup] = getElements[HentaiGroup, HentaiGroupFactory](allTags.remove(0))
+      val languages: Array[HentaiLanguage] = getElements[HentaiLanguage, HentaiLanguageFactory](allTags.remove(0))
+      val category: HentaiCategory = getCategory(allTags.remove(0))
 
-    val parodiesRAW = allTags.remove(0)
-    val parodies: Array[HentaiParody] = {
-      if (parodiesRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiParody, HentaiParodyFactory](parodiesRAW.children())
-      } else {
-        Array.empty[HentaiParody]
-      }
+      new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
+                  66, "2001-09-11")
+    } catch {
+      case _: NullPointerException ⇒
+        Utils.logger.error("Error")
+        Gallery.dummy()
     }
-    val charactersRAW = allTags.remove(0)
-    val characters: Array[HentaiCharacter] = {
-      if (charactersRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiCharacter, HentaiCharacterFactory](charactersRAW.children())
-      } else {
-        Array.empty[HentaiCharacter]
-      }
+  }
+
+  private def getCategory(categoryRAW: Element): HentaiCategory = {
+
+    val name = categoryRAW.child(0).ownText()
+    val amount = categoryRAW.child(0).child(0).ownText() match {
+      case regexNumberWithCommaEmparethised(n, m) ⇒
+        if (m != null) n + m toInt else n toInt
+      case _ ⇒
+        Utils.logger.error(s"""Error parsing category amount: "$name"""")
+        0
     }
-    val tagsRAW = allTags.remove(0)
-    val tags: Array[HentaiTag] = {
-      if (tagsRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiTag, HentaiTagFactory](tagsRAW.children())
-      } else {
-        Array.empty[HentaiTag]
-      }
-    }
-    val artistsRAW = allTags.remove(0)
-    val artists: Array[HentaiArtist] = {
-      if (artistsRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiArtist, HentaiArtistFactory](artistsRAW.children())
-      } else {
-        Array.empty[HentaiArtist]
-      }
-    }
-    val groupsRAW = allTags.remove(0)
-    val groups: Array[HentaiGroup] = {
-      if (groupsRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiGroup, HentaiGroupFactory](groupsRAW.children())
-      } else {
-        Array.empty[HentaiGroup]
-      }
-    }
-    val languagesRAW = allTags.remove(0)
-    val languages: Array[HentaiLanguage] = {
-      if (languagesRAW.childNodeSize() > 0) {
-        tagExtractor[HentaiLanguage, HentaiLanguageFactory](languagesRAW.children())
-      } else {
-        Array.empty[HentaiLanguage]
-      }
-    }
-    val categoryRAW = allTags.remove(0)
-    val category = {
-      val name = categoryRAW.child(0).ownText()
-      val amount = categoryRAW.child(0).child(0).ownText() match {
-        case regexNumberWithCommaEmparethised(n, m) ⇒
-          if (m != null) n + m toInt else n toInt
-        case _ ⇒
-          Utils.logger.error(s"""Error parsing category amount: "$name"""")
-          0
-      }
-      name match {
-        case "manga" ⇒
-          new MangaHentai(amount)
-        case "doujinshi" ⇒
-          new DoujinshiHentai(amount)
-        case _ ⇒
-          Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category " +
-                               s"found: $name" +
-                               s"expected: manga|doujinshi")
-          new OtherCategoryHentai(amount)
-      }
+    name match {
+      case "manga" ⇒
+        new MangaHentai(amount)
+      case "doujinshi" ⇒
+        new DoujinshiHentai(amount)
+      case _ ⇒
+        Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category " +
+                             s"found: $name" +
+                             s"expected: manga|doujinshi")
+        new OtherCategoryHentai(amount)
     }
 
-    new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
-                66, "2001-09-11")
+  }
+
+  private def getElements[HType <: HentaiData : ClassTag, HTypeFact <: HentaiDataFactory[HType] : ClassTag]
+  (raw: Element) = {
+    if (raw.childNodeSize() > 0) {
+      tagExtractor[HType, HTypeFact](raw.children())
+    } else {
+      Array.empty[HType]
+    }
   }
 
   def tagExtractor[E <: HentaiData : ClassTag, EConst <: HentaiDataFactory[E] : ClassTag](elem: Elements): Array[E] = {

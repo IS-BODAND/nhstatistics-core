@@ -95,15 +95,24 @@ class Gallery(@NonNls @NotNull val name: String,
 object Gallery {
   def dummy(name: String = "Dummy Gallery",
             japName: String = "Dummi Garreri",
-            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1))): Gallery = {
-    new Gallery(name,
-                japName,
-                Array(new HentaiParody("InfoSoft The Animation", 1)),
-                Array(new HentaiCharacter("genderbent-bodand", -1)),
+            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
+            parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
+            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", -1)),
+            artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
+            groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
+            languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
+            category: MangaHentai = new MangaHentai(96),
+            pageCount: Int = 85,
+            uploadDate: String = "20XX-01-01"): Gallery = {
+    new Gallery(name, japName,
+                parodies,
+                characters,
                 tags,
-                Array(new HentaiArtist("Broccodile", 69)),
-                Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
-                Array(new EnglishHentai(69)),
-                new MangaHentai(96), 85, "20XX-01-01")
+                artists,
+                groups,
+                languages,
+                category,
+                pageCount,
+                uploadDate)
   }
 }
