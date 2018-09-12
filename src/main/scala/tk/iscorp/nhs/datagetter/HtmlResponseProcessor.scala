@@ -7,12 +7,13 @@ import tk.iscorp.nhs.Utils
 import tk.iscorp.nhs.data.Gallery
 import tk.iscorp.nhs.data.hentai._
 import tk.iscorp.nhs.data.hentai.factory._
+import tk.iscorp.nhs.inputparser.ParseData
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect.{ClassTag, _}
 
-class HtmlResponseProcessor {
+class HtmlResponseProcessor(implicit val parseData: ParseData) {
   private val regexText                        = "([\\s\\w-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
@@ -37,11 +38,15 @@ class HtmlResponseProcessor {
       val languages: Array[HentaiLanguage] = getElements[HentaiLanguage, HentaiLanguageFactory](allTags.remove(0))
       val category: HentaiCategory = getCategory(allTags.remove(0))
 
+      val pageCount = document.selectFirst("div#info>div").ownText().takeWhile(_ != ' ').toInt
+
+      val date = document.selectFirst("div#info div time").text()
+
       new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
-                  66, "2001-09-11")
+                  pageCount, date)
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error("Error")
+        Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
         Gallery.dummy()
     }
   }

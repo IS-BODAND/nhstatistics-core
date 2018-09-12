@@ -1,12 +1,12 @@
 package tk.iscorp.nhs
 
 import tk.iscorp.nhs.datagetter.{HtmlResponseProcessor, HttpGetter}
-import tk.iscorp.nhs.inputparser.ArgParser
+import tk.iscorp.nhs.inputparser.{ArgParser, ParseData}
 
 object MainObj {
   def main(args: Array[String]): Unit = {
     val argParser = new ArgParser
-    val parsedArguments = argParser.parse(args)
+    implicit val parsedArguments: ParseData = argParser.parse(args)
 
     if (parsedArguments.help || parsedArguments.id == "") {
       argParser.printHelp()

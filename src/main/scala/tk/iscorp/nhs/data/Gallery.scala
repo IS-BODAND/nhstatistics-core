@@ -34,7 +34,7 @@ class Gallery(@NonNls @NotNull val name: String,
        |
        |Category: ${category.toString}
        |
-       |${makeStringPossiblyPlural(pageCount, "Page")}: WIP $pageCount
+       |${makeStringPossiblyPlural(pageCount, "Page")}: $pageCount
        |Uploaded: $uploadDate
      """.stripMargin
   }
@@ -97,7 +97,7 @@ object Gallery {
             japName: String = "Dummi Garreri",
             tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
             parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
-            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", -1)),
+            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
             artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
             groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
             languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
