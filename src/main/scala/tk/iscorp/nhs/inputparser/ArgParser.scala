@@ -14,7 +14,7 @@ class ArgParser {
     val help = new Option("h", "help", false, "Display help")
     val id = new Option("i", "hentai-id", true, "ID of the hentai to view")
     val isoDate = new Option("y", "iso-date", false,
-                             "Displays upload time in ISO 8601 format, like it should be")
+                             "Display upload time in ISO 8601 format, like it should be")
 
     opt.addOption(help)
     opt.addOption(id)
@@ -44,6 +44,6 @@ class ArgParser {
   }
 
   def printHelp(): Unit = {
-    helpFormatter.printHelp("nhs", "WIP NHentai desktop experience", options, "\n")
+    helpFormatter.printHelp("nhs", "WIP NHentai desktop experience\n\n", options, "\n")
   }
 }
