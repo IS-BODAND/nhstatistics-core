@@ -3,6 +3,8 @@ package tk.iscorp.nhs.data
 import org.jetbrains.annotations.{NonNls, NotNull}
 import tk.iscorp.nhs.data.hentai._
 
+import scala.xml.Node
+
 @NonNls
 class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val japName: String,
@@ -17,8 +19,32 @@ class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val uploadDate: String,
               @NotNull val id: Int) {
 
-  override
-  def toString: String = {
+  def toXml: Node = {
+<gallery id={id}>
+      <name>{name}</name>
+      <sec-name>{japName}</sec-name>
+      <parodies>
+        {parodies.map(_.toXml)}
+      </parodies>
+      <characters>
+        {characters.map(_.toXml)}
+      </characters>
+      <tags>
+        {parodies.map(_.toXml)}
+      </tags>
+      <artists>
+        {artists.map(_.toXml)}
+      </artists>
+      <groups>
+        {groups.map(_.toXml)}
+      </groups>
+      {category.toXml}
+      <pages size={pageCount} />
+      <upload>{uploadDate}</upload>
+    </gallery>
+}
+
+  override def toString: String = {
     s"""$name ${if (japName != "") s"($japName)" else ""}
        |
        |$printParodiesConditionally
@@ -80,15 +106,13 @@ class Gallery(@NonNls @NotNull val name: String,
     }
   }
 
-  private
-  def stringifyArray(array: Array[_ <: HentaiData]): String = {
+  private def stringifyArray(array: Array[_ <: HentaiData]): String = {
     array map (_.toString) mkString ", "
   }
 
-  private
-  def makeStringPossiblyPlural(amountToChangeOn: Int,
-                               base: String,
-                               sg: String = "", pl: String = "s"): String = {
+  private def makeStringPossiblyPlural(amountToChangeOn: Int,
+                                       base: String,
+                                       sg: String = "", pl: String = "s"): String = {
     s"$base${if (amountToChangeOn == 1) sg else pl}"
   }
 }

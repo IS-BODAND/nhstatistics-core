@@ -2,7 +2,11 @@ package tk.iscorp.nhs.data.hentai
 
 import org.jetbrains.annotations.NotNull
 
-sealed abstract case class HentaiLanguage() extends HentaiData
+import scala.xml.Node
+
+sealed abstract case class HentaiLanguage() extends HentaiData {
+  override def toXml: Node = <language name={s"$name"} amount={s"$amount"} />
+}
 
 class EnglishHentai(@NotNull override val amount: Int) extends HentaiLanguage {
   override val name: String = "English"
