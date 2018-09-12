@@ -13,9 +13,12 @@ class ArgParser {
 
     val help = new Option("h", "help", false, "Display help")
     val id = new Option("i", "hentai-id", true, "ID of the hentai to view")
+    val isoDate = new Option("y", "iso-date", false,
+                             "Displays upload time in ISO 8601 format, like it should be")
 
     opt.addOption(help)
     opt.addOption(id)
+    opt.addOption(isoDate)
 
     opt
   }
@@ -30,7 +33,9 @@ class ArgParser {
 
       val id = if (cl.hasOption("i")) cl.getOptionValue("i") else ""
 
-      new ParseData(help, id)
+      val isoDate = cl.hasOption("y")
+
+      new ParseData(help, id, isoDate)
     } catch {
       case e: ParseException ⇒
         Utils.logger.error(s"Argument Parsing error: ${e.getMessage}")

@@ -14,7 +14,8 @@ class Gallery(@NonNls @NotNull val name: String,
               @NotNull val languages: Array[HentaiLanguage],
               @NotNull val category: HentaiCategory,
               @NotNull val pageCount: Int,
-              @NonNls @NotNull val uploadDate: String) {
+              @NonNls @NotNull val uploadDate: String,
+              @NotNull val id: Int) {
 
   override
   def toString: String = {
@@ -103,7 +104,8 @@ object Gallery {
             languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
             category: MangaHentai = new MangaHentai(96),
             pageCount: Int = 85,
-            uploadDate: String = "20XX-01-01"): Gallery = {
+            uploadDate: String = "20XX-01-01",
+            id: Int = 1): Gallery = {
     new Gallery(name, japName,
                 parodies,
                 characters,
@@ -113,6 +115,7 @@ object Gallery {
                 languages,
                 category,
                 pageCount,
-                uploadDate)
+                uploadDate,
+                id)
   }
 }

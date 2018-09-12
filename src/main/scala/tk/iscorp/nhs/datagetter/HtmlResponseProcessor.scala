@@ -24,9 +24,17 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
       document.selectFirst("div#info h2").childNode(0).toString
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.info("Gallery has no secondary name")
+        Utils.logger.info("Gallery has no secondary/japanese name")
         ""
     }
+
+    val id = document
+       .selectFirst("div#cover>a")
+       .attr("href")
+       .substring(3)
+       .takeWhile(_ != '/')
+       .toInt
+
     try {
       val allTags = document.select("div#info section div.tag-container span.tags")
 
@@ -40,10 +48,17 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
 
       val pageCount = document.selectFirst("div#info>div").ownText().takeWhile(_ != ' ').toInt
 
-      val date = document.selectFirst("div#info div time").text()
+      val date = {
+        val asd = document.selectFirst("div#info div time")
+        if (parseData.isoDate) {
+          asd.attr("datetime")
+        } else {
+          asd.text()
+        }
+      }
 
       new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
-                  pageCount, date)
+                  pageCount, date, id)
     } catch {
       case _: NullPointerException ⇒
         Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
