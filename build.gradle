@@ -45,6 +45,8 @@ dependencies {
 }
 
 jar {
+    baseName = "nhs"
+
     manifest {
         attributes "Main-Class": "tk.iscorp.nhs.MainObj"
         attributes "Name": 'NHentaiStatistics'
@@ -57,3 +59,12 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+task createBat() {
+    doLast {
+        file("$buildDir/libs/nhs.bat").text = """@echo off
+java -jar nhs-1.0-SNAPSHOT.jar %*"""
+    }
+}
+
+jar.finalizedBy createBat

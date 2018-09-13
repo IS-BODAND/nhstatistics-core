@@ -4,7 +4,8 @@ import tk.iscorp.nhs.data.hentai.HentaiGroup
 
 class HentaiGroupFactory extends HentaiDataFactory[HentaiGroup] {
   override def construct(name: String,
-                         amount: Int): HentaiGroup = {
+                         amount: Int)
+                        (implicit id: Int): HentaiGroup = {
     new HentaiGroup(name, amount)
   }
 }

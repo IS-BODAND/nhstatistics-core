@@ -24,6 +24,10 @@ class TranslatedHentai(@NotNull override val amount: Int) extends HentaiLanguage
   override val name: String = "Translated"
 }
 
+class RewriteHentai(@NotNull override val amount: Int) extends HentaiLanguage {
+  override val name: String = "Rewrite"
+}
+
 class OtherLanguageHentai(@NotNull override val amount: Int) extends HentaiLanguage {
   override val name: String = "Other"
 }

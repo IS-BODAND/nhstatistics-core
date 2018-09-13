@@ -6,7 +6,8 @@ import scala.language.existentials
 
 class HentaiArtistFactory extends HentaiDataFactory[HentaiArtist] {
   override def construct(name: String,
-                         amount: Int): HentaiArtist = {
+                         amount: Int)
+                        (implicit id: Int): HentaiArtist = {
     new HentaiArtist(name, amount)
   }
 }

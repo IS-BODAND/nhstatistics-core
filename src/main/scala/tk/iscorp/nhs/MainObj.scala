@@ -1,10 +1,10 @@
 package tk.iscorp.nhs
 
 import org.apache.commons.io.FileUtils
+import tk.iscorp.nhs.data.Gallery
 import tk.iscorp.nhs.datagetter.{HtmlResponseProcessor, HttpGetter}
 import tk.iscorp.nhs.inputparser.{ArgParser, ParseData}
-
-import java.io.File
+import tk.iscorp.nhs.stream.{FileOutPutMode, HentaiOutStream, STDOUTMode}
 
 object MainObj {
   private      val httpClientWrapper          = new HttpGetter
@@ -14,31 +14,42 @@ object MainObj {
   def main(args: Array[String]): Unit = {
     val argParser = new ArgParser
     parsedArguments = argParser.parse(args)
-
-    val xml =
-    <galleries>
-      {
-        for {
-          i ← 1 to 246515
-        } yield {
-          htmlResponseProcessor
-             .processHtmlToGallery(httpClientWrapper.getHttpFromUri(s"https://nhentai.net/g/$i}"))
-        }
+    val doujinOutPutStream: HentaiOutStream =
+      if (parsedArguments.file == null) {
+        HentaiOutStream.construct(STDOUTMode())
+      } else {
+        FileUtils.deleteQuietly(parsedArguments.file)
+        HentaiOutStream.construct(FileOutPutMode(), parsedArguments.file)
       }
-    </galleries>
 
-    FileUtils.writeStringToFile(new File("Galleries.xml"), xml.toString(), "UTF-8")
+    if (userIsAFuckingIdiotOrANewGuy) {
+      argParser.printHelp()
+    } else if (parsedArguments.until != 0) {
+      val got = polyDoujinRequest()
+
+      doujinOutPutStream << got
+    } else {
+      val got = monoDoujinRequest()
+
+      doujinOutPutStream << got
+    }
   }
 
-  private def averageRun(argParser: ArgParser,
-                         parsedArguments: ParseData): Unit = {
-    if (parsedArguments.help || parsedArguments.id == "") {
-      argParser.printHelp()
-    } else {
-      val httpResponse = httpClientWrapper.getHttpFromUri(s"https://nhentai.net/g/${parsedArguments.id}")
-      val gallery = htmlResponseProcessor.processHtmlToGallery(httpResponse)
+  private def userIsAFuckingIdiotOrANewGuy: Boolean = {
+    parsedArguments.help || (parsedArguments.id == "" && parsedArguments.until == 0)
+  }
 
-      println(gallery.toString)
-    }
+  private def polyDoujinRequest(): List[Gallery] = {
+    (for {
+      i ← 1 to parsedArguments.until
+    } yield {
+      htmlResponseProcessor
+         .processHtmlToGallery(httpClientWrapper.getHttpFromUri(s"https://nhentai.net/g/$i"))
+    }).toList
+  }
+
+  private def monoDoujinRequest(): Gallery = {
+    val httpResponse = httpClientWrapper.getHttpFromUri(s"https://nhentai.net/g/${parsedArguments.id}")
+    htmlResponseProcessor.processHtmlToGallery(httpResponse)
   }
 }

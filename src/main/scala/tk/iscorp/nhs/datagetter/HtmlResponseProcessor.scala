@@ -14,12 +14,27 @@ import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect.{ClassTag, _}
 
 class HtmlResponseProcessor(implicit val parseData: ParseData) {
-  private val regexText                        = "([\\s\\w-]+)\\s+".r
+  private val regexText                        = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
   def processHtmlToGallery(html: String): Gallery = {
     val document = Jsoup.parse(html)
-    val name: String = document.selectFirst("div#info h1").childNode(0).toString
+
+    implicit val id: Int = document
+       .selectFirst("div#cover>a")
+       .attr("href")
+       .substring(3)
+       .takeWhile(_ != '/')
+       .toInt
+
+    val name: String = try {
+      document.selectFirst("div#info h1").childNode(0).toString
+    } catch {
+      case _: NullPointerException ⇒
+        Utils.logger.error(s"$id => Error getting hentai name. Most likely means that it was deleted. " +
+                              s"Continuing to try, don't expect much.")
+        "!![[ERROR GETTING DOUJIN NAME]]!!"
+    }
     val japName: String = try {
       document.selectFirst("div#info h2").childNode(0).toString
     } catch {
@@ -28,12 +43,6 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
         ""
     }
 
-    val id = document
-       .selectFirst("div#cover>a")
-       .attr("href")
-       .substring(3)
-       .takeWhile(_ != '/')
-       .toInt
 
     try {
       val allTags = document.select("div#info section div.tag-container span.tags")
@@ -91,7 +100,8 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
   }
 
   private def getElements[HType <: HentaiData : ClassTag, HTypeFact <: HentaiDataFactory[HType] : ClassTag]
-  (raw: Element) = {
+  (raw: Element)
+  (implicit id: Int) = {
     if (raw.childNodeSize() > 0) {
       tagExtractor[HType, HTypeFact](raw.children())
     } else {
@@ -99,7 +109,9 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
     }
   }
 
-  def tagExtractor[E <: HentaiData : ClassTag, EConst <: HentaiDataFactory[E] : ClassTag](elem: Elements): Array[E] = {
+  def tagExtractor[E <: HentaiData : ClassTag, EConst <: HentaiDataFactory[E] : ClassTag](elem: Elements)
+                                                                                         (implicit id: Int)
+  : Array[E] = {
     val constructorClass = classTag[EConst].runtimeClass
     val constructor = constructorClass.newInstance().asInstanceOf[EConst]
 
@@ -118,7 +130,7 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
               tmpArr += constructor.construct(tmpName, if (m != null) n + m toInt else n toInt)
               tmpInUse = false
             case _ ⇒
-              Utils.logger.error(s"""Error parsing tag: "${node.toString}"""")
+              Utils.logger.error(s"""$id => Error parsing tag: "${node.toString}"""")
           }
         }
       }

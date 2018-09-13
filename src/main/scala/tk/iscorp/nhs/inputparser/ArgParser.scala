@@ -4,6 +4,7 @@ import org.apache.commons.cli.{CommandLineParser, DefaultParser, HelpFormatter, 
 import org.jetbrains.annotations.NotNull
 import tk.iscorp.nhs.Utils
 
+import java.io.File
 import java.text.ParseException
 
 class ArgParser {
@@ -15,10 +16,14 @@ class ArgParser {
     val id = new Option("i", "hentai-id", true, "ID of the hentai to view")
     val isoDate = new Option("y", "iso-date", false,
                              "Display upload time in ISO 8601 format, like it should be")
+    val until = new Option("u", "until", true, "Gets all hentai until the ID specified. Inclusive.")
+    val file = new Option("F", "file-output", true, "Outputs to specified file")
 
     opt.addOption(help)
     opt.addOption(id)
     opt.addOption(isoDate)
+    opt.addOption(until)
+    opt.addOption(file)
 
     opt
   }
@@ -35,7 +40,17 @@ class ArgParser {
 
       val isoDate = cl.hasOption("y")
 
-      new ParseData(help, id, isoDate)
+      val until = {
+        if (cl.hasOption("u")) {
+          cl.getOptionValue("u").toInt
+        } else {
+          0
+        }
+      }
+
+      val file = if (cl.hasOption("F")) new File(cl.getOptionValue("F")) else null
+
+      new ParseData(help, id, isoDate, until, file)
     } catch {
       case e: ParseException ⇒
         Utils.logger.error(s"Argument Parsing error: ${e.getMessage}")
