@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.data.Gallery
-import tk.iscorp.nhs.stream.impl.DefaultFileHentaiOutStream
+import tk.iscorp.nhs.stream.impl.FileHentaiOutStream
 
 import java.io.File
 import java.util.{ArrayList ⇒ JArrayList}
@@ -14,26 +14,26 @@ import java.util.{ArrayList ⇒ JArrayList}
 import scala.collection.JavaConverters._
 
 @RunWith(classOf[JUnitRunner])
-class DefaultFileHentaiOutStreamTest extends WordSpec {
-  private val file = new File("testFile.bodandkeep.txt")
-  private val testDoujin                            =
+class FileHentaiOutStreamTest extends WordSpec {
+  private val file                                       = new File("testFile.bodandkeep.txt")
+  private val testDoujin                                 =
     Gallery.dummy(name = "Test", japName = "Tesutu", uploadDate = "2018-09-15", id = 999999)
-  private val testDoujinByteArray: Array[Byte] = testDoujin.toString.getBytes
-  private val testDoujinsList: List[Gallery] = List(Gallery.dummy(), Gallery.dummy(), Gallery.dummy(), Gallery.dummy())
-  private val testDoujinsListByteArray: Array[Byte] = testDoujinsList.map(_.toString)
+  private val testDoujinByteArray: Array[Byte]           = testDoujin.toString.getBytes
+  private val testDoujinsList: List[Gallery]             = List(Gallery.dummy(), Gallery.dummy(), Gallery.dummy(), Gallery.dummy())
+  private val testDoujinsListByteArray: Array[Byte]      = testDoujinsList.map(_.toString)
      .mkString("", "\n" + "-" * 32 + "\n", "\n" + "-" * 32 + "\n").getBytes()
-  private val testDoujinsArray: Array[Gallery] = testDoujinsList.toArray
-  private val testDoujinsArrayByteArray: Array[Byte] = testDoujinsArray.map(_.toString)
+  private val testDoujinsArray: Array[Gallery]           = testDoujinsList.toArray
+  private val testDoujinsArrayByteArray: Array[Byte]     = testDoujinsArray.map(_.toString)
      .mkString("", "\n" + "-" * 32 + "\n", "\n" + "-" * 32 + "\n").getBytes()
-  private val testDoujinsArrayList: JArrayList[Gallery] = new JArrayList[Gallery](testDoujinsList.asJavaCollection)
+  private val testDoujinsArrayList: JArrayList[Gallery]  = new JArrayList[Gallery](testDoujinsList.asJavaCollection)
   private val testDoujinsArrayListByteArray: Array[Byte] =
     testDoujinsArrayList.asScala.map(_.toString)
        .mkString("", "\n" + "-" * 32 + "\n", "\n" + "-" * 32 + "\n").getBytes
-  private var outStream: DefaultFileHentaiOutStream = _
+  private var outStream: FileHentaiOutStream             = _
 
   "A DefaultFileHentaiOutStream" should {
     "initialize" in {
-      outStream = new DefaultFileHentaiOutStream(file)
+      outStream = new FileHentaiOutStream(file)
     }
     "print values" when {
       "print is used" when {

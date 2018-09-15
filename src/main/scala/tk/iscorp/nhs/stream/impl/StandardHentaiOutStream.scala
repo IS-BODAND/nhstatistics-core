@@ -7,7 +7,7 @@ import tk.iscorp.nhs.stream.HentaiOutStream
 /**
   * Basic implementation of trait [[tk.iscorp.nhs.stream.HentaiOutStream]] which prints to STDOUT
   */
-class DefaultSTDHentaiOutStream extends HentaiOutStream {
+class StandardHentaiOutStream extends HentaiOutStream {
   /**
     * Prints a [[tk.iscorp.nhs.data.Gallery]]
     *

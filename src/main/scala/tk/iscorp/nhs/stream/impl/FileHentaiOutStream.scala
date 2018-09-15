@@ -10,7 +10,7 @@ import java.io.File
   * Basic implementation of [[tk.iscorp.nhs.stream.HentaiOutStream]] that prints to a File
   * @param file The file the stream should print to
   */
-class DefaultFileHentaiOutStream(private val file: File) extends HentaiOutStream {
+class FileHentaiOutStream(private val file: File) extends HentaiOutStream {
   /**
     * Prints a [[tk.iscorp.nhs.data.Gallery]]
     * Overrides current contents if stream prints to a file

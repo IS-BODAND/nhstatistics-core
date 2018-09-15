@@ -3,7 +3,7 @@ package tk.iscorp.nhs
 import org.apache.commons.io.FileUtils
 import tk.iscorp.nhs.inputparser.{ArgParser, ParseData}
 import tk.iscorp.nhs.stream.HentaiOutStream
-import tk.iscorp.nhs.stream.impl.{DefaultFileHentaiOutStream, DefaultHentaiInStream, DefaultSTDHentaiOutStream}
+import tk.iscorp.nhs.stream.impl.{DefaultHentaiInStream, FileHentaiOutStream, StandardHentaiOutStream}
 
 object MainObj {
   implicit     var parsedArguments: ParseData = _
@@ -13,10 +13,10 @@ object MainObj {
     parsedArguments = argParser.parse(args)
     val doujinOutPutStream: HentaiOutStream =
       if (parsedArguments.file == null) {
-        new DefaultSTDHentaiOutStream
+        new StandardHentaiOutStream
       } else {
         FileUtils.deleteQuietly(parsedArguments.file)
-        new DefaultFileHentaiOutStream(parsedArguments.file)
+        new FileHentaiOutStream(parsedArguments.file)
       }
 
     val doujinInStream = new DefaultHentaiInStream
