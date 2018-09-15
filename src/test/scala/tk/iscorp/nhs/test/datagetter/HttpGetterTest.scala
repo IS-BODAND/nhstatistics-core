@@ -15,17 +15,17 @@ class HttpGetterTest extends WordSpec {
     }
     "return empty" when {
       "uri is not uri" in {
-        assertEquals("", httpGetter.getHttpFromUri("janus pannonius"))
+        assertEquals("", httpGetter.getResponseFromUri("janus pannonius"))
       }
       "uri is not accepted" in {
-        assertEquals("", httpGetter.getHttpFromUri("mailto:///janus@pannoni.us"))
+        assertEquals("", httpGetter.getResponseFromUri("mailto:///janus@pannoni.us"))
       }
       "uri is null" in {
-        assertEquals("", httpGetter.getHttpFromUri(null))
+        assertEquals("", httpGetter.getResponseFromUri(null))
       }
     }
     "return html from nhentai" in {
-      val html = httpGetter.getHttpFromUri("https://nhentai.net/")
+      val html = httpGetter.getResponseFromUri("https://nhentai.net/")
       assertFalse(html.isEmpty)
     }
   }

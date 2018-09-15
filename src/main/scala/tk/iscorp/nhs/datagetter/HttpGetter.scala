@@ -16,7 +16,7 @@ class HttpGetter() {
 
   @NotNull
   @NonNls
-  def getHttpFromUri(@Nullable uriString: String): String = {
+  def getResponseFromUri(@Nullable uriString: String): String = {
     val urlValidator = new UrlValidator(urlSchemes)
     if (uriString == null) ""
     else if (!urlValidator.isValid(uriString)) ""

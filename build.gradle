@@ -63,7 +63,7 @@ jar {
 task createBat() {
     doLast {
         file("$buildDir/libs/nhs.bat").text = """@echo off
-java -jar nhs-1.0-SNAPSHOT.jar %*"""
+java -jar ${jar.baseName}-${version}.jar %*"""
     }
 }
 

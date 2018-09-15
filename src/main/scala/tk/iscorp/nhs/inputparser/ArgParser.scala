@@ -50,7 +50,7 @@ class ArgParser {
 
       val file = if (cl.hasOption("F")) new File(cl.getOptionValue("F")) else null
 
-      new ParseData(help, id, isoDate, until, file)
+      new ParseData(help, id, isoDate, Range.inclusive(1, until), file)
     } catch {
       case e: ParseException ⇒
         Utils.logger.error(s"Argument Parsing error: ${e.getMessage}")

@@ -7,17 +7,16 @@ import tk.iscorp.nhs.Utils
 import tk.iscorp.nhs.data.Gallery
 import tk.iscorp.nhs.data.hentai._
 import tk.iscorp.nhs.data.hentai.factory._
-import tk.iscorp.nhs.inputparser.ParseData
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect.{ClassTag, _}
 
-class HtmlResponseProcessor(implicit val parseData: ParseData) {
+class HtmlResponseProcessor {
   private val regexText                        = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
-  def processHtmlToGallery(html: String): Gallery = {
+  def processHtmlToGallery(html: String, isoDate: Boolean = false): Gallery = {
     val document = Jsoup.parse(html)
 
     implicit val id: Int = document
@@ -59,7 +58,7 @@ class HtmlResponseProcessor(implicit val parseData: ParseData) {
 
       val date = {
         val asd = document.selectFirst("div#info div time")
-        if (parseData.isoDate) {
+        if (isoDate) {
           asd.attr("datetime")
         } else {
           asd.text()
