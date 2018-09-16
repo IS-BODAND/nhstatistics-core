@@ -46,11 +46,7 @@ trait HentaiOutStream {
     */
   def print(@NotNull doujinList: List[Gallery], append: Boolean): Unit = {
     print(doujinList.head, append)
-    separatorLine()
-    doujinList.tail.foreach { d ⇒
-      this << d
-      separatorLine()
-    }
+    doujinList.tail foreach <<
   }
 
   /**
@@ -71,11 +67,7 @@ trait HentaiOutStream {
   def print(@NotNull doujinJList: JArrayList[Gallery], append: Boolean): Unit = {
     val usableCollection = doujinJList.asScala.toList
     print(usableCollection.head, append)
-    separatorLine()
-    usableCollection.tail foreach { d ⇒
-      this << d
-      separatorLine()
-    }
+    usableCollection.tail foreach <<
   }
 
   /**
@@ -95,11 +87,7 @@ trait HentaiOutStream {
     */
   def print(@NotNull doujins: Array[Gallery], append: Boolean): Unit = {
     print(doujins.head, append)
-    separatorLine()
-    doujins.tail.foreach { d ⇒
-      this << d
-      separatorLine()
-    }
+    doujins.tail foreach <<
   }
 
   /**
@@ -108,10 +96,7 @@ trait HentaiOutStream {
     * @throws NullPointerException If any of the parameters is `null`
     */
   def <<(@NotNull doujinList: JArrayList[Gallery]): HentaiOutStream = {
-    doujinList.forEach(d ⇒ {
-      this << d
-      separatorLine()
-    })
+    doujinList.asScala foreach <<
     this
   }
 
@@ -134,10 +119,7 @@ trait HentaiOutStream {
     * @throws NullPointerException If any of the parameters is `null`
     */
   def <<(@NotNull doujinList: List[Gallery]): HentaiOutStream = {
-    doujinList foreach { d ⇒
-      this << d
-      separatorLine()
-    }
+    doujinList foreach <<
     this
   }
 
@@ -147,10 +129,7 @@ trait HentaiOutStream {
     * @throws NullPointerException If any of the parameters is `null`
     */
   def <<(@NotNull doujins: Array[Gallery]): HentaiOutStream = {
-    doujins foreach { d ⇒
-      this << d
-      separatorLine()
-    }
+    doujins foreach <<
     this
   }
 
