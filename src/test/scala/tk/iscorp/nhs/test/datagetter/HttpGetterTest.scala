@@ -1,10 +1,10 @@
-package tk.iscorp.nhs.test.datagetter
+package org.bitbucket.bodand.nhscore.test.datagetter
 
+import org.bitbucket.bodand.nhscore.datagetter.HttpGetter
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import tk.iscorp.nhs.datagetter.HttpGetter
 
 @RunWith(classOf[JUnitRunner])
 class HttpGetterTest extends WordSpec {

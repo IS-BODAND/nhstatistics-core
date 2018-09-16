@@ -1,8 +1,9 @@
 plugins {
     id 'scala'
+    id 'maven'
 }
 
-group 'tk.iscorp'
+group 'org.bitbucket.bodand'
 version '1.0'
 
 repositories {
@@ -16,6 +17,8 @@ dependencies {
     compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.6'
     // Scala XML - XML library
     compile group: 'org.scala-lang.modules', name: 'scala-xml_2.12', version: '1.1.0'
+    // JSON Simple - JSON library
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     // Logback - Logger
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     // Apache Commons IO - IO tools
@@ -26,11 +29,6 @@ dependencies {
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
     // Apache HttpComponents HttpClient - HTTP library
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
-    // Apache Spark - Data processing
-//    compile(group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.3.1') {
-//        exclude group: "org.slf4j" // I only need one logger bitch
-//        exclude group: "log4j"
-//    }
     // Jetbrains Annotations - Annotating
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
     // jSoup - HTML Parser
@@ -48,7 +46,7 @@ jar {
     baseName = "nhs"
 
     manifest {
-        attributes "Main-Class": "tk.iscorp.nhs.MainObj"
+        attributes "Main-Class": "org.bitbucket.bodand.nhscore.MainObj"
         attributes "Name": 'NHentaiStatistics'
         attributes "Specification-Title": 'Statistics app about nhentai doujinshi'
         attributes "Specification-Version": "$version"
@@ -68,3 +66,11 @@ java -jar ${jar.baseName}-${version}.jar %*"""
 }
 
 jar.finalizedBy createBat
+
+task cutedoc(type: Exec) {
+    workingDir "$rootDir"
+
+    commandLine "cutedoc"
+}
+
+scaladoc.finalizedBy cutedoc
