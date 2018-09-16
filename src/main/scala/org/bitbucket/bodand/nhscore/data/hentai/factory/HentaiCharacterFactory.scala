@@ -1,6 +1,6 @@
-package org.bitbucket.bodand.nhscore.hentai.factory
+package org.bitbucket.bodand.nhscore.data.hentai.factory
 
-import org.bitbucket.bodand.nhscore.hentai.HentaiCharacter
+import org.bitbucket.bodand.nhscore.data.hentai.HentaiCharacter
 
 import scala.language.existentials
 

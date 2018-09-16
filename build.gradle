@@ -43,7 +43,7 @@ dependencies {
 }
 
 jar {
-    baseName = "nhs"
+    baseName = "nhscore"
 
     manifest {
         attributes "Main-Class": "org.bitbucket.bodand.nhscore.MainObj"
@@ -74,3 +74,19 @@ task cutedoc(type: Exec) {
 }
 
 scaladoc.finalizedBy cutedoc
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task scaladocJar(type: Jar, dependsOn: scaladoc) {
+    classifier = 'javadoc'
+    from scaladoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives scaladocJar
+}

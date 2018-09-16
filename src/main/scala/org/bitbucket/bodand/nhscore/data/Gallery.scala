@@ -1,7 +1,6 @@
 package org.bitbucket.bodand.nhscore.data
 
-import org.bitbucket.bodand.nhscore.data.hentai.{HentaiCategory, HentaiParody, MangaHentai}
-import org.bitbucket.bodand.nhscore.hentai._
+import org.bitbucket.bodand.nhscore.data.hentai._
 import org.jetbrains.annotations.{NonNls, NotNull}
 
 import scala.xml.Node

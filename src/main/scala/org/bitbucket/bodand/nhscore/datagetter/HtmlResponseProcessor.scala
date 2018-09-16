@@ -3,15 +3,14 @@ package org.bitbucket.bodand.nhscore.datagetter
 import org.bitbucket.bodand.nhscore.Utils
 import org.bitbucket.bodand.nhscore.data.Gallery
 import org.bitbucket.bodand.nhscore.data.hentai._
-import org.bitbucket.bodand.nhscore.hentai._
-import org.bitbucket.bodand.nhscore.hentai.factory._
+import org.bitbucket.bodand.nhscore.data.hentai.factory._
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Element, Node}
 import org.jsoup.select.{Elements, NodeVisitor}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
-import scala.reflect.{ClassTag, _}
+import scala.reflect._
 
 class HtmlResponseProcessor {
   private val regexText                        = "([\\s\\w.-]+)\\s+".r

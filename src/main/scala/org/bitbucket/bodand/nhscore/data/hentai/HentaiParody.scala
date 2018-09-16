@@ -1,6 +1,5 @@
 package org.bitbucket.bodand.nhscore.data.hentai
 
-import org.bitbucket.bodand.nhscore.hentai.HentaiData
 import org.jetbrains.annotations.{NonNls, NotNull}
 
 import scala.language.existentials

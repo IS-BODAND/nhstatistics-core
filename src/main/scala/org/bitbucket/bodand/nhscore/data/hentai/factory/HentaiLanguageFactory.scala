@@ -1,7 +1,7 @@
-package org.bitbucket.bodand.nhscore.hentai.factory
+package org.bitbucket.bodand.nhscore.data.hentai.factory
 
 import org.bitbucket.bodand.nhscore.Utils
-import org.bitbucket.bodand.nhscore.hentai._
+import org.bitbucket.bodand.nhscore.data.hentai._
 
 class HentaiLanguageFactory extends HentaiDataFactory[HentaiLanguage] {
   override def construct(name: String,

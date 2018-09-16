@@ -1,4 +1,4 @@
-package org.bitbucket.bodand.nhscore.hentai
+package org.bitbucket.bodand.nhscore.data.hentai
 
 import org.jetbrains.annotations.{NonNls, NotNull}
 
