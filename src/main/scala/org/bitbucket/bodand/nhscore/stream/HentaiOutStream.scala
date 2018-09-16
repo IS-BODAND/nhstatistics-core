@@ -107,11 +107,12 @@ trait HentaiOutStream {
     * @param doujinList The list to be printed
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def <<(@NotNull doujinList: JArrayList[Gallery]): Unit = {
+  def <<(@NotNull doujinList: JArrayList[Gallery]): HentaiOutStream = {
     doujinList.forEach(d ⇒ {
       this << d
       separatorLine()
     })
+    this
   }
 
   /**
@@ -122,8 +123,9 @@ trait HentaiOutStream {
     * @throws NullPointerException If any of the parameters is `null`
     * @see [[HentaiOutStream#print(Gallery)]]
     */
-  def <<(@NotNull doujin: Gallery): Unit = {
+  def <<(@NotNull doujin: Gallery): HentaiOutStream = {
     this.print(doujin, append = true)
+    this
   }
 
   /**
@@ -131,11 +133,12 @@ trait HentaiOutStream {
     * @param doujinList The list to be printed
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def <<(@NotNull doujinList: List[Gallery]): Unit = {
+  def <<(@NotNull doujinList: List[Gallery]): HentaiOutStream = {
     doujinList foreach { d ⇒
       this << d
       separatorLine()
     }
+    this
   }
 
   /**
@@ -143,11 +146,12 @@ trait HentaiOutStream {
     * @param doujins The array to be printed
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def <<(@NotNull doujins: Array[Gallery]): Unit = {
+  def <<(@NotNull doujins: Array[Gallery]): HentaiOutStream = {
     doujins foreach { d ⇒
       this << d
       separatorLine()
     }
+    this
   }
 
   /**

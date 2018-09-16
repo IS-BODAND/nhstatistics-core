@@ -29,8 +29,10 @@ class FileHentaiOutStream(private val file: File) extends HentaiOutStream {
     * @param append If true the current contents are not overridden if stream prints to a file
     * @throws NullPointerException If any of the parameters is `null`
     */
-  override def print(doujin: Gallery, append: Boolean): Unit =
+  override def print(doujin: Gallery, append: Boolean): Unit = {
+    if (append) separatorLine()
     FileUtils.writeStringToFile(file, doujin.toString, "UTF-8", append)
+  }
 
   /**
     * Prints a separator line between two [[org.bitbucket.bodand.nhscore.data.Gallery]] instances
