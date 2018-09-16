@@ -26,17 +26,17 @@ class FileHentaiOutStreamTest extends WordSpec {
      .mkString("\n" + "-" * 32 + "\n")
   private val testDoujinsListNoAppendByteArray: Array[Byte]   = testDoujinsListString.getBytes()
   private val testDoujinsListAppendByteArray: Array[Byte]   = ("\n" + "-" * 32 + "\n" + testDoujinsListString).getBytes()
-  private val testDoujinsArrayString: String    = testDoujinsArray.map(_.toString)
-     .mkString("\n" + "-" * 32 + "\n")
 
   private val testDoujinsArray: Array[Gallery]           = testDoujinsList.toArray
+  private val testDoujinsArrayString: String    = testDoujinsArray.map(_.toString)
+     .mkString("\n" + "-" * 32 + "\n")
   private val testDoujinsArrayNoAppendByteArray: Array[Byte]     = testDoujinsArrayString.getBytes()
   private val testDoujinsArrayAppendByteArray: Array[Byte]     = ("\n" + "-" * 32 + "\n" + testDoujinsArrayString)
      .getBytes()
-  private val testDoujinsArrayListString: String = testDoujinsArrayList.asScala.map(_.toString)
-     .mkString("\n" + "-" * 32 + "\n")
 
   private val testDoujinsArrayList: JArrayList[Gallery]  = new JArrayList[Gallery](testDoujinsList.asJavaCollection)
+  private val testDoujinsArrayListString: String = testDoujinsArrayList.asScala.map(_.toString)
+     .mkString("\n" + "-" * 32 + "\n")
   private val testDoujinsArrayListNoAppendByteArray: Array[Byte] = testDoujinsArrayListString.getBytes
   private val testDoujinsArrayListAppendByteArray: Array[Byte] = ("\n" + "-" * 32 + "\n" + testDoujinsArrayListString).getBytes
   private var outStream: FileHentaiOutStream             = _
