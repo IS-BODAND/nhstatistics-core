@@ -11,24 +11,24 @@ build:
 
 theme:
   colors:
-    primary: CB602D
+    primary: EB2753
     secondary: A2A2A2
     text: A9B7C6
     nav: 1E2021
-    background: 3C3F41
+    background: 474A4C
 
 
 articles:
   Introduction:
-    Intro: doc/src/itr/intro.md
-    History: doc/src/itr/history.md
+    About: doc/src/itr/intro.md
   Installing:
     Maven: doc/src/ins/mvn.md
     Gradle: doc/src/ins/gradle.md
     Sbt: doc/src/ins/sbt.md
-    Local: doc/src/ins/local.md
   Usage:
     ScalaDoc: doc/src/use/scaladoc.md
     Gallery class: doc/src/use/galleryclass.md
     HentaiData trait: doc/src/use/hentaidata.md
-    Getting a doujin: doc/src/use/onedoujin.md
+    Getting a doujin: doc/src/use/getone.md
+    Getting multiple doujin: doc/src/use/getmore.md
+    Printing doujin: doc/src/use/print.md
