@@ -67,14 +67,11 @@ java -jar ${jar.baseName}-${version}.jar %*"""
 
 jar.finalizedBy createBat
 
-task cutedoc(type: Exec) {
+task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
     workingDir "$rootDir"
 
     commandLine "cutedoc"
 }
-
-scaladoc.finalizedBy cutedoc
-
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
