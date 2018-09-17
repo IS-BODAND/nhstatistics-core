@@ -1,0 +1,34 @@
+meta:
+  title: NHentaiStatistics Core
+  author: bodand
+  description: NHentaiStatistics' core, speaks with nhentai, gets doujin data. Supplies easy-to-use classes to do so.
+  branding:
+    icon: doc/stc/img/icon.png
+    logo: doc/stc/img/logo.png
+
+build:
+  dir: build/cutedocs
+
+theme:
+  colors:
+    primary: EB2753
+    secondary: A2A2A2
+    text: A9B7C6
+    nav: 1E2021
+    background: 474A4C
+
+
+articles:
+  Introduction:
+    About: doc/src/itr/intro.md
+  Installing:
+    Maven: doc/src/ins/mvn.md
+    Gradle: doc/src/ins/gradle.md
+    Sbt: doc/src/ins/sbt.md
+  Usage:
+    ScalaDoc: doc/src/use/scaladoc.md
+    Gallery class: doc/src/use/galleryclass.md
+    HentaiData trait: doc/src/use/hentaidata.md
+    Getting a doujin: doc/src/use/getone.md
+    Getting multiple doujin: doc/src/use/getmore.md
+    Printing doujin: doc/src/use/print.md

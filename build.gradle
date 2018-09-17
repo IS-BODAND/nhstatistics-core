@@ -1,0 +1,75 @@
+plugins {
+    id 'maven'
+}
+
+group 'com.github.IS-BODAND'
+version '1.1.5'
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // JSON Simple - JSON library
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // Apache Commons Validator - Validating data
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    // Apache Commons CLI - Command Line Parameter Parser
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    // Apache HttpComponents HttpClient - HTTP library
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+    // jSoup - HTML Parser
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+}
+
+jar {
+    baseName = "nhstatistics-core"
+
+    manifest {
+        attributes "Name": 'NHentaiStatistics Core'
+        attributes "Specification-Title": 'Made up nhentai api'
+        attributes "Specification-Version": "$version"
+        attributes "Specification-Vendor": "InfoSoft Corporation"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
+    workingDir "$projectDir"
+
+    commandLine "cutedoc"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task scaladocJar(type: Jar, dependsOn: scaladoc) {
+    classifier = 'javadoc'
+    from scaladoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives scaladocJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}

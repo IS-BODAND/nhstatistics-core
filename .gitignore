@@ -1,0 +1,9 @@
+*.iml
+/.idea/
+
+/.gradle/
+/build/
+
+*.class
+
+*.bodandkeep.*
