@@ -1,7 +1,10 @@
 package tk.iscorp.nhs.core.data
 
 import org.jetbrains.annotations.{NonNls, NotNull}
+import org.json.simple.JSONObject
 import tk.iscorp.nhs.core.data.hentai._
+
+import java.util.{ArrayList ⇒ JList, HashMap ⇒ JMap}
 
 import scala.xml.Node
 
@@ -19,30 +22,67 @@ class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val uploadDate: String,
               @NotNull val id: Int) {
 
+
+  override def equals(obj: scala.Any): Boolean = obj match {
+    case glr: Gallery ⇒
+      glr.id == this.id
+    case _ ⇒ false
+  }
+
   def toXml: Node = {
 <gallery id={s"$id"}>
-      <name>{s"$name"}</name>
-      <sec-name>{s"$japName"}</sec-name>
-      <parodies>
-        {parodies.map(_.toXml)}
-      </parodies>
-      <characters>
-        {characters.map(_.toXml)}
-      </characters>
-      <tags>
-        {parodies.map(_.toXml)}
-      </tags>
-      <artists>
-        {artists.map(_.toXml)}
-      </artists>
-      <groups>
-        {groups.map(_.toXml)}
-      </groups>
-      {category.toXml}
-      <pages size={s"$pageCount"} />
-      <upload>{s"$uploadDate"}</upload>
-    </gallery>
-}
+  <name>{s"$name"}</name>
+  <sec-name>{s"$japName"}</sec-name>
+  <parodies>
+    {parodies.map(_.toXml)}
+  </parodies>
+  <characters>
+    {characters.map(_.toXml)}
+  </characters>
+  <tags>
+    {tags.map(_.toXml)}
+  </tags>
+  <artists>
+    {artists.map(_.toXml)}
+  </artists>
+  <groups>
+    {groups.map(_.toXml)}
+  </groups>
+  <languages>
+    {languages.map(_.toXml)}
+  </languages>
+  {category.toXml}
+  <pages size={s"$pageCount"} />
+  <upload>{s"$uploadDate"}</upload>
+</gallery>
+
+  }
+
+  def toJson: JSONObject = new JSONObject(new JMap[String, Any]() {{
+    put("name", name)
+    put("sec-name", japName)
+    put("parodies", new JList[JSONObject] {{
+      parodies.foreach(p ⇒ add(p.toJson))
+    }})
+    put("characters", new JList[JSONObject] {{
+      characters.foreach(c ⇒ add(c.toJson))
+    }})
+    put("tags", new JList[JSONObject] {{
+      tags.foreach(t ⇒ add(t.toJson))
+    }})
+    put("artists", new JList[JSONObject] {{
+      artists.foreach(a ⇒ add(a.toJson))
+    }})
+    put("groups", new JList[JSONObject] {{
+      groups.foreach(g ⇒ add(g.toJson))
+    }})
+    put("languages", new JList[JSONObject] {{
+      languages.foreach(l ⇒ add(l.toJson))
+    }})
+    put("category", category.toJson)
+    put("pages", new Integer(pageCount))
+    put("upload", uploadDate)
+  }})
 
   override def toString: String = {
     s"""$name ${if (japName != "") s"($japName)" else ""}
@@ -129,7 +169,7 @@ object Gallery {
             category: MangaHentai = new MangaHentai(96),
             pageCount: Int = 85,
             uploadDate: String = "20XX-01-01",
-            id: Int = 1): Gallery = {
+            id: Int = 999999): Gallery = {
     new Gallery(name, japName,
                 parodies,
                 characters,
