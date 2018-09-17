@@ -1,4 +1,4 @@
-package org.bitbucket.bodand.nhscore.test.stream.impl
+package tk.iscorp.nhs.core.test.impl
 
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec

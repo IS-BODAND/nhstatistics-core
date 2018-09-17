@@ -1,4 +1,4 @@
-package org.bitbucket.bodand.nhscore.test
+package tk.iscorp.nhs.core.test
 
 import org.junit.Assert._
 import org.junit.runner.RunWith

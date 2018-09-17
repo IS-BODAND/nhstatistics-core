@@ -1,4 +1,4 @@
-package org.bitbucket.bodand.nhscore.test.stream.impl
+package tk.iscorp.nhs.core.test.impl
 
 import org.apache.commons.io.FileUtils
 import org.junit.Assert._

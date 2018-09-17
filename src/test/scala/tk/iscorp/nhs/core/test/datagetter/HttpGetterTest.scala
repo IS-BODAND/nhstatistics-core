@@ -1,4 +1,4 @@
-package org.bitbucket.bodand.nhscore.test.datagetter
+package tk.iscorp.nhs.core.test.datagetter
 
 import org.junit.Assert._
 import org.junit.runner.RunWith
