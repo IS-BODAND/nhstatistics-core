@@ -1,4 +1,5 @@
 plugins {
+    id 'scala'
     id 'maven'
 }
 
@@ -22,6 +23,24 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     // jSoup - HTML Parser
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+
+    // Scala - Standard library
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.6'
+    // Scala XML - XML library
+    compile group: 'org.scala-lang.modules', name: 'scala-xml_2.12', version: '1.1.0'
+    // Logback - Logger
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    // Apache Commons IO - IO tools
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    // Jetbrains Annotations - Annotating
+    compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
+
+    // Scala test
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.5'
+    // jUnit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // Scalactic
+    testCompile group: 'org.scalactic', name: 'scalactic_2.12', version: '3.0.5'
 }
 
 jar {
