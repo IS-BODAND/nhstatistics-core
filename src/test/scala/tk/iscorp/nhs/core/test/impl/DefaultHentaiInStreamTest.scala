@@ -46,7 +46,7 @@ class DefaultHentaiInStreamTest extends WordSpec {
                 55, "June 28, 2014, 2:12 p.m.", 2)
   private val arrayOfTestDoujin: Array[Gallery] = Array(testDoujinID1, testDoujinID2)
   private var inStream: DefaultHentaiInStream = _
-  "A DefaultHentaiInStream" ignore {
+  "A DefaultHentaiInStream" should {
     "initialize" in {
       inStream = new DefaultHentaiInStream
     }
