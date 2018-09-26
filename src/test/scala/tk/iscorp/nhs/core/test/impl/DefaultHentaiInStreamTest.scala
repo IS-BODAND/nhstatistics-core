@@ -1,18 +1,17 @@
 /*******************************************************************************
- InfoSoft OpenSource Licence
+ Copyright 2018 bodand
 
- Copyright (c) 2018.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
- Permission is hereby granted to absolutely free usage of this software in any way
- that doesn't conflict with the the licensee's local laws. Modification and
- redistribution of this software is permitted, but the changes must be stated, and
- the source software (this one) must be stated. Redistributed versions must be
- licensed under the InfoSoft OpenSource Licence. Projects using a (modified or not)
- version of this software, may or may not use the InfoSoft OpenSource Licence.
- Commercial distribution is permitted. This licence must be made available to the
- end user from within the program, and to all programmers from a IS-OSL.LICENCE.txt file.
- Inclusion of the licence in the source file(s) may be used instead of the IS-OSL.LICENCE.txt file.
+     http://www.apache.org/licenses/LICENSE-2.0
 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  ******************************************************************************/
 
 package tk.iscorp.nhs.core.test.impl
