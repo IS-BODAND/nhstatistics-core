@@ -34,8 +34,8 @@ dependencies {
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     // Apache Commons Validator - Validating data
     compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
-    // Apache Commons CLI - Command Line Parameter Parser
-    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    // Apache Commons Lang - JVM Property handling and others
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     // Apache HttpComponents HttpClient - HTTP library
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     // jSoup - HTML Parser
