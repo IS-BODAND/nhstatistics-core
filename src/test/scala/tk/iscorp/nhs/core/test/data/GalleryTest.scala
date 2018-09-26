@@ -1,3 +1,20 @@
+/*******************************************************************************
+ InfoSoft OpenSource Licence
+
+ Copyright (c) 2018.
+
+ Permission is hereby granted to absolutely free usage of this software in any way
+ that doesn't conflict with the the licensee's local laws. Modification and
+ redistribution of this software is permitted, but the changes must be stated, and
+ the source software (this one) must be stated. Redistributed versions must be
+ licensed under the InfoSoft OpenSource Licence. Projects using a (modified or not)
+ version of this software, may or may not use the InfoSoft OpenSource Licence.
+ Commercial distribution is permitted. This licence must be made available to the
+ end user from within the program, and to all programmers from a IS-OSL.LICENCE.txt file.
+ Inclusion of the licence in the source file(s) may be used instead of the IS-OSL.LICENCE.txt file.
+
+ ******************************************************************************/
+
 package tk.iscorp.nhs.core.test.data
 
 import org.apache.commons.io.FileUtils
@@ -25,7 +42,8 @@ class GalleryTest extends WordSpec {
                Array(new HentaiGroup("arisan-antenna", 34)),
                Array(new JapaneseHentai(129652)),
                new DoujinshiHentai(138514),
-               14, "June 28, 2014, 2:12 p.m.", 1)
+               14, "June 28, 2014, 2:12 p.m.",
+               1, 9)
   private val gallery3ne1: Gallery = Gallery.dummy()
   "A gallery" when {
     "created" should {
@@ -41,7 +59,8 @@ class GalleryTest extends WordSpec {
                                Array(new HentaiGroup("arisan-antenna", 34)),
                                Array(new JapaneseHentai(129652)),
                                new DoujinshiHentai(138514),
-                               14, "June 28, 2014, 2:12 p.m.", 1)
+                               14, "June 28, 2014, 2:12 p.m.",
+                               1, 9)
         assertNotNull(gallery1)
       }
     }
@@ -72,7 +91,7 @@ class GalleryTest extends WordSpec {
     "xml requested" should {
       "return valid xml" in {
         val xmlString =
-<gallery id="1">
+          <gallery id="1" data-id="9">
   <name>(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)</name>
   <sec-name>(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)</sec-name>
   <parodies>
@@ -103,19 +122,22 @@ class GalleryTest extends WordSpec {
     "json requested" should {
       "return valid json" in {
         val jsonString =
-          """{"characters":[{"character":{"amount":41,"name":"kooh"}}],
-            |"parodies":[{"parody":{"amount":78,"name":"pangya"}}],
-            |"pages":14,
-            |"languages":[{"language":{"amount":129652,"name":"Japanese"}}],
-            |"artists":[{"artist":{"amount":46,"name":"koari"}}],
+          """{"languages":[{"language":{"amount":129652,"name":"Japanese"}}],
             |"upload":"June 28, 2014, 2:12 p.m.",
-            |"name":"(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
             |"groups":[{"group":{"amount":34,"name":"arisan-antenna"}}],
-            |"category":{"name":"Doujinshi","amount":138514},
-            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
             |"tags":[{"tag":{"amount":45693,"name":"lolicon"}},
             |{"tag":{"amount":5796,"name":"catgirl"}},
-            |{"tag":{"amount":176,"name":"gymshorts"}}]}""".stripMargin.replaceAll("(?<=,)\\s+(?!\\d)", "")
+            |{"tag":{"amount":176,"name":"gymshorts"}}],
+            |"characters":[{"character":{"amount":41,"name":"kooh"}}],
+            |"parodies":[{"parody":{"amount":78,"name":"pangya"}}],
+            |"pages":14,"artists":[{"artist":{"amount":46,"name":"koari"}}],
+            |"name":"(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+            |"data-id":9,
+            |"id":1,
+            |"category":{"name":"Doujinshi","amount":138514},
+            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)"}"""
+             .stripMargin
+             .replaceAll("(?<=,)\\s+(?!\\d)", "")
 
         val gotString = gallery1.toJson.toJSONString
 

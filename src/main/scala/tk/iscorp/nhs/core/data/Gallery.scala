@@ -3,11 +3,14 @@
 
  Copyright (c) 2018.
 
- Permission is hereby granted to absolutely free usage of this software in any way that doesn't conflict with the the licensee's local laws.
- Modification and redistribution of this software is permitted, but the changes must be stated, and the source software (this one) must be stated.
- Redistributed versions must be licensed under the InfoSoft OpenSource Licence.
- Projects using a modified or not, verion of this software, may or may not use the InfoSoft OpenSource Licence. Commercial distribution is permitted.
- This licence must be made available to the end user from within the program, and to all programmers from a IS-OSL.LICENCE.txt file.
+ Permission is hereby granted to absolutely free usage of this software in any way
+ that doesn't conflict with the the licensee's local laws. Modification and
+ redistribution of this software is permitted, but the changes must be stated, and
+ the source software (this one) must be stated. Redistributed versions must be
+ licensed under the InfoSoft OpenSource Licence. Projects using a (modified or not)
+ version of this software, may or may not use the InfoSoft OpenSource Licence.
+ Commercial distribution is permitted. This licence must be made available to the
+ end user from within the program, and to all programmers from a IS-OSL.LICENCE.txt file.
  Inclusion of the licence in the source file(s) may be used instead of the IS-OSL.LICENCE.txt file.
 
  ******************************************************************************/
@@ -37,6 +40,8 @@ import scala.xml.Node
   * @param pageCount  The amount of pages in the doujin
   * @param uploadDate Upload date of the doujin. Will change to some Date object.
   * @param id         ID of the doujin. Starts from 1.
+  * @param dataId     ID of the doujin from the behind the scenes image storage.
+  *                   https://t.nhentai.net/galleries/&lt;dataID&gt;/1.jpg
   *
   * @author bodand
   *
@@ -54,7 +59,8 @@ class Gallery(@NonNls @NotNull val name: String,
               @NotNull val category: HentaiCategory,
               @NotNull val pageCount: Int,
               @NonNls @NotNull val uploadDate: String,
-              @NotNull val id: Int) {
+              @NotNull val id: Int,
+              @NotNull val dataId: Int) {
 
 
   /**
@@ -80,7 +86,7 @@ class Gallery(@NonNls @NotNull val name: String,
     * just empty.
     *
     * @example
-    * &lt;gallery id="1"&gt;<br/>
+    * &lt;gallery id="1" data-id="9"&gt;<br/>
     * &nbsp;&nbsp;&lt;name&gt;(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)&lt;/name&gt;<br/>
     * &nbsp;&nbsp;&lt;sec-name&gt;(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)&lt;/sec-name&gt;<br/>
     * &nbsp;&nbsp;&lt;parodies&gt;<br/>
@@ -107,13 +113,15 @@ class Gallery(@NonNls @NotNull val name: String,
     * &nbsp;&nbsp;&lt;pages size="14"/&gt;<br/>
     * &nbsp;&nbsp;&lt;upload&gt;June 28, 2014, 2:12 p.m.&lt;/upload&gt;<br/>
     * &lt;/gallery&gt;<br/>
+    *
     * @return A scala.xml.Node object with the xml data in it.
     *
     * @since 1.1
+    *        1.3 - added the new data-id property
     */
   def toXml: Node = {
     //fuckin indentation
-<gallery id={s"$id"}>
+    <gallery id={s"$id"} data-id={s"$dataId"}>
   <name>{s"$name"}</name>
   <sec-name>{s"$japName"}</sec-name>
   <parodies>
@@ -163,6 +171,8 @@ class Gallery(@NonNls @NotNull val name: String,
     * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
     * &nbsp;&nbsp;],<br/>
     * &nbsp;&nbsp;"pages": 14,<br/>
+    * &nbsp;&nbsp;"id": 1,<br/>
+    * &nbsp;&nbsp;"data-id": 9,<br/>
     * &nbsp;&nbsp;"languages": [<br/>
     * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
     * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"language": {<br/>
@@ -219,12 +229,18 @@ class Gallery(@NonNls @NotNull val name: String,
     * @return A org.json.simple.JSONObject object of the gallery.
     *
     * @since 1.2
+    *        1.3 - Added the missing id field, and the new data-id field
     */
   def toJson: JSONObject = {
     new JSONObject(new JMap[String, Any]() {
       {
+        put("id", id)
+        put("data-id", dataId)
         put("name", name)
         put("sec-name", japName)
+        put("category", category.toJson)
+        put("pages", new Integer(pageCount))
+        put("upload", uploadDate)
         put("parodies", new JList[JSONObject] {
           {
             parodies.foreach(p ⇒ add(p.toJson))
@@ -255,9 +271,6 @@ class Gallery(@NonNls @NotNull val name: String,
             languages.foreach(l ⇒ add(l.toJson))
           }
         })
-        put("category", category.toJson)
-        put("pages", new Integer(pageCount))
-        put("upload", uploadDate)
       }
     })
   }
@@ -359,7 +372,8 @@ object Gallery {
             category: MangaHentai = new MangaHentai(96),
             pageCount: Int = 85,
             uploadDate: String = "20XX-01-01",
-            id: Int = 999999): Gallery = {
+            id: Int = 999999,
+            dataId: Int = 9999999): Gallery = {
     new Gallery(name, japName,
                 parodies,
                 characters,
@@ -370,6 +384,6 @@ object Gallery {
                 category,
                 pageCount,
                 uploadDate,
-                id)
+                id, dataId)
   }
 }

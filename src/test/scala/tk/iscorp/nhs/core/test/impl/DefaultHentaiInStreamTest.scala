@@ -1,3 +1,20 @@
+/*******************************************************************************
+ InfoSoft OpenSource Licence
+
+ Copyright (c) 2018.
+
+ Permission is hereby granted to absolutely free usage of this software in any way
+ that doesn't conflict with the the licensee's local laws. Modification and
+ redistribution of this software is permitted, but the changes must be stated, and
+ the source software (this one) must be stated. Redistributed versions must be
+ licensed under the InfoSoft OpenSource Licence. Projects using a (modified or not)
+ version of this software, may or may not use the InfoSoft OpenSource Licence.
+ Commercial distribution is permitted. This licence must be made available to the
+ end user from within the program, and to all programmers from a IS-OSL.LICENCE.txt file.
+ Inclusion of the licence in the source file(s) may be used instead of the IS-OSL.LICENCE.txt file.
+
+ ******************************************************************************/
+
 package tk.iscorp.nhs.core.test.impl
 
 import org.junit.Assert._
@@ -26,7 +43,8 @@ class DefaultHentaiInStreamTest extends WordSpec {
                 Array(new HentaiGroup("arisan-antenna", 34)),
                 Array(new JapaneseHentai(129652)),
                 new DoujinshiHentai(138514),
-                14, "June 28, 2014, 2:12 p.m.", 1)
+                14, "June 28, 2014, 2:12 p.m.",
+                1, 9)
   private val testDoujinID2                            =
     new Gallery("(C68) [Toko-ya (HEIZO, Kitoen)] Manatsu no Oni (Higurashi no Naku Koro ni) [English]",
                 "(C68) [床子屋 (HEIZO、鬼頭えん)] 真夏のオニ (ひぐらしのなく頃に) [英訳]",
@@ -43,7 +61,8 @@ class DefaultHentaiInStreamTest extends WordSpec {
                 Array(new TranslatedHentai(60245),
                       new EnglishHentai(45046)),
                 new DoujinshiHentai(138514),
-                55, "June 28, 2014, 2:12 p.m.", 2)
+                55, "June 28, 2014, 2:12 p.m.",
+                2, 136)
   private val arrayOfTestDoujin: Array[Gallery] = Array(testDoujinID1, testDoujinID2)
   private var inStream: DefaultHentaiInStream = _
   "A DefaultHentaiInStream" should {

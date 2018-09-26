@@ -53,6 +53,21 @@ private[core] class HtmlResponseProcessor {
         0
     }
 
+    val dataId = try {
+      Utils.logger.debug(document.toString)
+      document
+         .selectFirst("div#cover>a>img")
+         .attr("data-src")
+         .substring(32)
+         .takeWhile(c ⇒ c.isDigit)
+         .toInt
+    } catch {
+      case _: NullPointerException ⇒
+        Utils.logger.error(s"${if (id != 0) id else "√-1"} => Error getting data id. Most likely means that it was " +
+                              s"deleted. Continuing to try, don't expect much.")
+        fault += 1
+        0
+    }
 
     val name: String = try {
       document.selectFirst("div#info h1").childNode(0).toString
@@ -71,7 +86,7 @@ private[core] class HtmlResponseProcessor {
         ""
     }
 
-    if (fault == 2) {
+    if (fault >= 2) {
       Utils.logger.error(s"$id => Error getting doujin data. Assuming it is deleted, returning with dummy Gallery.")
       Gallery.dummy()
     } else {
@@ -98,7 +113,7 @@ private[core] class HtmlResponseProcessor {
         }
 
         new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
-                    pageCount, date, id)
+                    pageCount, date, id, dataId)
       } catch {
         case _: NullPointerException ⇒
           Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
