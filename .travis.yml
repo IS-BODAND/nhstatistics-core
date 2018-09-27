@@ -3,9 +3,9 @@ scala:
   - 2.12.6
 
 script:
-  - chmod +x gradlew 
+  # - CODECOV_TOKEN="63d2dc3b-32f1-4f17-aa9d-cd5191ac643a"
   - ./gradlew check  
-  - ./gradlew codeCoverageReport
+  # - ./gradlew codeCoverageReport
   
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+# after_success:
+  # - bash <(curl -s https://codecov.io/bash)
