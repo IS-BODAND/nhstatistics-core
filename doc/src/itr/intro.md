@@ -2,6 +2,7 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Release](https://jitpack.io/v/IS-BODAND/nhstatistics-core.svg?style=flat-square)](https://jitpack.io/#IS-BODAND/nhstatistics-core)
 [![Release](https://jitpack.io/v/org.bitbucket.bodand/nhstatistics-core.svg?style=flat-square)](https://jitpack.io/#org.bitbucket.bodand/nhstatistics-core)
+[![Build Status](https://travis-ci.org/IS-BODAND/nhstatistics-core.svg?branch=devel-1.3&style=flat-square)](https://travis-ci.org/IS-BODAND/nhstatistics-core)
 
 NHentaiStatistics Core. 
 --
