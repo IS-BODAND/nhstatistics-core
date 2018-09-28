@@ -25,6 +25,11 @@ import java.io.{File, IOException}
 import java.net.URI
 import java.nio.file.{FileSystems, Files, Path}
 
+import scala.collection.mutable.ArrayBuffer
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+
 class GalleryDownloader {
   private val logger = LoggerFactory.getLogger("Downloader")
 
@@ -123,9 +128,45 @@ class GalleryDownloader {
   }
 
   private def downloadImages(gly: Gallery, path: String): Int = {
+    val ret = new ArrayBuffer[Int]()
+    val (pagesThird, remainder) = gly.pageCount match {
+      case n if n % 3 == 0 ⇒
+        (gly.pageCount / 3, 0)
+      case n if n % 3 == 1 ⇒
+        (gly.pageCount / 3, 1)
+      case n if n % 3 == 2 ⇒
+        (gly.pageCount / 3, 2)
+    }
+    val thirds =
+        (
+           1 until pagesThird,  // 1/3
+           pagesThird until pagesThird * 2, // 2(1/3)
+           pagesThird * 2 to pagesThird * 3 + remainder  // remaining
+        )
+
+    val f1 = Future {
+      downloadThird(gly, path, thirds._1)
+    }
+    val f2 = Future {
+      downloadThird(gly, path, thirds._2)
+    }
+    val f3 = Future {
+      downloadThird(gly, path, thirds._3)
+    }
+
+    ret += Await.result(f1, Duration.Inf)
+    ret += Await.result(f2, Duration.Inf)
+    ret += Await.result(f3, Duration.Inf)
+
+    ret.sum
+  }
+
+  private def downloadThird(gly: Gallery,
+                            path: String,
+                            range: Range): Int = {
     var pagesDownloaded: Int = 0
     for {
-      i ← 1 to gly.pageCount
+      i ← range
       dataId = gly.dataId
     } {
       val page = new File(s"$path/$i.jpg")

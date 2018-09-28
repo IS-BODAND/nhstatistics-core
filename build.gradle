@@ -91,22 +91,30 @@ jar {
 }
 
 task cleanTestDownloads() {
-    for (int i = 0; i < 9; ++i) {
-        File directory
-        if (i == 0) {
-            directory = new File("dwn")
-        } else {
-            directory = new File("dwn$i")
+    doLast {
+        for (int i = 0; i < 9; ++i) {
+            File directory
+            if (i == 0) {
+                directory = new File("dwn")
+            } else {
+                directory = new File("dwn$i")
+            }
+            FileUtils.deleteDirectory(directory)
         }
-        FileUtils.deleteDirectory(directory)
     }
-    
-    FileUtils.deleteQuietly(new File("exp.bodandkeep.txt"))
-    FileUtils.deleteQuietly(new File("got.bodandkeep.txt"))
-    FileUtils.deleteQuietly(new File("testFile.bodandkeep.txt"))
+
+    doLast {
+        FileUtils.deleteQuietly(new File("exp.bodandkeep.txt"))
+        FileUtils.deleteQuietly(new File("got.bodandkeep.txt"))
+        FileUtils.deleteQuietly(new File("testFile.bodandkeep.txt"))
+    }
 }
 
-test.finalizedBy cleanTestDownloads
+check {
+    doLast {
+        cleanTestDownloads.execute()
+    }
+}
 
 task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
     workingDir "$projectDir"
