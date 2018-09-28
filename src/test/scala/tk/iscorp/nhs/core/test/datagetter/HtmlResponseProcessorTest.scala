@@ -42,6 +42,18 @@ class HtmlResponseProcessorTest extends WordSpec {
                                         Array(new JapaneseHentai(129652)),
                                         new DoujinshiHentai(138514),
                                         14, "June 28, 2014, 2:12 p.m.", 1, 9)
+  private val testGalleryWithISODate = new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+       /*it is easy to copy this*/      "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+      /*where a non-dummy gallery*/     Array(new HentaiParody("pangya", 78)),
+             /*is needed*/              Array(new HentaiCharacter("kooh", 41)),
+                                        Array(new HentaiTag("lolicon", 45693),
+                                              new HentaiTag("catgirl", 5796),
+                                              new HentaiTag("gymshorts", 176)),
+                                        Array(new HentaiArtist("koari", 46)),
+                                        Array(new HentaiGroup("arisan-antenna", 34)),
+                                        Array(new JapaneseHentai(129652)),
+                                        new DoujinshiHentai(138514),
+                                        14, "2014-06-28T14:12:16.640420+00:00", 1, 9)
   private var htp: HtmlResponseProcessor = _
   "An HtmlResponseProcessor" when {
     "created" should {
@@ -64,9 +76,15 @@ class HtmlResponseProcessorTest extends WordSpec {
         }
       }
       "return data in Gallery" when {
-        "html is good" in {
-          val nhentaiHtmlFile = new File(getClass.getClassLoader.getResource("nhentaiid1.html").toURI)
-          assertEquals(testGallery, htp.processHtmlToGallery(FileUtils.readFileToString(nhentaiHtmlFile, "utf-8")))
+        "html is good" when {
+          "iso date not requested" in {
+            val nhentaiHtmlFile = new File(getClass.getClassLoader.getResource("nhentaiid1.html").toURI)
+            assertEquals(testGallery, htp.processHtmlToGallery(FileUtils.readFileToString(nhentaiHtmlFile, "utf-8")))
+          }
+          "iso date requested" in {
+            val nhentaiHtmlFile = new File(getClass.getClassLoader.getResource("nhentaiid1.html").toURI)
+            assertEquals(testGallery, htp.processHtmlToGallery(FileUtils.readFileToString(nhentaiHtmlFile, "utf-8")))
+          }
         }
       }
     }

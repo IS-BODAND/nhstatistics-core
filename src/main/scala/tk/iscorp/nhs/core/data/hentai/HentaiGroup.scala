@@ -45,4 +45,3 @@ class HentaiGroup(@NonNls @NotNull override val name: String,
     }})
   }})
 }
-

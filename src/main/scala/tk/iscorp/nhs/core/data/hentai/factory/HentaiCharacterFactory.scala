@@ -19,8 +19,6 @@ package tk.iscorp.nhs.core.data.hentai.factory
 import tk.iscorp.nhs.core.data.hentai.HentaiCharacter
 
 import scala.language.existentials
-
-
 /**
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiCharacter]]
   */
@@ -31,4 +29,3 @@ class HentaiCharacterFactory extends HentaiDataFactory[HentaiCharacter] {
     new HentaiCharacter(name, amount)
   }
 }
-

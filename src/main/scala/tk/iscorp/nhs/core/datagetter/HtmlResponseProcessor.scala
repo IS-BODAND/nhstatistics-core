@@ -137,9 +137,9 @@ private[core] class HtmlResponseProcessor {
       case "doujinshi" ⇒
         new DoujinshiHentai(amount)
       case _ ⇒
-        Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category " +
-                             s"found: $name" +
-                             s"expected: manga|doujinshi")
+        Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category\n" +
+                             s"\tfound: $name\n" +
+                             s"\texpected: manga|doujinshi")
         new OtherCategoryHentai(amount)
     }
 

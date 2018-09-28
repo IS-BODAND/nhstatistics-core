@@ -73,17 +73,10 @@ class GalleryTest extends WordSpec {
         "ids don't match" in {
           assertFalse(gallery1 == gallery3ne1)
         }
-      }
-    }
-    "inequality checked" should {
-      "false" when {
-        "ids match" in {
-          assertFalse(gallery1 != gallery2eq1)
-        }
-      }
-      "true" when {
-        "ids don't match" in {
-          assertTrue(gallery1 != gallery3ne1)
+        "other isn't a gallery" in {
+          val obj = new File("Your_life_is_meaningless_and_so_is_the_universe.it_is_the_truth")
+          //noinspection ComparingUnrelatedTypes
+          assertFalse(gallery1 == obj)
         }
       }
     }

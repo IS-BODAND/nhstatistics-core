@@ -92,7 +92,7 @@ jar {
 
 task cleanTestDownloads() {
     for (int i = 0; i < 9; ++i) {
-        File directory = null
+        File directory
         if (i == 0) {
             directory = new File("dwn")
         } else {
@@ -100,9 +100,13 @@ task cleanTestDownloads() {
         }
         FileUtils.deleteDirectory(directory)
     }
+    
+    FileUtils.deleteQuietly(new File("exp.bodandkeep.txt"))
+    FileUtils.deleteQuietly(new File("got.bodandkeep.txt"))
+    FileUtils.deleteQuietly(new File("testFile.bodandkeep.txt"))
 }
 
-check.finalizedBy cleanTestDownloads
+test.finalizedBy cleanTestDownloads
 
 task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
     workingDir "$projectDir"

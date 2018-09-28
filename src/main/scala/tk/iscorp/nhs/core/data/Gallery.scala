@@ -60,8 +60,6 @@ class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val uploadDate: String,
               @NotNull val id: Int,
               @NotNull val dataId: Int) {
-
-
   /**
     * Checks equality of with another object.
     * True if other one is a gallery and their ids match

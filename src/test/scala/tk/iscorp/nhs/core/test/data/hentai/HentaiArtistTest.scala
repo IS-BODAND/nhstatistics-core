@@ -24,64 +24,50 @@ import tk.iscorp.nhs.core.data.hentai.HentaiArtist
 
 @RunWith(classOf[JUnitRunner])
 class HentaiArtistTest extends WordSpec {
-  var testObject: HentaiArtist = _
-  var testObject2: HentaiArtist = new HentaiArtist("testMan", 69)
-  var testObject3: HentaiArtist = new HentaiArtist("testMan", 420)
-  var testObject4: HentaiArtist = new HentaiArtist("testOMan", 69)
-  var testObject5: HentaiArtist = new HentaiArtist("testOMan", 420)
+  var testMan69  : HentaiArtist = _
+  var testMan69_2: HentaiArtist = new HentaiArtist("testMan", 69)
+  var testMan420 : HentaiArtist = new HentaiArtist("testMan", 420)
+  var testOMan69 : HentaiArtist = new HentaiArtist("testOMan", 69)
+  var testOMan420: HentaiArtist = new HentaiArtist("testOMan", 420)
   "A HentaiArtist" when {
     "created" should {
       "initialize" in {
-        testObject = new HentaiArtist("testMan", 69)
-        assertNotNull(testObject)
+        testMan69 = new HentaiArtist("testMan", 69)
+        assertNotNull(testMan69)
       }
     }
     "equality checked" should {
       "return true" when {
-        "artists name and amount equal" in {
-          assertTrue(testObject == testObject2)
+        "artist's name and amount equal" in {
+          assertEquals(testMan69, testMan69_2)
         }
       }
       "return false" when {
         "only artist name equals" in {
-          assertFalse(testObject2 == testObject3)
+          assertNotEquals(testMan69, testMan420)
         }
         "only amount equal" in {
-          assertFalse(testObject2 == testObject4)
+          assertNotEquals(testMan69, testOMan69)
         }
         "nothing equals" in {
-          assertFalse(testObject2 == testObject5)
+          assertNotEquals(testMan69, testOMan420)
         }
-      }
-    }
-    "inequality checked" should {
-      "return false" when {
-        "artists name and amount equal" in {
-          assertFalse(testObject != testObject2)
-        }
-      }
-      "return false" when {
-        "only artist name equals" in {
-          assertTrue(testObject2 != testObject3)
-        }
-        "only amount equal" in {
-          assertTrue(testObject2 != testObject4)
-        }
-        "nothing equals" in {
-          assertTrue(testObject2 != testObject5)
+        "other isn't artist" in {
+          val obj = new Object
+          assertNotEquals(testMan69, obj)
         }
       }
     }
     "xml asked" should {
       "return valid xml" in {
         val wanted = <artist name="testMan" amount="69"/>.toString()
-        assertEquals(wanted, testObject.toXml.toString())
+        assertEquals(wanted, testMan69.toXml.toString())
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"artist":{"amount":69,"name":"testMan"}}"""
-        assertEquals(wanted, testObject.toJson.toJSONString)
+        assertEquals(wanted, testMan69.toJson.toJSONString)
       }
     }
   }

@@ -38,37 +38,19 @@ class HentaiParodyTest extends WordSpec {
     }
     "equality checked" should {
       "return true" when {
-        "artists name and amount equal" in {
-          assertTrue(testObject == testObject2)
+        "parody's name and amount equal" in {
+          assertEquals(testObject, testObject2)
         }
       }
       "return false" when {
-        "only artist name equals" in {
-          assertFalse(testObject2 == testObject3)
+        "only parody show's name equals" in {
+          assertNotEquals(testObject, testObject3)
         }
         "only amount equal" in {
-          assertFalse(testObject2 == testObject4)
+          assertNotEquals(testObject, testObject4)
         }
         "nothing equals" in {
-          assertFalse(testObject2 == testObject5)
-        }
-      }
-    }
-    "inequality checked" should {
-      "return false" when {
-        "artists name and amount equal" in {
-          assertFalse(testObject != testObject2)
-        }
-      }
-      "return false" when {
-        "only artist name equals" in {
-          assertTrue(testObject2 != testObject3)
-        }
-        "only amount equal" in {
-          assertTrue(testObject2 != testObject4)
-        }
-        "nothing equals" in {
-          assertTrue(testObject2 != testObject5)
+          assertNotEquals(testObject, testObject5)
         }
       }
     }
