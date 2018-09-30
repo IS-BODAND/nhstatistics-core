@@ -8,6 +8,6 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 Adding the dependency:  
 ```sbtshell
-libraryDependencies += "com.github.IS-BODAND" % "nhstatistics-core" % "1.1.5"
+libraryDependencies += "com.github.isbodand" % "nhstatistics-core" % "==!version=="
 ```
 

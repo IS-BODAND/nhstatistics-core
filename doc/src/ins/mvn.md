@@ -17,8 +17,8 @@ Adding the dependency:
 
 <dependency>
   <!-- other dependencies -->
-  <groupId>'com.github.IS-BODAND</groupId>
+  <groupId>'com.github.isbodand</groupId>
   <artifactId>nhstatistics-core</artifactId>
-  <version>1.1.5</version>
+  <version>1.3.2</version>
 </dependency>
 ```

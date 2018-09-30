@@ -35,7 +35,7 @@ plugins {
 import org.apache.commons.io.FileUtils
 
 group 'com.github.IS-BODAND'
-version '1.3'
+version '1.3.2'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -121,7 +121,19 @@ check {
     }
 }
 
-task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
+task fillTemplates(type: Exec) {
+    workingDir "$projectDir/doc/src/ins"
+
+    commandLine 'perl', '-i.bak', '-pe',
+            "\"s/==!version==/$version/g\"",
+            "gradle_template.md", "mvn_template.md", "sbt_template" // files cause windows doesn't know globbing
+    commandLine 'perl', '-MFile::Copy=move', '-e',
+            '"move qq/${_}_template.md/, qq/$_.md/ foreach ((q/gradle/, q/mvn/, q/sbt/))"'
+    commandLine 'perl', '-MFile::Copy=move', '-e',
+            '"move qq/${_}_template.md.bak/, qq/${_}_template.md/ foreach ((q/gradle/, q/mvn/, q/sbt/))"'
+}
+
+task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
     workingDir "$projectDir"
 
     commandLine 'cutedoc'

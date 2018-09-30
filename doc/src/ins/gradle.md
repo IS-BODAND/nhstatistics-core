@@ -12,6 +12,6 @@ Adding the dependency:
 ```groovy
 dependencies {
     // other dependencies
-    implementation 'com.github.IS-BODAND:nhstatistics-core:1.1.5'
+    implementation 'com.github.isbodand:nhstatistics-core:1.3.2'
 }
 ```
