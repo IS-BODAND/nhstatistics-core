@@ -6,6 +6,9 @@ env:
   global:
     - CODECOV_TOKEN="63d2dc3b-32f1-4f17-aa9d-cd5191ac643a"
 
+before_script:
+  - perlbrew install perl-5.28.0
+
 script:
   - ./gradlew check
 
