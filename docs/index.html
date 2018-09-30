@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="bodand">
+    <meta name="description" content="NHentaiStatistics' core, speaks with nhentai, gets doujin data. Supplies easy-to-use classes to do so.">
+    <title>NHentaiStatistics Core</title>
+    <link rel="icon" type="image/png" href="static/img/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+    <script src="static/js/main.js"></script>
+  </head>
+  <body>
+      <nav id="mobile-nav" class="is-hidden-tablet">
+        <div id="nav-burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-content">
+          <div class="container is-fluid">
+            <img class="logo" alt="Logo" src="static/img/logo.png">
+          </div>
+          
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-introduction">Introduction</p>
+            <ul class="nav-collapse">
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div>
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-installing">Installing</p>
+            <ul class="nav-collapse">
+              <li><a href="#maven">Maven</a></li>
+              <li><a href="#gradle">Gradle</a></li>
+              <li><a href="#sbt">Sbt</a></li>
+            </ul>
+          </div>
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-usage">Usage</p>
+            <ul class="nav-collapse">
+              <li><a href="#scaladoc">ScalaDoc</a></li>
+              <li><a href="#gallery-class">Gallery class</a></li>
+              <li><a href="#hentaidata-trait">HentaiData trait</a></li>
+              <li><a href="#getting-a-doujin">Getting a doujin</a></li>
+              <li><a href="#getting-multiple-doujin">Getting multiple doujin</a></li>
+              <li><a href="#printing-doujin">Printing doujin</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <aside class="sidebar is-hidden-mobile">
+        <div class="sidebar-content">
+          <div class="container is-fluid">
+            <img class="logo" alt="Logo" src="static/img/logo.png">
+          </div>
+        
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-introduction">Introduction</p>
+            <ul class="nav-collapse">
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div>
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-installing">Installing</p>
+            <ul class="nav-collapse">
+              <li><a href="#maven">Maven</a></li>
+              <li><a href="#gradle">Gradle</a></li>
+              <li><a href="#sbt">Sbt</a></li>
+            </ul>
+          </div>
+          <div class="dropdown-container">
+            <p class="nav-header" for="checkbox-usage">Usage</p>
+            <ul class="nav-collapse">
+              <li><a href="#scaladoc">ScalaDoc</a></li>
+              <li><a href="#gallery-class">Gallery class</a></li>
+              <li><a href="#hentaidata-trait">HentaiData trait</a></li>
+              <li><a href="#getting-a-doujin">Getting a doujin</a></li>
+              <li><a href="#getting-multiple-doujin">Getting multiple doujin</a></li>
+              <li><a href="#printing-doujin">Printing doujin</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+      <section class="body section">
+      <h1 class="article-header">Introduction</h1>
+        <article id="about">
+          <div class="article">
+            <h1 class="body-header">About</h1>
+            <div class="content">
+              <p><a href="https://waffle.io/IS-BODAND/nhstatistics-core" rel="nofollow"><img src="https://badge.waffle.io/IS-BODAND/nhstatistics-core.svg?columns=all&amp;style=flat-square" alt="Waffle.io - Columns and their card count"></a>
+<a href="http://www.apache.org/licenses/LICENSE-2.0" rel="nofollow"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat-square" alt="GitHub license"></a>
+<a href="https://jitpack.io/#IS-BODAND/nhstatistics-core" rel="nofollow"><img src="https://jitpack.io/v/IS-BODAND/nhstatistics-core.svg?style=flat-square" alt="Release"></a>
+<a href="https://travis-ci.org/IS-BODAND/nhstatistics-core" rel="nofollow"><img src="https://travis-ci.org/IS-BODAND/nhstatistics-core.svg?branch=devel-1.3&amp;style=flat-square" alt="Build Status"></a>
+<a href="https://codecov.io/gh/IS-BODAND/nhstatistics-core" rel="nofollow"><img src="https://codecov.io/gh/IS-BODAND/nhstatistics-core/branch/master/graphs/badge.svg?style=flat-square" alt="codecov.io"></a>
+<a href="https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core" rel="nofollow"><img src="https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core/badge?style=flat-square" alt="CodeFactor"></a></p>
+<h1><a name="nhentaistatistics-core" class="anchor" href="#nhentaistatistics-core" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+NHentaiStatistics Core</h1>
+
+<p>The library you never though you would see. Core of the NHentaiStatistics program (soon™), allows the
+download of data from the <a href="https://nhentai.net" rel="nofollow">nhentai</a> site. Provides easy-to-use &#39;HentaiStream&#39;s to get and output doujin specified
+by the famous ids. By using these streams one can easily get all data about one doujin without needing to work with
+nhentai&#39;s non-existent library. (I really does <em>not</em> exist, one post on their blog says it exists, but that&#39;s just
+a nasty lie. Most likely got lost in the https transmission.)</p>
+<h2><a name="why-did-i-make-this" class="anchor" href="#why-did-i-make-this" rel="nofollow" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+Why did I make this</h2>
+
+<p>Upon browsing the <a href="https://old.reddit.com/r/Animemes" rel="nofollow">r/Animemes</a> subreddit, I saw a problem arise that could have easily been solved by knowing the
+statistics of hentai tags on nhentai. I though, why isn&#39;t there a program that allows easy access to doujin on the site,
+while providing all these <em>necessary</em> data. Sufficient to say, I wanted to so I sacrificed my
+free time to the gods of lust and descended into my neat little basement of programming efficacy. When I emerged,
+having overdosed on caffeine and suffering from great sleep-deprivation, I made myself be accompanied by this little
+library to make it be the bringer of all data used in known processing.</p>
+
+            </div>
+          </div>
+        </article>
+      
+      <h1 class="article-header">Installing</h1>
+        <article id="maven">
+          <div class="article">
+            <h1 class="body-header">Maven</h1>
+            <div class="content">
+              <p>Installing with Maven is just as easy as it should be. All that&#39;s needed is to add the JitPack repository and the
+dependency of nhstatistics-core.</p>
+
+<p>Adding JitPack:</p>
+
+<div class="highlight highlight-xml"><pre>
+&lt;repositories&gt;
+  &lt;!-- other repositories --&gt;
+  &lt;repository&gt;
+    &lt;id&gt;jitpack.io&lt;/id&gt;
+    &lt;url&gt;https://jitpack.io&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/repositories&gt;
+</pre></div>
+
+<p>Adding the dependency:</p>
+
+<div class="highlight highlight-xml"><pre>
+&lt;dependency&gt;
+  &lt;!-- other dependencies --&gt;
+  &lt;groupId&gt;&#39;com.github.IS-BODAND&lt;/groupId&gt;
+  &lt;artifactId&gt;nhstatistics-core&lt;/artifactId&gt;
+  &lt;version&gt;1.1.5&lt;/version&gt;
+&lt;/dependency&gt;
+</pre></div>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="gradle">
+          <div class="article">
+            <h1 class="body-header">Gradle</h1>
+            <div class="content">
+              <p>Installing with Gradle is just as easy as it should be. All that&#39;s needed is to add the JitPack repository and the
+dependency of nhstatistics-core.</p>
+
+<p>Adding JitPack:</p>
+
+<div class="highlight highlight-groovy"><pre>repositories {
+    // other repositories
+    maven { url &#39;https://jitpack.io&#39; }
+}
+</pre></div>
+
+<p>Adding the dependency:</p>
+
+<div class="highlight highlight-groovy"><pre>dependencies {
+    // other dependencies
+    implementation &#39;com.github.IS-BODAND:nhstatistics-core:1.1.5&#39;
+}
+</pre></div>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="sbt">
+          <div class="article">
+            <h1 class="body-header">Sbt</h1>
+            <div class="content">
+              <p>Installing with Sbt is just as easy as it should be. All that&#39;s needed is to add the JitPack resolver and the
+dependency of nhstatistics-core.
+Though you should be using a more capable project management system, if I&#39;m allowed to comment on that.</p>
+
+<p>Adding JitPack:</p>
+
+<div class="highlight highlight-sbtshell"><pre>resolvers += &#34;jitpack&#34; at &#34;https://jitpack.io&#34;
+</pre></div>
+
+<p>Adding the dependency:</p>
+
+<div class="highlight highlight-sbtshell"><pre>libraryDependencies += &#34;com.github.IS-BODAND&#34; % &#34;nhstatistics-core&#34; % &#34;1.1.5&#34;
+</pre></div>
+
+            </div>
+          </div>
+        </article>
+      
+      <h1 class="article-header">Usage</h1>
+        <article id="scaladoc">
+          <div class="article">
+            <h1 class="body-header">ScalaDoc</h1>
+            <div class="content">
+              <p>The ScalaDoc is available at: <a href="https://www.urbandictionary.com/define.php?term=soon%E2%84%A2" rel="nofollow">soon™</a>(you can build
+it from source though). If you come from Java a ScalaDoc is like a JavaDoc, but it looks better in the browser and
+likes to break more. A lot more. All of the public classes and methods are documented in the ScalaDoc, so read away.
+However, if you wish to have a bit of a tutorial-like thingy, the followings demonstrate the basic use of the library.</p>
+
+<p>Before going further shall we all pay our respects to the Scala syntax-highlighting in this document.</p>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="gallery-class">
+          <div class="article">
+            <h1 class="body-header">Gallery class</h1>
+            <div class="content">
+              <p>The basic Gallery class represents one doujin on the nhentai site.
+The following fields are most likely useful:</p>
+
+<ul>
+<li>name: String - The name of the doujin</li>
+<li>tags: Array[HentaiTag] - All the fantasies this doujin fulfills. HentaiTag implements HentaiData.</li>
+<li>languages: Array[HentaiLanguage] - The languages this doujin is written in. HentaiLanguage implements HentaiData.</li>
+<li>id: Int - ID of the doujin.</li>
+</ul>
+
+<p>With the toXml, and toJson methods it can turn itself into some nice xml/json.</p>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="hentaidata-trait">
+          <div class="article">
+            <h1 class="body-header">HentaiData trait</h1>
+            <div class="content">
+              <p>I refered to HentaiData trait(interface) in the Gallery definition, and it is a really simple thing.
+I contains the name of the data, and the amount of it on nhentai.
+i.e. [femdom (13830)].<br>
+This defines toXml and toJson as well.</p>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="getting-a-doujin">
+          <div class="article">
+            <h1 class="body-header">Getting a doujin</h1>
+            <div class="content">
+              <p>Getting a doujin is just the easiest thing with the NHStatistics Core library. All you need is to implement the
+HentaiInStream trait (interface with implementable stuff, for Java people), and you can use that to get your doijin.
+Thankfully I already implemented one default version which should always work. It&#39;s a trait(interface) because of
+inner conflicts, but as I said the implemented DefaultHentaiInStream should work.</p>
+
+<p>Now using this DefaultHentaiInStream class is really easy:</p>
+
+<div class="highlight highlight-java"><pre>// Java
+public class DoujinGetterCLI {
+    public static void main(String[] args) throws IndexOutOfBoundsException {
+        HentaiInStream inStream = new DefaultHentaiInStream();
+        Gallery doujin = inStream.readByID(args[0]);
+    }
+}
+</pre></div>
+
+<div class="highlight highlight-scala"><pre>// Scala
+object DoujinGetterCLI {
+  def main(args: Array[String]): Unit = {
+    val inStream = new DefaultHentaiInStream
+    val doujin: Gallery = inStream.readByID(args.head)
+  }
+}
+</pre></div>
+
+<p>Now both of these snippets read one doujin specified by the user supplied command line argument.</p>
+
+<p>If a second true value is supplied to readByID it reads the upload date as ISO 8601 compliant. In later
+releases this will be removed and some kind of Date class will be used to store the date.</p>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="getting-multiple-doujin">
+          <div class="article">
+            <h1 class="body-header">Getting multiple doujin</h1>
+            <div class="content">
+              <p>Getting multiple doujin is just as easy as it is to get one doujin with HentaiInStream.
+The readMultipleByID method takes an Array, a Scala List, or a Java ArrayList of Strings as an input and returns a
+corresponding data structure of read Gallery objects.</p>
+
+<div class="highlight highlight-java"><pre>// Java
+public class MultipleDoujinGetterCLI {
+    public static void main(String[] args) {
+        HentaiInStream inStream = new DefaultHentaiInStream();
+        Gallery[] doujin = inStream.readMultipleByID(args);
+    }
+}
+</pre></div>
+
+<div class="highlight highlight-scala"><pre>// Scala
+object DoujinGetterCLI {
+  def main(args: Array[String]): Unit = {
+    val inStream = new DefaultHentaiInStream
+    val doujin: Array[Gallery] = inStream.readMultipleByID(args)
+  }
+}
+</pre></div>
+
+<p>The readMultipleByID currently can also take the second boolean parameter for the ISO compliant date.</p>
+
+            </div>
+          </div>
+        </article>
+      
+        <article id="printing-doujin">
+          <div class="article">
+            <h1 class="body-header">Printing doujin</h1>
+            <div class="content">
+              <p>You might want to output some of those great doujin you downloaded the data of  to the user. For this the library
+supplies the HentaiOutStream trait which is implemented in StandardHentaiOutStream for writing to STDOUT, and FileHentaiOutStream
+for writing to a file. FileHentaiOutStream can append to currently existing files so you can make a to-read-list or
+something with it. They all have overloaded methods to instantly print Arrays, Scala Lists, and Java ArrayLists of
+Gallery objects. They also have the C++ styled &lt;&lt; methods overloaded so in Scala you can chain them nicely with that,
+but in Java they don&#39;t really bring much of anything worthy of mention for you need to call them as they were normal
+methods, and their names are quite interesting.</p>
+
+<div class="highlight highlight-java"><pre>// Java
+public class MultipleDoujinGetterCLI {
+    public static void main(String[] args) throws IndexOutOfBoundsException {
+        HentaiInStream inStream = new DefaultHentaiInStream();
+        Gallery oneDoujin = inStream.readByID(args[0]);
+        Gallery[] moreDoujin = inStream.readMultipleByID(args);
+        
+        // writing to STDOUT
+        HentaiOutStream outStream = new StandardHentaiOutStream();
+        outStream.print(oneDoujin); 
+        System.out.println(&#34;--Separator Line--&#34;);
+        outStream.print(moreDoujin);
+        
+        // writing to File &#34;to-read-list.txt&#34;
+        HentaiOutStream fileStream = new FileHentaiOutSream(new File(&#34;to-read-list.txt&#34;));
+        fileStream.print(oneDoujin);
+        fileStream.print(moreDoujin, true);
+    }
+}
+</pre></div>
+
+<div class="highlight highlight-scala"><pre>// Scala
+object DoujinGetterCLI {
+  def main(args: Array[String]): Unit = {
+    val inStream = new DefaultHentaiInStream
+    val oneDoujin: Gallery = inStream.readByID(args.head)
+    val moreDoujin: Array[Gallery] = inStream.readMultipleByID(args)
+    
+    // writing to STDOUT
+    val outStream = new StandardHentaiOutStream
+    outStream.print(oneDoujin)
+    println(&#34;--Separator Line--&#34;)
+    outStream.print(moreDoujin)
+    
+    outStream &lt;&lt; oneDoujin &lt;&lt; moreDoujin
+    
+    // writing to File &#34;to-read-list.txt&#34;
+    val fileOutStream = new FileHentaiOutStream(new File(&#34;to-read-list.txt&#34;))
+    fileOutStream.print(oneDoujin)
+    fileOutStream &lt;&lt; moreDoujin // the &lt;&lt; method automagically appends
+  }
+}
+</pre></div>
+
+            </div>
+          </div>
+        </article>
+      </section>
+  </body>
+</html>

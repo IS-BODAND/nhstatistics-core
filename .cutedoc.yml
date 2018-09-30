@@ -7,7 +7,7 @@ meta:
     logo: doc/stc/img/logo.png
 
 build:
-  dir: build/cutedocs
+  dir: docs
 
 theme:
   colors:
