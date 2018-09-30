@@ -35,7 +35,7 @@ plugins {
 import org.apache.commons.io.FileUtils
 
 group 'com.github.IS-BODAND'
-version '1.3.3'
+version '1.3.3.2'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

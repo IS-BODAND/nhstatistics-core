@@ -11,6 +11,7 @@ open my $versionFile, "<:crlf", "../../../build.gradle"
 my $version = "";
 /^version '([.\d]+)'/ && ($version = $1) while (<$versionFile>);
 close $versionFile;
+say "Version found: $version";
 
 # Get files
 my %filled = ();
