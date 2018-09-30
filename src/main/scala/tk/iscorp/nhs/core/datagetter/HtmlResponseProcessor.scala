@@ -27,7 +27,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect._
 
-private[core] class HtmlResponseProcessor {
+class HtmlResponseProcessor {
   private val regexText = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
