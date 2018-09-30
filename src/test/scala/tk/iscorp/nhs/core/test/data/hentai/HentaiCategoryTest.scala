@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test.data.hentai
 
 import org.junit.Assert._
@@ -24,13 +23,13 @@ import tk.iscorp.nhs.core.data.hentai.{DoujinshiHentai, HentaiCategory, MangaHen
 
 @RunWith(classOf[JUnitRunner])
 class HentaiCategoryTest extends WordSpec {
-  var manga69  : HentaiCategory = _
+  var manga69: HentaiCategory = _
   var manga69_2: HentaiCategory = _
-  var manga420 : HentaiCategory = _
-  var doujin69 : HentaiCategory = _
+  var manga420: HentaiCategory = _
+  var doujin69: HentaiCategory = _
   var doujin69_2: HentaiCategory = _
   var doujin420: HentaiCategory = _
-  var other69 : HentaiCategory = new OtherCategoryHentai(69)
+  var other69: HentaiCategory = new OtherCategoryHentai(69)
   var other69_2: HentaiCategory = new OtherCategoryHentai(69)
   var other420: HentaiCategory = new OtherCategoryHentai(420)
   "A HentaiCategory" when {

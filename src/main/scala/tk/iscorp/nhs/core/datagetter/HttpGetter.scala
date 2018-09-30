@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.datagetter
 
 import org.apache.commons.validator.routines.UrlValidator
@@ -28,7 +27,7 @@ private[core] class HttpGetter() {
   @NotNull
   private val httpClient: CloseableHttpClient = HttpClients.createDefault()
   @NotNull
-  private val urlSchemes: Array[String]       = Array("https")
+  private val urlSchemes: Array[String] = Array("https")
 
   @NotNull
   @NonNls

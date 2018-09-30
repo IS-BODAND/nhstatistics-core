@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.stream.impl
 
 import org.jetbrains.annotations.NotNull
@@ -40,7 +39,8 @@ class DefaultHentaiInStream extends HentaiInStream {
     */
   @NotNull
   override def readByID(id: String, isoDate: Boolean): Gallery = {
-    val httpResponse = httpClientWrapper.getResponseFromUri(s"https://nhentai.net/g/$id")
+    val httpResponse =
+      httpClientWrapper.getResponseFromUri(s"https://nhentai.net/g/$id")
     htmlResponseProcessor.processHtmlToGallery(httpResponse, isoDate)
   }
 }

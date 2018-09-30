@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test.data.hentai
 
 import org.junit.Assert._
@@ -24,10 +23,10 @@ import tk.iscorp.nhs.core.data.hentai.HentaiGroup
 
 @RunWith(classOf[JUnitRunner])
 class HentaiGroupTest extends WordSpec {
-  var testGroup69  : HentaiGroup = _
+  var testGroup69: HentaiGroup = _
   var testGroup69_2: HentaiGroup = new HentaiGroup("testGroup", 69)
-  var testGroup420 : HentaiGroup = new HentaiGroup("testGroup", 420)
-  var testOGroup69 : HentaiGroup = new HentaiGroup("testOGroup", 69)
+  var testGroup420: HentaiGroup = new HentaiGroup("testGroup", 420)
+  var testOGroup69: HentaiGroup = new HentaiGroup("testOGroup", 69)
   var testOGroup420: HentaiGroup = new HentaiGroup("testOGroup", 420)
   "A HentaiGroup" when {
     "created" should {

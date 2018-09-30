@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai
 
 import org.jetbrains.annotations.NotNull
@@ -39,10 +38,13 @@ import scala.xml.Node
 sealed abstract case class HentaiCategory() extends HentaiData {
   override def toXml: Node = <category name={s"$name"} amount={s"$amount"}/>
 
-  override def toJson: JSONObject = new JSONObject(new JMap[String, Any]() {{
-    put("name", name)
-    put("amount", new Integer(amount))
-  }})
+  override def toJson: JSONObject =
+    new JSONObject(new JMap[String, Any]() {
+      {
+        put("name", name)
+        put("amount", new Integer(amount))
+      }
+    })
 }
 
 class MangaHentai(@NotNull override val amount: Int) extends HentaiCategory {

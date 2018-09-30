@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.stream.impl
 
 import org.apache.commons.io.FileUtils
@@ -28,12 +27,13 @@ import java.io.File
   * @param file The file the stream should print to
   */
 class FileHentaiOutStream(private val file: File) extends HentaiOutStream {
+
   /**
     * Prints a [[tk.iscorp.nhs.core.data.Gallery]]
     * Overrides current contents if stream prints to a file
     *
     * @param doujin The Gallery to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   override def print(doujin: Gallery): Unit =
@@ -44,7 +44,7 @@ class FileHentaiOutStream(private val file: File) extends HentaiOutStream {
     *
     * @param doujin The Gallery to be printed
     * @param append If true the current contents are not overridden if stream prints to a file
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   override def print(doujin: Gallery, append: Boolean): Unit = {

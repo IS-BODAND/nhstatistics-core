@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai
 
 import org.jetbrains.annotations.{NonNls, NotNull}
@@ -34,14 +33,19 @@ import scala.xml.Node
   *
   * @since 1.0
   */
-class HentaiArtist(@NonNls @NotNull override val name: String,
-                   @NotNull override val amount: Int) extends HentaiData {
+class HentaiArtist(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
+    extends HentaiData {
   override def toXml: Node = <artist name={s"$name"} amount={s"$amount"} />
 
-  override def toJson: JSONObject = new JSONObject (new JHashMap[String, Any]() {{
-    put("artist", new JHashMap[String, Any]() {{
-      put("name", name)
-      put("amount", new Integer(amount))
-    }})
-  }})
+  override def toJson: JSONObject =
+    new JSONObject(new JHashMap[String, Any]() {
+      {
+        put("artist", new JHashMap[String, Any]() {
+          {
+            put("name", name)
+            put("amount", new Integer(amount))
+          }
+        })
+      }
+    })
 }

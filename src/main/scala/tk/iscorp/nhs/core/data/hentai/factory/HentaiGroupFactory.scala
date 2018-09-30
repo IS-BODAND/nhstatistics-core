@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai.factory
 
 import tk.iscorp.nhs.core.data.hentai.HentaiGroup
@@ -22,9 +21,6 @@ import tk.iscorp.nhs.core.data.hentai.HentaiGroup
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiGroup]]
   */
 class HentaiGroupFactory extends HentaiDataFactory[HentaiGroup] {
-  override def construct(name: String,
-                         amount: Int)
-                        (implicit id: Int): HentaiGroup = {
+  override def construct(name: String, amount: Int)(implicit id: Int): HentaiGroup =
     new HentaiGroup(name, amount)
-  }
 }

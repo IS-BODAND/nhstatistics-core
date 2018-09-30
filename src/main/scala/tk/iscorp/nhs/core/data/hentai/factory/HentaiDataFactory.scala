@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai.factory
 
 import tk.iscorp.nhs.core.data.hentai.HentaiData
@@ -24,6 +23,7 @@ import tk.iscorp.nhs.core.data.hentai.HentaiData
   * @tparam T Type of HentaiData to generate.
   */
 trait HentaiDataFactory[T <: HentaiData] {
+
   /**
     * Constructs a new HentaiData implementor object
     *

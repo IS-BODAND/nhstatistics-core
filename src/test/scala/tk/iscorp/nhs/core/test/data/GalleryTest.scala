@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test.data
 
 import org.apache.commons.io.FileUtils
@@ -30,36 +29,48 @@ import java.io.File
 class GalleryTest extends WordSpec {
   private var gallery1: Gallery = _
   private val gallery2eq1: Gallery =
-   new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-               "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
-               Array(new HentaiParody("pangya", 78)),
-               Array(new HentaiCharacter("kooh", 41)),
-               Array(new HentaiTag("lolicon", 45693),
-                     new HentaiTag("catgirl", 5796),
-                     new HentaiTag("gymshorts", 176)),
-               Array(new HentaiArtist("koari", 46)),
-               Array(new HentaiGroup("arisan-antenna", 34)),
-               Array(new JapaneseHentai(129652)),
-               new DoujinshiHentai(138514),
-               14, "June 28, 2014, 2:12 p.m.",
-               1, 9)
+    new Gallery(
+      "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+      "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+      Array(new HentaiParody("pangya", 78)),
+      Array(new HentaiCharacter("kooh", 41)),
+      Array(
+        new HentaiTag("lolicon", 45693),
+        new HentaiTag("catgirl", 5796),
+        new HentaiTag("gymshorts", 176)
+      ),
+      Array(new HentaiArtist("koari", 46)),
+      Array(new HentaiGroup("arisan-antenna", 34)),
+      Array(new JapaneseHentai(129652)),
+      new DoujinshiHentai(138514),
+      14,
+      "June 28, 2014, 2:12 p.m.",
+      1,
+      9
+    )
   private val gallery3ne1: Gallery = Gallery.dummy()
   "A gallery" when {
     "created" should {
       "initialize" in {
-        gallery1 = new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-                               "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
-                               Array(new HentaiParody("pangya", 78)),
-                               Array(new HentaiCharacter("kooh", 41)),
-                               Array(new HentaiTag("lolicon", 45693),
-                                     new HentaiTag("catgirl", 5796),
-                                     new HentaiTag("gymshorts", 176)),
-                               Array(new HentaiArtist("koari", 46)),
-                               Array(new HentaiGroup("arisan-antenna", 34)),
-                               Array(new JapaneseHentai(129652)),
-                               new DoujinshiHentai(138514),
-                               14, "June 28, 2014, 2:12 p.m.",
-                               1, 9)
+        gallery1 = new Gallery(
+          "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+          "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+          Array(new HentaiParody("pangya", 78)),
+          Array(new HentaiCharacter("kooh", 41)),
+          Array(
+            new HentaiTag("lolicon", 45693),
+            new HentaiTag("catgirl", 5796),
+            new HentaiTag("gymshorts", 176)
+          ),
+          Array(new HentaiArtist("koari", 46)),
+          Array(new HentaiGroup("arisan-antenna", 34)),
+          Array(new JapaneseHentai(129652)),
+          new DoujinshiHentai(138514),
+          14,
+          "June 28, 2014, 2:12 p.m.",
+          1,
+          9
+        )
         assertNotNull(gallery1)
       }
     }
@@ -127,9 +138,8 @@ class GalleryTest extends WordSpec {
             |"data-id":9,
             |"id":1,
             |"category":{"name":"Doujinshi","amount":138514},
-            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)"}"""
-             .stripMargin
-             .replaceAll("(?<=,)\\s+(?!\\d)", "")
+            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)"}""".stripMargin
+            .replaceAll("(?<=,)\\s+(?!\\d)", "")
 
         val gotString = gallery1.toJson.toJSONString
 

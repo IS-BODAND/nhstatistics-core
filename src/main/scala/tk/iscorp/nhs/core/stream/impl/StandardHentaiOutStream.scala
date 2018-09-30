@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.stream.impl
 
 import org.jetbrains.annotations.{NotNull, Nullable}
@@ -24,12 +23,13 @@ import tk.iscorp.nhs.core.stream.HentaiOutStream
   * Basic implementation of trait [[tk.iscorp.nhs.core.stream.HentaiOutStream]] which prints to STDOUT
   */
 class StandardHentaiOutStream extends HentaiOutStream {
+
   /**
     * Prints a [[tk.iscorp.nhs.core.data.Gallery]]
     *
     * @param doujin The Gallery to be printed
     * @param append If true the current contents are not overridden if sream prints to a file
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   override def print(doujin: Gallery, append: Boolean): Unit = print(doujin)
@@ -39,7 +39,7 @@ class StandardHentaiOutStream extends HentaiOutStream {
     * Overrides current contents if stream prints to a file
     *
     * @param doujin The Gallery to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   override def print(doujin: Gallery): Unit = println(doujin.toString)

@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.datagetter
 
 import org.apache.commons.io.FileUtils
@@ -33,17 +32,14 @@ import scala.concurrent.{Await, Future}
 class GalleryDownloader {
   private val logger = LoggerFactory.getLogger("Downloader")
 
-  def download(gly: Gallery): Int = {
+  def download(gly: Gallery): Int =
     download(gly, s"dwn/${gly.id}")
-  }
 
-  def download(gly: Gallery, path: String): Int = {
+  def download(gly: Gallery, path: String): Int =
     download(gly, path, bonusData = false)
-  }
 
-  def download(gly: Gallery, path: String, bonusData: Boolean): Int = {
+  def download(gly: Gallery, path: String, bonusData: Boolean): Int =
     download(gly, path, bonusData, hideBonusData = true)
-  }
 
   def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int = {
     logger.info(s"Downloading gallery ${gly.name}")
@@ -57,29 +53,34 @@ class GalleryDownloader {
     pagesDownloaded
   }
 
-  private def createBonusDataIfNeeded(gly: Gallery,
-                                      path: String,
-                                      bonusData: Boolean,
-                                      hideBonusData: Boolean): Any = {
+  private def createBonusDataIfNeeded(
+      gly: Gallery,
+      path: String,
+      bonusData: Boolean,
+      hideBonusData: Boolean
+  ): Any =
     if (bonusData) {
       val writeFilesResult: WrittenFiles = writeFiles(gly, path)
-      val WrittenFiles(xmlStringPath: String,
-                       xmlFile: File,
-                       jsonStringPath: String,
-                       jsonFile: File) = writeFilesResult
+      val WrittenFiles(
+        xmlStringPath: String,
+        xmlFile: File,
+        jsonStringPath: String,
+        jsonFile: File
+      ) = writeFilesResult
 
       if (hideBonusData) {
         hideFiles(gly, path, xmlStringPath, xmlFile, jsonStringPath, jsonFile)
       }
     }
-  }
 
-  private def hideFiles(gly: Gallery,
-                        path: String,
-                        xmlStringPath: String,
-                        xmlFile: File,
-                        jsonStringPath: String,
-                        jsonFile: File): Any = {
+  private def hideFiles(
+      gly: Gallery,
+      path: String,
+      xmlStringPath: String,
+      xmlFile: File,
+      jsonStringPath: String,
+      jsonFile: File
+  ): Any = {
     val xmlPath = FileSystems.getDefault.getPath(xmlStringPath)
     val jsonPath = FileSystems.getDefault.getPath(jsonStringPath)
 
@@ -90,10 +91,7 @@ class GalleryDownloader {
     }
   }
 
-  private def hideOnNix(gly: Gallery,
-                        path: String,
-                        xmlFile: File,
-                        jsonFile: File): Unit = {
+  private def hideOnNix(gly: Gallery, path: String, xmlFile: File, jsonFile: File): Unit = {
     val hiddenXmlFile = new File(s"$path/.${gly.id}.xml")
     val hiddenJsonFile = new File(s"$path/.${gly.id}.json")
 
@@ -106,10 +104,14 @@ class GalleryDownloader {
     Files.setAttribute(jsonPath, "dos:hidden", true)
   }
 
-  case class WrittenFiles(xmlStringPath: String, xmlFile: File, jsonStringPath: String, jsonFile: File)
+  case class WrittenFiles(
+      xmlStringPath: String,
+      xmlFile: File,
+      jsonStringPath: String,
+      jsonFile: File
+  )
 
-  private def writeFiles(gly: Gallery,
-                         path: String): WrittenFiles = {
+  private def writeFiles(gly: Gallery, path: String): WrittenFiles = {
     val xmlStringPath = s"$path/${gly.id}.xml"
     val xmlFile = new File(xmlStringPath)
     val jsonStringPath = s"$path/${gly.id}.json"
@@ -138,11 +140,11 @@ class GalleryDownloader {
         (gly.pageCount / 3, 2)
     }
     val thirds =
-        (
-           1 until pagesThird,  // 1/3
-           pagesThird until pagesThird * 2, // 2(1/3)
-           pagesThird * 2 to pagesThird * 3 + remainder  // remaining
-        )
+      (
+        1 until pagesThird, // 1/3
+        pagesThird until pagesThird * 2, // 2(1/3)
+        pagesThird * 2 to pagesThird * 3 + remainder // remaining
+      )
 
     val f1 = Future {
       downloadThird(gly, path, thirds._1)
@@ -161,9 +163,7 @@ class GalleryDownloader {
     ret.sum
   }
 
-  private def downloadThird(gly: Gallery,
-                            path: String,
-                            range: Range): Int = {
+  private def downloadThird(gly: Gallery, path: String, range: Range): Int = {
     var pagesDownloaded: Int = 0
     for {
       i ← range

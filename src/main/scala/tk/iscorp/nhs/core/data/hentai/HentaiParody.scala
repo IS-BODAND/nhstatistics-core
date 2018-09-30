@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai
 
 import org.jetbrains.annotations.{NonNls, NotNull}
@@ -30,14 +29,19 @@ import scala.xml.Node
   * @param name   Name of the parodized series
   * @param amount Amount of doujin parodizing the series
   */
-class HentaiParody(@NonNls @NotNull override val name: String,
-                   @NotNull override val amount: Int) extends HentaiData {
+class HentaiParody(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
+    extends HentaiData {
   override def toXml: Node = <parody name={s"$name"} amount={s"$amount"} />
 
-  override def toJson: JSONObject = new JSONObject(new JMap[String, Any]() {{
-    put("parody", new JMap[String, Any]() {{
-      put("name", name)
-      put("amount", new Integer(amount))
-    }})
-  }})
+  override def toJson: JSONObject =
+    new JSONObject(new JMap[String, Any]() {
+      {
+        put("parody", new JMap[String, Any]() {
+          {
+            put("name", name)
+            put("amount", new Integer(amount))
+          }
+        })
+      }
+    })
 }

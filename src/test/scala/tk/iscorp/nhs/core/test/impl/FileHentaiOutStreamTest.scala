@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test.impl
 
 import org.apache.commons.io.FileUtils
@@ -31,31 +30,44 @@ import scala.collection.JavaConverters._
 
 @RunWith(classOf[JUnitRunner])
 class FileHentaiOutStreamTest extends WordSpec {
-  private val testDoujin                               =
-    Gallery.dummy(name = "Test", japName = "Tesutu", uploadDate = "2018-09-15", id = 999999)
-  private val file                                       = new File("testFile.bodandkeep.txt")
-  private val testDoujinString           : String      = testDoujin.toString
-  private val testDoujinAppendByteArray: Array[Byte] = ("\n" + "-" * 32 + "\n" + testDoujinString).getBytes
-  private val testDoujinNoAppendByteArray: Array[Byte] = testDoujinString.getBytes
-  private val testDoujinsList: List[Gallery] = List(Gallery.dummy(), Gallery.dummy(), Gallery.dummy(), Gallery.dummy())
-  private val testDoujinsListString: String        = testDoujinsList.map(_.toString)
-     .mkString("\n" + "-" * 32 + "\n")
-  private val testDoujinsListNoAppendByteArray: Array[Byte]   = testDoujinsListString.getBytes()
-  private val testDoujinsListAppendByteArray: Array[Byte]   = ("\n" + "-" * 32 + "\n" + testDoujinsListString).getBytes()
+  private val testDoujin =
+    Gallery.dummy(name = "Test", japName = "Tesutu", uploadDate = "2018-09-15")
+  private val file = new File("testFile.bodandkeep.txt")
+  private var outStream: FileHentaiOutStream = _
 
-  private val testDoujinsArray: Array[Gallery]           = testDoujinsList.toArray
-  private val testDoujinsArrayString: String    = testDoujinsArray.map(_.toString)
-     .mkString("\n" + "-" * 32 + "\n")
-  private val testDoujinsArrayNoAppendByteArray: Array[Byte]     = testDoujinsArrayString.getBytes()
-  private val testDoujinsArrayAppendByteArray: Array[Byte]     = ("\n" + "-" * 32 + "\n" + testDoujinsArrayString)
-     .getBytes()
+  private val testDoujinString: String = testDoujin.toString
+  private val testDoujinAppendByteArray: Array[Byte] =
+    ("\n" + "-" * 32 + "\n" + testDoujinString).getBytes
+  private val testDoujinNoAppendByteArray: Array[Byte] =
+    testDoujinString.getBytes
 
-  private val testDoujinsArrayList: JArrayList[Gallery]  = new JArrayList[Gallery](testDoujinsList.asJavaCollection)
-  private val testDoujinsArrayListString: String = testDoujinsArrayList.asScala.map(_.toString)
-     .mkString("\n" + "-" * 32 + "\n")
-  private val testDoujinsArrayListNoAppendByteArray: Array[Byte] = testDoujinsArrayListString.getBytes
-  private val testDoujinsArrayListAppendByteArray: Array[Byte] = ("\n" + "-" * 32 + "\n" + testDoujinsArrayListString).getBytes
-  private var outStream: FileHentaiOutStream             = _
+  private val testDoujinsList: List[Gallery] =
+    List(Gallery.dummy(), Gallery.dummy(), Gallery.dummy(), Gallery.dummy())
+  private val testDoujinsListString: String =
+    testDoujinsList.map(_.toString).mkString("\n" + "-" * 32 + "\n")
+  private val testDoujinsListNoAppendByteArray: Array[Byte] =
+    testDoujinsListString.getBytes()
+  private val testDoujinsListAppendByteArray: Array[Byte] =
+    ("\n" + "-" * 32 + "\n" + testDoujinsListString).getBytes()
+
+  private val testDoujinsArray: Array[Gallery] = testDoujinsList.toArray
+  private val testDoujinsArrayString: String =
+    testDoujinsArray.map(_.toString).mkString("\n" + "-" * 32 + "\n")
+  private val testDoujinsArrayNoAppendByteArray: Array[Byte] =
+    testDoujinsArrayString.getBytes()
+  private val testDoujinsArrayAppendByteArray: Array[Byte] =
+    ("\n" + "-" * 32 + "\n" + testDoujinsArrayString).getBytes()
+
+  private val testDoujinsArrayList: JArrayList[Gallery] =
+    new JArrayList[Gallery](testDoujinsList.asJavaCollection)
+  private val testDoujinsArrayListString: String =
+    testDoujinsArrayList.asScala
+      .map(_.toString)
+      .mkString("\n" + "-" * 32 + "\n")
+  private val testDoujinsArrayListNoAppendByteArray: Array[Byte] =
+    testDoujinsArrayListString.getBytes
+  private val testDoujinsArrayListAppendByteArray: Array[Byte] =
+    ("\n" + "-" * 32 + "\n" + testDoujinsArrayListString).getBytes
 
   "A DefaultFileHentaiOutStream" should {
     "initialize" in {
@@ -67,13 +79,11 @@ class FileHentaiOutStreamTest extends WordSpec {
           "false" when {
             "not set" in {
               outStream.print(testDoujin)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinNoAppendByteArray)
+              assertArrayEquals(FileUtils.readFileToByteArray(file), testDoujinNoAppendByteArray)
             }
             "set" in {
               outStream.print(testDoujin, append = false)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinNoAppendByteArray)
+              assertArrayEquals(FileUtils.readFileToByteArray(file), testDoujinNoAppendByteArray)
             }
           }
           "true" when {
@@ -81,8 +91,10 @@ class FileHentaiOutStreamTest extends WordSpec {
               val bonusValue = "Janus Pannonius:\n"
               FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
               outStream.print(testDoujin, append = true)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                bonusValue.getBytes() ++ testDoujinAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                bonusValue.getBytes() ++ testDoujinAppendByteArray
+              )
             }
           }
         }
@@ -92,13 +104,17 @@ class FileHentaiOutStreamTest extends WordSpec {
           "false" when {
             "not set" in {
               outStream.print(testDoujinsList)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsListNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsListNoAppendByteArray
+              )
             }
             "set" in {
               outStream.print(testDoujinsList, append = false)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsListNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsListNoAppendByteArray
+              )
             }
           }
           "true" when {
@@ -106,8 +122,10 @@ class FileHentaiOutStreamTest extends WordSpec {
               val bonusValue = "Janus Pannonius:\n"
               FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
               outStream.print(testDoujinsList, append = true)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                bonusValue.getBytes() ++ testDoujinsListAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                bonusValue.getBytes() ++ testDoujinsListAppendByteArray
+              )
             }
           }
         }
@@ -117,13 +135,17 @@ class FileHentaiOutStreamTest extends WordSpec {
           "false" when {
             "not set" in {
               outStream.print(testDoujinsArrayList)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsArrayListNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsArrayListNoAppendByteArray
+              )
             }
             "set" in {
               outStream.print(testDoujinsArrayList, append = false)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsArrayListNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsArrayListNoAppendByteArray
+              )
             }
           }
           "true" when {
@@ -131,8 +153,10 @@ class FileHentaiOutStreamTest extends WordSpec {
               val bonusValue = "Janus Pannonius:\n"
               FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
               outStream.print(testDoujinsArrayList, append = true)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                bonusValue.getBytes() ++ testDoujinsArrayListAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                bonusValue.getBytes() ++ testDoujinsArrayListAppendByteArray
+              )
             }
           }
         }
@@ -142,13 +166,17 @@ class FileHentaiOutStreamTest extends WordSpec {
           "false" when {
             "not set" in {
               outStream.print(testDoujinsArray)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsArrayNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsArrayNoAppendByteArray
+              )
             }
             "set" in {
               outStream.print(testDoujinsArray, append = false)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                testDoujinsArrayNoAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                testDoujinsArrayNoAppendByteArray
+              )
             }
           }
           "true" when {
@@ -156,8 +184,10 @@ class FileHentaiOutStreamTest extends WordSpec {
               val bonusValue = "Janus Pannonius:\n"
               FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
               outStream.print(testDoujinsArray, append = true)
-              assertArrayEquals(FileUtils.readFileToByteArray(file),
-                                bonusValue.getBytes() ++ testDoujinsArrayAppendByteArray)
+              assertArrayEquals(
+                FileUtils.readFileToByteArray(file),
+                bonusValue.getBytes() ++ testDoujinsArrayAppendByteArray
+              )
             }
           }
         }
@@ -166,47 +196,55 @@ class FileHentaiOutStreamTest extends WordSpec {
         val bonusValue = "Janus Pannonius:\n"
         FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
         outStream << testDoujin
-        assertArrayEquals(FileUtils.readFileToByteArray(file),
-                          bonusValue.getBytes() ++ testDoujinAppendByteArray)
+        assertArrayEquals(
+          FileUtils.readFileToByteArray(file),
+          bonusValue.getBytes() ++ testDoujinAppendByteArray
+        )
       }
       "<< with Scala List is used" in {
         val bonusValue = "Janus Pannonius:\n"
         FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
         outStream << testDoujinsList
-        assertArrayEquals(FileUtils.readFileToByteArray(file),
-                          bonusValue.getBytes() ++ testDoujinsListAppendByteArray)
+        assertArrayEquals(
+          FileUtils.readFileToByteArray(file),
+          bonusValue.getBytes() ++ testDoujinsListAppendByteArray
+        )
       }
       "<< with Java ArrayList is used" in {
         val bonusValue = "Janus Pannonius:\n"
         FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
         outStream << testDoujinsArrayList
-        assertArrayEquals(FileUtils.readFileToByteArray(file),
-                          bonusValue.getBytes() ++ testDoujinsArrayListAppendByteArray)
+        assertArrayEquals(
+          FileUtils.readFileToByteArray(file),
+          bonusValue.getBytes() ++ testDoujinsArrayListAppendByteArray
+        )
       }
       "<< with Array is used" in {
         val bonusValue = "Janus Pannonius:\n"
         FileUtils.writeStringToFile(file, bonusValue, "UTF-8")
         outStream << testDoujinsArray
-        assertArrayEquals(FileUtils.readFileToByteArray(file),
-                          bonusValue.getBytes() ++ testDoujinsArrayAppendByteArray)
+        assertArrayEquals(
+          FileUtils.readFileToByteArray(file),
+          bonusValue.getBytes() ++ testDoujinsArrayAppendByteArray
+        )
       }
     }
     "throw NPE" when {
       "print is called with (null)" in {
-        assertThrows[NullPointerException]{
-                                            outStream.print(null)
-                                          }
+        assertThrows[NullPointerException] {
+          outStream.print(null)
+        }
       }
       "print is called with (null, true)" in {
-        assertThrows[NullPointerException]{
-                                            outStream.print(null, append = true)
-                                          }
+        assertThrows[NullPointerException] {
+          outStream.print(null, append = true)
+        }
       }
       "print is called with (null, false)" in {
-        assertThrows[NullPointerException]{
-                                            outStream.print(null, append = false)
-                                          }
+        assertThrows[NullPointerException] {
+          outStream.print(null, append = false)
+        }
       }
     }
- }
+  }
 }

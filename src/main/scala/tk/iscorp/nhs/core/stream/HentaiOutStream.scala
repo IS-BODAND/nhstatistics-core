@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.stream
 
 import org.jetbrains.annotations.{NonNls, NotNull}
@@ -28,19 +27,20 @@ import scala.language.postfixOps
   * Trait that defines basic functions to print Gallery objects
   */
 trait HentaiOutStream {
+
   /**
     * Prints a [[tk.iscorp.nhs.core.data.Gallery]]
     * Overrides current contents if stream prints to a file
- *
+    *
     * @param doujin The Gallery to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def print(@NotNull doujin: Gallery): Unit
 
   /**
     * Prints a [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujin The Gallery to be printed
     * @param append If true the current contents are not overridden if stream prints to a file
     *
@@ -50,21 +50,20 @@ trait HentaiOutStream {
 
   /**
     * Prints a Scala List of [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujinList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def print(@NotNull doujinList: List[Gallery]): Unit = {
+  def print(@NotNull doujinList: List[Gallery]): Unit =
     print(doujinList, append = false)
-  }
 
   /**
     * Prints a Scala List of [[tk.iscorp.nhs.core.data.Gallery]]
     * Overrides current data if writing to file
- *
+    *
     * @param doujinList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def print(@NotNull doujinList: List[Gallery], append: Boolean): Unit = {
@@ -75,20 +74,19 @@ trait HentaiOutStream {
   /**
     * Prints a Java ArrayList of [[tk.iscorp.nhs.core.data.Gallery]]
     * Overrides current data if writing to file
- *
+    *
     * @param doujinList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def print(@NotNull doujinList: JArrayList[Gallery]): Unit = {
+  def print(@NotNull doujinList: JArrayList[Gallery]): Unit =
     print(doujinList, append = false)
-  }
 
   /**
     * Prints a Java ArrayList of [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujinJList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def print(@NotNull doujinJList: JArrayList[Gallery], append: Boolean): Unit = {
@@ -100,20 +98,19 @@ trait HentaiOutStream {
   /**
     * Prints an Array of [[tk.iscorp.nhs.core.data.Gallery]]
     * Overrides current data if writing to file
- *
+    *
     * @param doujins The array to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
-  def print(@NotNull doujins: Array[Gallery]): Unit = {
+  def print(@NotNull doujins: Array[Gallery]): Unit =
     print(doujins, append = false)
-  }
 
   /**
     * Prints an Array of [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujins The array to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def print(@NotNull doujins: Array[Gallery], append: Boolean): Unit = {
@@ -123,9 +120,9 @@ trait HentaiOutStream {
 
   /**
     * Prints a Java ArrayList of [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujinList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def <<(@NotNull doujinList: JArrayList[Gallery]): HentaiOutStream = {
@@ -148,9 +145,9 @@ trait HentaiOutStream {
 
   /**
     * Prints a Scala List of [[tk.iscorp.nhs.core.data.Gallery]]
- *
+    *
     * @param doujinList The list to be printed
- *
+    *
     * @throws NullPointerException If any of the parameters is `null`
     */
   def <<(@NotNull doujinList: List[Gallery]): HentaiOutStream = {

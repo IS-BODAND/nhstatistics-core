@@ -13,20 +13,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai.factory
 
 import tk.iscorp.nhs.core.data.hentai.HentaiParody
-
-import scala.language.existentials
 
 /**
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiParody]]
   */
 class HentaiParodyFactory extends HentaiDataFactory[HentaiParody] {
-  override def construct(name: String,
-                         amount: Int)
-                        (implicit id: Int): HentaiParody = {
+  override def construct(name: String, amount: Int)(implicit id: Int): HentaiParody =
     new HentaiParody(name, amount)
-  }
 }

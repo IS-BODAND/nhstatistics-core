@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test.data.hentai
 
 import org.junit.Assert._
@@ -25,24 +24,24 @@ import tk.iscorp.nhs.core.data.hentai._
 @RunWith(classOf[JUnitRunner])
 class HentaiLanguageTest extends WordSpec {
   // Don't ask why I randomly decided to break convention with the field names
-  private var english_69  : HentaiLanguage = _
+  private var english_69: HentaiLanguage = _
   private var english_69_2: HentaiLanguage = _
-  private var english_420 : HentaiLanguage = _
-  private var rewrite_69  : HentaiLanguage = _
+  private var english_420: HentaiLanguage = _
+  private var rewrite_69: HentaiLanguage = _
   private var rewrite_69_2: HentaiLanguage = _
-  private var rewrite_420 : HentaiLanguage = _
-  private var japan_69  : HentaiLanguage = _
+  private var rewrite_420: HentaiLanguage = _
+  private var japan_69: HentaiLanguage = _
   private var japan_69_2: HentaiLanguage = _
-  private var japan_420 : HentaiLanguage = _
-  private var chinese_69  : HentaiLanguage = _
+  private var japan_420: HentaiLanguage = _
+  private var chinese_69: HentaiLanguage = _
   private var chinese_69_2: HentaiLanguage = _
-  private var chinese_420 : HentaiLanguage = _
-  private var trans_69  : HentaiLanguage = _
+  private var chinese_420: HentaiLanguage = _
+  private var trans_69: HentaiLanguage = _
   private var trans_69_2: HentaiLanguage = _
-  private var trans_420 : HentaiLanguage = _
-  private var other_69  : HentaiLanguage = _
+  private var trans_420: HentaiLanguage = _
+  private var other_69: HentaiLanguage = _
   private var other_69_2: HentaiLanguage = _
-  private var other_420 : HentaiLanguage = _
+  private var other_420: HentaiLanguage = _
   "A HentaiLanguage" when {
     "created" should {
       "initialize" when {

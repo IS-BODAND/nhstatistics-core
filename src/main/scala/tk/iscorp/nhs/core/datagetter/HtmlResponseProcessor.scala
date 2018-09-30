@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.datagetter
 
 import org.jsoup.Jsoup
@@ -29,7 +28,7 @@ import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect._
 
 private[core] class HtmlResponseProcessor {
-  private val regexText                        = "([\\s\\w.-]+)\\s+".r
+  private val regexText = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
   def processHtmlToGallery(html: String, isoDate: Boolean = false): Gallery = {
@@ -39,15 +38,17 @@ private[core] class HtmlResponseProcessor {
 
     implicit val id: Int = try {
       document
-         .selectFirst("div#cover>a")
-         .attr("href")
-         .substring(3)
-         .takeWhile(_ != '/')
-         .toInt
+        .selectFirst("div#cover>a")
+        .attr("href")
+        .substring(3)
+        .takeWhile(_ != '/')
+        .toInt
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error("√-1 => Error getting hentai id. Most likely means that it was deleted. " +
-                              s"Continuing to try, don't expect much.")
+        Utils.logger.error(
+          "√-1 => Error getting hentai id. Most likely means that it was deleted. " +
+            s"Continuing to try, don't expect much."
+        )
         fault += 1
         0
     }
@@ -55,15 +56,17 @@ private[core] class HtmlResponseProcessor {
     val dataId = try {
       Utils.logger.debug(document.toString)
       document
-         .selectFirst("div#cover>a>img")
-         .attr("data-src")
-         .substring(32)
-         .takeWhile(c ⇒ c.isDigit)
-         .toInt
+        .selectFirst("div#cover>a>img")
+        .attr("data-src")
+        .substring(32)
+        .takeWhile(c ⇒ c.isDigit)
+        .toInt
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error(s"${if (id != 0) id else "√-1"} => Error getting data id. Most likely means that it was " +
-                              s"deleted. Continuing to try, don't expect much.")
+        Utils.logger.error(
+          s"${if (id != 0) id else "√-1"} => Error getting data id. Most likely means that it was " +
+            s"deleted. Continuing to try, don't expect much."
+        )
         fault += 1
         0
     }
@@ -72,8 +75,10 @@ private[core] class HtmlResponseProcessor {
       document.selectFirst("div#info h1").childNode(0).toString
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error(s"${if (id != 0) id else "√-1"} => Error getting hentai name. Most likely means that it " +
-                              s"was deleted. Continuing to try, don't expect much.")
+        Utils.logger.error(
+          s"${if (id != 0) id else "√-1"} => Error getting hentai name. Most likely means that it " +
+            s"was deleted. Continuing to try, don't expect much."
+        )
         fault += 1
         "!![[ERROR GETTING DOUJIN NAME]]!!"
     }
@@ -86,21 +91,34 @@ private[core] class HtmlResponseProcessor {
     }
 
     if (fault >= 2) {
-      Utils.logger.error(s"$id => Error getting doujin data. Assuming it is deleted, returning with dummy Gallery.")
+      Utils.logger.error(
+        s"$id => Error getting doujin data. Assuming it is deleted, returning with dummy Gallery."
+      )
       Gallery.dummy()
     } else {
       try {
-        val allTags = document.select("div#info section div.tag-container span.tags")
+        val allTags =
+          document.select("div#info section div.tag-container span.tags")
 
-        val parodies: Array[HentaiParody] = getElements[HentaiParody, HentaiParodyFactory](allTags.remove(0))
-        val characters: Array[HentaiCharacter] = getElements[HentaiCharacter, HentaiCharacterFactory](allTags.remove(0))
-        val tags: Array[HentaiTag] = getElements[HentaiTag, HentaiTagFactory](allTags.remove(0))
-        val artists: Array[HentaiArtist] = getElements[HentaiArtist, HentaiArtistFactory](allTags.remove(0))
-        val groups: Array[HentaiGroup] = getElements[HentaiGroup, HentaiGroupFactory](allTags.remove(0))
-        val languages: Array[HentaiLanguage] = getElements[HentaiLanguage, HentaiLanguageFactory](allTags.remove(0))
+        val parodies: Array[HentaiParody] =
+          getElements[HentaiParody, HentaiParodyFactory](allTags.remove(0))
+        val characters: Array[HentaiCharacter] =
+          getElements[HentaiCharacter, HentaiCharacterFactory](allTags.remove(0))
+        val tags: Array[HentaiTag] =
+          getElements[HentaiTag, HentaiTagFactory](allTags.remove(0))
+        val artists: Array[HentaiArtist] =
+          getElements[HentaiArtist, HentaiArtistFactory](allTags.remove(0))
+        val groups: Array[HentaiGroup] =
+          getElements[HentaiGroup, HentaiGroupFactory](allTags.remove(0))
+        val languages: Array[HentaiLanguage] =
+          getElements[HentaiLanguage, HentaiLanguageFactory](allTags.remove(0))
         val category: HentaiCategory = getCategory(allTags.remove(0))
 
-        val pageCount = document.selectFirst("div#info>div").ownText().takeWhile(_ != ' ').toInt
+        val pageCount = document
+          .selectFirst("div#info>div")
+          .ownText()
+          .takeWhile(_ != ' ')
+          .toInt
 
         val date = {
           val asd = document.selectFirst("div#info div time")
@@ -111,8 +129,21 @@ private[core] class HtmlResponseProcessor {
           }
         }
 
-        new Gallery(name, japName, parodies, characters, tags, artists, groups, languages, category,
-                    pageCount, date, id, dataId)
+        new Gallery(
+          name,
+          japName,
+          parodies,
+          characters,
+          tags,
+          artists,
+          groups,
+          languages,
+          category,
+          pageCount,
+          date,
+          id,
+          dataId
+        )
       } catch {
         case _: NullPointerException ⇒
           Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
@@ -137,27 +168,29 @@ private[core] class HtmlResponseProcessor {
       case "doujinshi" ⇒
         new DoujinshiHentai(amount)
       case _ ⇒
-        Utils.logger.warn(s"Hentai category not found, this is most likely some kind of error. Category\n" +
-                             s"\tfound: $name\n" +
-                             s"\texpected: manga|doujinshi")
+        Utils.logger.warn(
+          s"Hentai category not found, this is most likely some kind of error. Category\n" +
+            s"\tfound: $name\n" +
+            s"\texpected: manga|doujinshi"
+        )
         new OtherCategoryHentai(amount)
     }
 
   }
 
-  private def getElements[HType <: HentaiData : ClassTag,
-                          HTypeFact <: HentaiDataFactory[HType] : ClassTag](raw: Element)
-                                                                           (implicit id: Int): Array[HType] = {
+  private def getElements[HType <: HentaiData: ClassTag,
+                          HTypeFact <: HentaiDataFactory[HType]: ClassTag](
+      raw: Element
+  )(implicit id: Int): Array[HType] =
     if (raw.childNodeSize() > 0) {
       tagExtractor[HType, HTypeFact](raw.children())
     } else {
       Array.empty[HType]
     }
-  }
 
-  private def tagExtractor[E <: HentaiData : ClassTag,
-                           EFactory <: HentaiDataFactory[E] : ClassTag](elem: Elements)
-                                                                       (implicit id: Int): Array[E] = {
+  private def tagExtractor[E <: HentaiData: ClassTag, EFactory <: HentaiDataFactory[E]: ClassTag](
+      elem: Elements
+  )(implicit id: Int): Array[E] = {
     val factoryClass = classTag[EFactory].runtimeClass
     val factory = factoryClass.newInstance().asInstanceOf[EFactory]
 
@@ -166,20 +199,23 @@ private[core] class HtmlResponseProcessor {
     var tmpInUse = false
 
     elem.traverse(new NodeVisitor {
-      override def head(node: Node, depth: Int): Unit = {
+      override def head(node: Node, depth: Int): Unit =
         if (depth > 0 && !node.toString.contains("<")) {
           node.toString match {
             case regexText(txt) ⇒
               tmpName = txt
               tmpInUse = true
             case regexNumberWithCommaEmparethised(n, m) ⇒
-              tmpArr += factory.construct(tmpName, if (m != null) n + m toInt else n toInt)
+              tmpArr += factory.construct(
+                tmpName,
+                if (m != null) n + m toInt
+                else n toInt
+              )
               tmpInUse = false
             case _ ⇒
               Utils.logger.error(s"""$id => Error parsing tag: "${node.toString}"""")
           }
         }
-      }
 
       override def tail(node: Node, depth: Int): Unit = {}
     })

@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai.factory
 
 import tk.iscorp.nhs.core.Utils
@@ -23,9 +22,7 @@ import tk.iscorp.nhs.core.data.hentai._
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiLanguage]]
   */
 class HentaiLanguageFactory extends HentaiDataFactory[HentaiLanguage] {
-  override def construct(name: String,
-                         amount: Int)
-                        (implicit id: Int): HentaiLanguage = {
+  override def construct(name: String, amount: Int)(implicit id: Int): HentaiLanguage =
     name match {
       case "english" ⇒
         new EnglishHentai(amount)
@@ -36,14 +33,17 @@ class HentaiLanguageFactory extends HentaiDataFactory[HentaiLanguage] {
       case "rewrite" ⇒
         new RewriteHentai(amount)
       case "translated" ⇒
-        Utils.logger.info(s"$id => The translated language tag makes no sense. Yet it is everywhere, even here.")
+        Utils.logger.info(
+          s"$id => The translated language tag makes no sense. Yet it is everywhere, even here."
+        )
         new TranslatedHentai(amount)
       case lang ⇒
-        Utils.logger.warn(s"Hentai language not found, this is most likely some kind of error. Category\n" +
-                             s"found: $lang\n" +
-                             s"expected: english|japanese|chinese|rewrite\n")
+        Utils.logger.warn(
+          s"Hentai language not found, this is most likely some kind of error. Category\n" +
+            s"found: $lang\n" +
+            s"expected: english|japanese|chinese|rewrite\n"
+        )
 
         new OtherLanguageHentai(amount)
     }
-  }
 }

@@ -29,6 +29,7 @@ plugins {
     id 'scala'
     id 'maven'
     id 'jacoco'
+    id 'com.diffplug.gradle.spotless' version '3.15.0'
 }
 
 import org.apache.commons.io.FileUtils
@@ -76,13 +77,13 @@ dependencies {
 }
 
 jar {
-    baseName = "nhstatistics-core"
+    baseName = 'nhstatistics-core'
 
     manifest {
-        attributes "Name": 'NHentaiStatistics Core'
-        attributes "Specification-Title": 'Made up nhentai api'
-        attributes "Specification-Version": "$version"
-        attributes "Specification-Vendor": "InfoSoft Corporation"
+        attributes 'Name': 'NHentaiStatistics Core'
+        attributes 'Specification-Title': 'Made up nhentai api'
+        attributes 'Specification-Version': "$version"
+        attributes 'Specification-Vendor': 'InfoSoft Corporation'
     }
 
     from {
@@ -92,10 +93,14 @@ jar {
 
 task cleanTestDownloads() {
     doLast {
+        println "Applpie"
+    }
+
+    doLast {
         for (int i = 0; i < 9; ++i) {
             File directory
             if (i == 0) {
-                directory = new File("dwn")
+                directory = new File('dwn')
             } else {
                 directory = new File("dwn$i")
             }
@@ -104,9 +109,9 @@ task cleanTestDownloads() {
     }
 
     doLast {
-        FileUtils.deleteQuietly(new File("exp.bodandkeep.txt"))
-        FileUtils.deleteQuietly(new File("got.bodandkeep.txt"))
-        FileUtils.deleteQuietly(new File("testFile.bodandkeep.txt"))
+        FileUtils.deleteQuietly(new File('exp.bodandkeep.txt'))
+        FileUtils.deleteQuietly(new File('got.bodandkeep.txt'))
+        FileUtils.deleteQuietly(new File('testFile.bodandkeep.txt'))
     }
 }
 
@@ -119,7 +124,7 @@ check {
 task cutedoc(type: Exec, dependsOn: [scaladoc, classes]) {
     workingDir "$projectDir"
 
-    commandLine "cutedoc"
+    commandLine 'cutedoc'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -160,3 +165,15 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+spotless {
+    scala {
+        scalafmt("1.5.1").configFile(".scalafmt.conf")
+    }
+}
+
+task publish(dependsOn: cleanBuild) {
+    doLast {
+        spotlessApply.execute()
+    }
+}

@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.test
 
 import org.junit.Assert._
@@ -23,14 +22,14 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class TestTest extends WordSpec {
- "A test" should {
-   "work" when afterWord("used with") {
-     "ScalaTest Assertions assertions" in {
+  "A test" should {
+    "work" when afterWord("used with") {
+      "ScalaTest Assertions assertions" in {
         succeed
-     }
-     "jUnit Assert assertions" in {
-       assertTrue(true)
-     }
-   }
- }
+      }
+      "jUnit Assert assertions" in {
+        assertTrue(true)
+      }
+    }
+  }
 }

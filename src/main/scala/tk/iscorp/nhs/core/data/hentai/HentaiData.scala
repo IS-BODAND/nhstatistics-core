@@ -13,7 +13,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  ******************************************************************************/
-
 package tk.iscorp.nhs.core.data.hentai
 
 import org.jetbrains.annotations.{NonNls, NotNull}
@@ -83,9 +82,8 @@ trait HentaiData {
     */
   @NonNls
   @NotNull
-  override def toString: String = {
+  override def toString: String =
     s"[$name ($amount)]"
-  }
 
   /**
     * Equivalency test based on equal name and amount.
