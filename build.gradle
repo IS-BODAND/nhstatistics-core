@@ -172,8 +172,3 @@ spotless {
     }
 }
 
-task publish(dependsOn: cleanBuild) {
-    doLast {
-        spotlessApply.execute()
-    }
-}
