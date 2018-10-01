@@ -23,4 +23,4 @@ Doujin data can easily be got with the included HentaiInStream implementation an
 HentaiOutStream implementations.
 Additionally it allows the processing of offline doujin pages with the HtmlResponseProcessor class.
 
-More documentation/small tutorial available at: 
+More documentation/small tutorial available at [https://isbodand.github.io/nhstatistics-core](the project's website).

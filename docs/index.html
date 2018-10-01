@@ -49,6 +49,7 @@
               <li><a href="#hentaidata-trait">HentaiData trait</a></li>
               <li><a href="#getting-a-doujin">Getting a doujin</a></li>
               <li><a href="#getting-multiple-doujin">Getting multiple doujin</a></li>
+              <li><a href="#loading-local-doujin">Loading local doujin</a></li>
               <li><a href="#printing-doujin">Printing doujin</a></li>
             </ul>
           </div>
@@ -82,6 +83,7 @@
               <li><a href="#hentaidata-trait">HentaiData trait</a></li>
               <li><a href="#getting-a-doujin">Getting a doujin</a></li>
               <li><a href="#getting-multiple-doujin">Getting multiple doujin</a></li>
+              <li><a href="#loading-local-doujin">Loading local doujin</a></li>
               <li><a href="#printing-doujin">Printing doujin</a></li>
             </ul>
           </div>
@@ -141,7 +143,7 @@ dependency of nhstatistics-core.</p>
   &lt;!-- other dependencies --&gt;
   &lt;groupId&gt;&#39;com.github.isbodand&lt;/groupId&gt;
   &lt;artifactId&gt;nhstatistics-core&lt;/artifactId&gt;
-  &lt;version&gt;1.3.3.2&lt;/version&gt;
+  &lt;version&gt;1.3.3.3&lt;/version&gt;
 &lt;/dependency&gt;
 </pre></div>
 
@@ -168,7 +170,7 @@ dependency of nhstatistics-core.</p>
 
 <div class="highlight highlight-groovy"><pre>dependencies {
     // other dependencies
-    implementation &#39;com.github.isbodand:nhstatistics-core:1.3.3.2&#39;
+    implementation &#39;com.github.isbodand:nhstatistics-core:1.3.3.3&#39;
 }
 </pre></div>
 
@@ -191,7 +193,7 @@ Though you should be using a more capable project management system, if I&#39;m 
 
 <p>Adding the dependency:</p>
 
-<div class="highlight highlight-sbtshell"><pre>libraryDependencies += &#34;com.github.isbodand&#34; % &#34;nhstatistics-core&#34; % &#34;1.3.3.2&#34;
+<div class="highlight highlight-sbtshell"><pre>libraryDependencies += &#34;com.github.isbodand&#34; % &#34;nhstatistics-core&#34; % &#34;1.3.3.3&#34;
 </pre></div>
 
             </div>
@@ -317,6 +319,41 @@ object DoujinGetterCLI {
           </div>
         </article>
       
+        <article id="loading-local-doujin">
+          <div class="article">
+            <h1 class="body-header">Loading local doujin</h1>
+            <div class="content">
+              <p>Since 1.3.3 the HtmlResponseProcessor class is publicly available which can create doujin Gallery objects from a
+given string. Since this was just an inner class this is not that well documented <em>yet</em>. The only use case you have
+for it is quite simple though; give it an html source of an nhentai page, and it returns a Gallery object.</p>
+
+<div class="highlight highlight-java"><pre>// Java
+public class LocalDoujinLoader {
+    public static void main(String[] args) {
+        HtmlResponseProcessor hrp = new HtmlResponseProcessor();
+        // Get the html page source from local file; I used Apache Commons IO here, but anything works
+        String htmlSource = FileUtils.readFileToString(new File(&#34;doujin.html&#34;), &#34;UTF-8&#34;); 
+        Gallery gallery = hrp.processHtmlToGallery(htmlSource);
+        Gallery galleryWithISODate = hrp.processHtmlToGallery(htmlSource, true);
+    }
+}
+</pre></div>
+
+<div class="highlight highlight-scala"><pre>// Scala
+object LocalDoujinLoader {
+  def main(args: Array[String]): Unit = {
+    val hrp = new HtmlResponseProcessor
+    val htmlSource = io.Source.fromFile(&#34;doujin.html&#34;).mkString
+    val gallery = hrp.processHtmlToGallery(htmlSource)
+    val galleryWithISODate = hrp.processHtmlToGallery(htmlSource, isoDate = true)
+  }
+} 
+</pre></div>
+
+            </div>
+          </div>
+        </article>
+      
         <article id="printing-doujin">
           <div class="article">
             <h1 class="body-header">Printing doujin</h1>
@@ -327,7 +364,7 @@ for writing to a file. FileHentaiOutStream can append to currently existing file
 something with it. They all have overloaded methods to instantly print Arrays, Scala Lists, and Java ArrayLists of
 Gallery objects. They also have the C++ styled &lt;&lt; methods overloaded so in Scala you can chain them nicely with that,
 but in Java they don&#39;t really bring much of anything worthy of mention for you need to call them as they were normal
-methods, and their names are quite interesting.</p>
+methods, and their names are quite interesting($less$less, I think).</p>
 
 <div class="highlight highlight-java"><pre>// Java
 public class MultipleDoujinGetterCLI {

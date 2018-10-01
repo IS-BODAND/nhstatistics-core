@@ -4,7 +4,7 @@ for writing to a file. FileHentaiOutStream can append to currently existing file
 something with it. They all have overloaded methods to instantly print Arrays, Scala Lists, and Java ArrayLists of 
 Gallery objects. They also have the C++ styled << methods overloaded so in Scala you can chain them nicely with that, 
 but in Java they don't really bring much of anything worthy of mention for you need to call them as they were normal 
-methods, and their names are quite interesting.
+methods, and their names are quite interesting($less$less, I think).
 
 ```java
 // Java

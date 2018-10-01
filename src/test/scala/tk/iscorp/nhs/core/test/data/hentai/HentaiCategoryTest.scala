@@ -19,7 +19,12 @@ import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import tk.iscorp.nhs.core.data.hentai.{DoujinshiHentai, HentaiCategory, MangaHentai, OtherCategoryHentai}
+import tk.iscorp.nhs.core.data.hentai.{
+  DoujinshiHentai,
+  HentaiCategory,
+  MangaHentai,
+  OtherCategoryHentai
+}
 
 @RunWith(classOf[JUnitRunner])
 class HentaiCategoryTest extends WordSpec {

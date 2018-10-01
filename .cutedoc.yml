@@ -31,4 +31,5 @@ articles:
     HentaiData trait: doc/src/use/hentaidata.md
     Getting a doujin: doc/src/use/getone.md
     Getting multiple doujin: doc/src/use/getmore.md
+    Loading local doujin: doc/src/use/local.md
     Printing doujin: doc/src/use/print.md
