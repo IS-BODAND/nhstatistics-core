@@ -1,24 +1,19 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.datagetter
-
-import org.apache.commons.io.FileUtils
-import org.apache.commons.lang3.SystemUtils
-import org.slf4j.LoggerFactory
-import tk.iscorp.nhs.core.data.Gallery
 
 import java.io.{File, IOException}
 import java.net.URI
@@ -28,6 +23,10 @@ import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+
+import org.apache.commons.io.FileUtils
+import org.slf4j.LoggerFactory
+import tk.iscorp.nhs.core.data.Gallery
 
 class GalleryDownloader {
   private val logger = LoggerFactory.getLogger("Downloader")
@@ -41,7 +40,8 @@ class GalleryDownloader {
   def download(gly: Gallery, path: String, bonusData: Boolean): Int =
     download(gly, path, bonusData, hideBonusData = true)
 
-  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int = {
+  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int =
+  {
     logger.info(s"Downloading gallery ${gly.name}")
 
     FileUtils.deleteQuietly(new File(path))
@@ -53,45 +53,45 @@ class GalleryDownloader {
     pagesDownloaded
   }
 
-  private def createBonusDataIfNeeded(
-      gly: Gallery,
-      path: String,
-      bonusData: Boolean,
-      hideBonusData: Boolean
-  ): Any =
+  private def createBonusDataIfNeeded(gly: Gallery,
+                                      path: String,
+                                      bonusData: Boolean,
+                                      hideBonusData: Boolean): Any =
+  {
     if (bonusData) {
       val writeFilesResult: WrittenFiles = writeFiles(gly, path)
       val WrittenFiles(
-        xmlStringPath: String,
-        xmlFile: File,
-        jsonStringPath: String,
-        jsonFile: File
+      xmlStringPath: String,
+      xmlFile: File,
+      jsonStringPath: String,
+      jsonFile: File
       ) = writeFilesResult
 
       if (hideBonusData) {
         hideFiles(gly, path, xmlStringPath, xmlFile, jsonStringPath, jsonFile)
       }
     }
+  }
 
-  private def hideFiles(
-      gly: Gallery,
-      path: String,
-      xmlStringPath: String,
-      xmlFile: File,
-      jsonStringPath: String,
-      jsonFile: File
-  ): Any = {
+  private def hideFiles(gly: Gallery,
+                        path: String,
+                        xmlStringPath: String,
+                        xmlFile: File,
+                        jsonStringPath: String,
+                        jsonFile: File): Any =
+  {
     val xmlPath = FileSystems.getDefault.getPath(xmlStringPath)
     val jsonPath = FileSystems.getDefault.getPath(jsonStringPath)
 
-    if (SystemUtils.IS_OS_WINDOWS || SystemUtils.IS_OS_OS2) {
+    if (isWindows) {
       hideOnWin(xmlPath, jsonPath)
     } else {
       hideOnNix(gly, path, xmlFile, jsonFile)
     }
   }
 
-  private def hideOnNix(gly: Gallery, path: String, xmlFile: File, jsonFile: File): Unit = {
+  private def hideOnNix(gly: Gallery, path: String, xmlFile: File, jsonFile: File): Unit =
+  {
     val hiddenXmlFile = new File(s"$path/.${gly.id}.xml")
     val hiddenJsonFile = new File(s"$path/.${gly.id}.json")
 
@@ -99,19 +99,19 @@ class GalleryDownloader {
     FileUtils.moveFile(jsonFile, hiddenJsonFile)
   }
 
-  private def hideOnWin(xmlPath: Path, jsonPath: Path): Path = {
+  private def hideOnWin(xmlPath: Path, jsonPath: Path): Path =
+  {
     Files.setAttribute(xmlPath, "dos:hidden", true)
     Files.setAttribute(jsonPath, "dos:hidden", true)
   }
 
-  case class WrittenFiles(
-      xmlStringPath: String,
-      xmlFile: File,
-      jsonStringPath: String,
-      jsonFile: File
-  )
+  case class WrittenFiles(xmlStringPath: String,
+                          xmlFile: File,
+                          jsonStringPath: String,
+                          jsonFile: File)
 
-  private def writeFiles(gly: Gallery, path: String): WrittenFiles = {
+  private def writeFiles(gly: Gallery, path: String): WrittenFiles =
+  {
     val xmlStringPath = s"$path/${gly.id}.xml"
     val xmlFile = new File(xmlStringPath)
     val jsonStringPath = s"$path/${gly.id}.json"
@@ -129,7 +129,8 @@ class GalleryDownloader {
     WrittenFiles(xmlStringPath, xmlFile, jsonStringPath, jsonFile)
   }
 
-  private def downloadImages(gly: Gallery, path: String): Int = {
+  private def downloadImages(gly: Gallery, path: String): Int =
+  {
     val ret = new ArrayBuffer[Int]()
     val (pagesThird, remainder) = gly.pageCount match {
       case n if n % 3 == 0 ⇒
@@ -141,9 +142,9 @@ class GalleryDownloader {
     }
     val thirds =
       (
-        1 until pagesThird, // 1/3
-        pagesThird until pagesThird * 2, // 2(1/3)
-        pagesThird * 2 to pagesThird * 3 + remainder // remaining
+          1 until pagesThird, // 1/3
+          pagesThird until pagesThird * 2, // 2(1/3)
+          pagesThird * 2 to pagesThird * 3 + remainder // remaining
       )
 
     val f1 = Future {
@@ -163,7 +164,8 @@ class GalleryDownloader {
     ret.sum
   }
 
-  private def downloadThird(gly: Gallery, path: String, range: Range): Int = {
+  private def downloadThird(gly: Gallery, path: String, range: Range): Int =
+  {
     var pagesDownloaded: Int = 0
     for {
       i ← range
@@ -187,4 +189,6 @@ class GalleryDownloader {
     }
     pagesDownloaded
   }
+
+  private def isWindows: Boolean = System.getProperty("os.name").startsWith("Windows")
 }

@@ -1,19 +1,23 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.datagetter
+
+import scala.collection.mutable.ArrayBuffer
+import scala.language.{postfixOps, reflectiveCalls}
+import scala.reflect._
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Element, Node}
@@ -23,31 +27,28 @@ import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.data.hentai._
 import tk.iscorp.nhs.core.data.hentai.factory._
 
-import scala.collection.mutable.ArrayBuffer
-import scala.language.{postfixOps, reflectiveCalls}
-import scala.reflect._
-
 class HtmlResponseProcessor {
   private val regexText = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
-  def processHtmlToGallery(html: String, isoDate: Boolean = false): Gallery = {
+  def processHtmlToGallery(html: String, isoDate: Boolean = false): Gallery =
+  {
     val document = Jsoup.parse(html)
 
     var fault = 0
 
     implicit val id: Int = try {
       document
-        .selectFirst("div#cover>a")
-        .attr("href")
-        .substring(3)
-        .takeWhile(_ != '/')
-        .toInt
+      .selectFirst("div#cover>a")
+      .attr("href")
+      .substring(3)
+      .takeWhile(_ != '/')
+      .toInt
     } catch {
       case _: NullPointerException ⇒
         Utils.logger.error(
           "√-1 => Error getting hentai id. Most likely means that it was deleted. " +
-            s"Continuing to try, don't expect much."
+          s"Continuing to try, don't expect much."
         )
         fault += 1
         0
@@ -56,16 +57,16 @@ class HtmlResponseProcessor {
     val dataId = try {
       Utils.logger.debug(document.toString)
       document
-        .selectFirst("div#cover>a>img")
-        .attr("data-src")
-        .substring(32)
-        .takeWhile(c ⇒ c.isDigit)
-        .toInt
+      .selectFirst("div#cover>a>img")
+      .attr("data-src")
+      .substring(32)
+      .takeWhile(c ⇒ c.isDigit)
+      .toInt
     } catch {
       case _: NullPointerException ⇒
         Utils.logger.error(
           s"${if (id != 0) id else "√-1"} => Error getting data id. Most likely means that it was " +
-            s"deleted. Continuing to try, don't expect much."
+          s"deleted. Continuing to try, don't expect much."
         )
         fault += 1
         0
@@ -77,7 +78,7 @@ class HtmlResponseProcessor {
       case _: NullPointerException ⇒
         Utils.logger.error(
           s"${if (id != 0) id else "√-1"} => Error getting hentai name. Most likely means that it " +
-            s"was deleted. Continuing to try, don't expect much."
+          s"was deleted. Continuing to try, don't expect much."
         )
         fault += 1
         "!![[ERROR GETTING DOUJIN NAME]]!!"
@@ -115,10 +116,10 @@ class HtmlResponseProcessor {
         val category: HentaiCategory = getCategory(allTags.remove(0))
 
         val pageCount = document
-          .selectFirst("div#info>div")
-          .ownText()
-          .takeWhile(_ != ' ')
-          .toInt
+                        .selectFirst("div#info>div")
+                        .ownText()
+                        .takeWhile(_ != ' ')
+                        .toInt
 
         val date = {
           val asd = document.selectFirst("div#info div time")
@@ -152,7 +153,8 @@ class HtmlResponseProcessor {
     }
   }
 
-  private def getCategory(categoryRAW: Element): HentaiCategory = {
+  private def getCategory(categoryRAW: Element): HentaiCategory =
+  {
 
     val name = categoryRAW.child(0).ownText()
     val amount = categoryRAW.child(0).child(0).ownText() match {
@@ -170,27 +172,30 @@ class HtmlResponseProcessor {
       case _ ⇒
         Utils.logger.warn(
           s"Hentai category not found, this is most likely some kind of error. Category\n" +
-            s"\tfound: $name\n" +
-            s"\texpected: manga|doujinshi"
+          s"\tfound: $name\n" +
+          s"\texpected: manga|doujinshi"
         )
         new OtherCategoryHentai(amount)
     }
 
   }
 
-  private def getElements[HType <: HentaiData: ClassTag,
-                          HTypeFact <: HentaiDataFactory[HType]: ClassTag](
-      raw: Element
-  )(implicit id: Int): Array[HType] =
+  private def getElements[HType <: HentaiData : ClassTag,
+  HTypeFact <: HentaiDataFactory[HType] : ClassTag](
+                                                       raw: Element
+                                                   )(implicit id: Int): Array[HType] =
     if (raw.childNodeSize() > 0) {
       tagExtractor[HType, HTypeFact](raw.children())
     } else {
       Array.empty[HType]
     }
 
-  private def tagExtractor[E <: HentaiData: ClassTag, EFactory <: HentaiDataFactory[E]: ClassTag](
-      elem: Elements
-  )(implicit id: Int): Array[E] = {
+  private def tagExtractor[E <: HentaiData : ClassTag, EFactory <: HentaiDataFactory[E] : ClassTag](
+                                                                                                       elem: Elements
+                                                                                                   )(implicit
+                                                                                                     id: Int)
+  : Array[E] =
+  {
     val factoryClass = classTag[EFactory].runtimeClass
     val factory = factoryClass.newInstance().asInstanceOf[EFactory]
 
@@ -217,7 +222,8 @@ class HtmlResponseProcessor {
           }
         }
 
-      override def tail(node: Node, depth: Int): Unit = {}
+      override def tail(node: Node, depth: Int): Unit =
+      {}
     })
     tmpArr.toArray
   }

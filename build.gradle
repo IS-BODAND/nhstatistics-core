@@ -29,7 +29,8 @@ plugins {
     id 'scala'
     id 'maven'
     id 'jacoco'
-    id 'com.diffplug.gradle.spotless' version '3.15.0'
+    id 'nebula.optional-base' version '3.0.3'
+    id 'nebula.provided-base' version '3.0.3'
 }
 
 import org.apache.commons.io.FileUtils
@@ -51,20 +52,22 @@ dependencies {
     compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.6'
     // Scala XML - XML library
     compile group: 'org.scala-lang.modules', name: 'scala-xml_2.12', version: '1.1.0'
-    // Logback - Logger
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    // slf4j - Logger
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    // Logback - Logger Implementation
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3', optional {
+        exclude group: 'org.slf4j'
+    }
     // Apache Commons IO - IO tools
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    // Apache Commons Validator - Validating data
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    // Apache HttpComponents HttpClient - HTTP library
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     // Jetbrains Annotations - Annotating
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
     // JSON Simple - JSON library
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    // Apache Commons Validator - Validating data
-    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
-    // Apache Commons Lang - JVM Property handling
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
-    // Apache HttpComponents HttpClient - HTTP library
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
     // jSoup - HTML Parser
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
 
@@ -172,10 +175,3 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
-
-spotless {
-    scala {
-        scalafmt("1.5.1").configFile(".scalafmt.conf")
-    }
-}
-
