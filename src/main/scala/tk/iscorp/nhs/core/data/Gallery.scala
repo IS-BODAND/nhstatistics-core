@@ -1,27 +1,27 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.data
-
-import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
-import tk.iscorp.nhs.core.data.hentai._
 
 import java.util.{ArrayList ⇒ JList, HashMap ⇒ JMap}
 
 import scala.xml.Node
+
+import org.jetbrains.annotations.{NonNls, NotNull}
+import org.json.simple.JSONObject
+import tk.iscorp.nhs.core.data.hentai._
 
 /**
   * Represents a gallery on the nhentai site. Doujin = Gallery; Doujin = Galleries ;; Japanese is nice
@@ -42,24 +42,23 @@ import scala.xml.Node
   *                   https://t.nhentai.net/galleries/&lt;dataID&gt;/1.jpg
   *
   * @author bodand
-  *
   * @since 1.0
   */
 class Gallery(
-    @NonNls @NotNull val name: String,
-    @NonNls @NotNull val japName: String,
-    @NonNls @NotNull val parodies: Array[HentaiParody],
-    @NonNls @NotNull val characters: Array[HentaiCharacter],
-    @NonNls @NotNull val tags: Array[HentaiTag],
-    @NonNls @NotNull val artists: Array[HentaiArtist],
-    @NonNls @NotNull val groups: Array[HentaiGroup],
-    @NotNull val languages: Array[HentaiLanguage],
-    @NotNull val category: HentaiCategory,
-    @NotNull val pageCount: Int,
-    @NonNls @NotNull val uploadDate: String,
-    @NotNull val id: Int,
-    @NotNull val dataId: Int
-) {
+                 @NonNls @NotNull val name: String,
+                 @NonNls @NotNull val japName: String,
+                 @NonNls @NotNull val parodies: Array[HentaiParody],
+                 @NonNls @NotNull val characters: Array[HentaiCharacter],
+                 @NonNls @NotNull val tags: Array[HentaiTag],
+                 @NonNls @NotNull val artists: Array[HentaiArtist],
+                 @NonNls @NotNull val groups: Array[HentaiGroup],
+                 @NotNull val languages: Array[HentaiLanguage],
+                 @NotNull val category: HentaiCategory,
+                 @NotNull val pageCount: Int,
+                 @NonNls @NotNull val uploadDate: String,
+                 @NotNull val id: Int,
+                 @NotNull val dataId: Int
+             ) {
 
   /**
     * Checks equality of with another object.
@@ -110,14 +109,13 @@ class Gallery(
     * &nbsp;&nbsp;&lt;pages size="14"/&gt;<br/>
     * &nbsp;&nbsp;&lt;upload&gt;June 28, 2014, 2:12 p.m.&lt;/upload&gt;<br/>
     * &lt;/gallery&gt;<br/>
-    *
     * @return A scala.xml.Node object with the xml data in it.
     *
     * @since 1.1
     *        1.3 - added the new data-id property
     */
   def toXml: Node =
-    //fuckin indentation
+  //fuckin indentation
     <gallery id={s"$id"} data-id={s"$dataId"}>
   <name>{s"$name"}</name>
   <sec-name>{s"$japName"}</sec-name>
@@ -220,7 +218,6 @@ class Gallery(
     * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
     * &nbsp;&nbsp;]<br/>
     * }
-    *
     * @return A org.json.simple.JSONObject object of the gallery.
     *
     * @since 1.2
@@ -310,7 +307,7 @@ class Gallery(
   private def printCharactersConditionally =
     if (characters.length > 0) {
       s"${makeStringPossiblyPlural(characters.length, "Character")}: " +
-        s"${stringifyArray(characters)}"
+      s"${stringifyArray(characters)}"
     } else {
       "{No characters specified}"
     }
@@ -318,7 +315,7 @@ class Gallery(
   private def printParodiesConditionally =
     if (parodies.length > 0) {
       s"${makeStringPossiblyPlural(parodies.length, "Parod", "y", "ies")}: " +
-        s"${stringifyArray(parodies)}"
+      s"${stringifyArray(parodies)}"
     } else {
       "{No parodies specified}"
     }
@@ -334,11 +331,11 @@ class Gallery(
     array map (_.toString) mkString ", "
 
   private def makeStringPossiblyPlural(
-      amountToChangeOn: Int,
-      base: String,
-      sg: String = "",
-      pl: String = "s"
-  ): String =
+                                          amountToChangeOn: Int,
+                                          base: String,
+                                          sg: String = "",
+                                          pl: String = "s"
+                                      ): String =
     s"$base${if (amountToChangeOn == 1) sg else pl}"
 }
 
@@ -352,20 +349,20 @@ object Gallery {
     * @since 1.1
     */
   def dummy(
-      name: String = "Dummy Gallery",
-      japName: String = "Dummi Garreri",
-      tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
-      parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
-      characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
-      artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
-      groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
-      languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
-      category: MangaHentai = new MangaHentai(96),
-      pageCount: Int = 85,
-      uploadDate: String = "20XX-01-01",
-      id: Int = 999999,
-      dataId: Int = 9999999
-  ): Gallery =
+               name: String = "Dummy Gallery",
+               japName: String = "Dummi Garreri",
+               tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
+               parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
+               characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
+               artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
+               groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
+               languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
+               category: MangaHentai = new MangaHentai(96),
+               pageCount: Int = 85,
+               uploadDate: String = "20XX-01-01",
+               id: Int = 999999,
+               dataId: Int = 9999999
+           ): Gallery =
     new Gallery(
       name,
       japName,

@@ -1,24 +1,24 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
+
+import scala.xml.Node
 
 import org.jetbrains.annotations.{NonNls, NotNull}
 import org.json.simple.JSONObject
-
-import scala.xml.Node
 
 /**
   * For different hentai information to implement, eg. artists, characters, as tags.
@@ -27,7 +27,6 @@ import scala.xml.Node
   * Allows simple transformation to data formats: XML and JSON.
   *
   * @author bodand
-  *
   * @since 1.0
   */
 trait HentaiData {
@@ -77,7 +76,6 @@ trait HentaiData {
     * @example If the name is `genderbent-bodand` (I've seen some, in some manga)
     *          and the amount is `1` the string will be:
     *          `[genderbent-bodand (1)]`
-    *
     * @since 1.0
     */
   @NonNls

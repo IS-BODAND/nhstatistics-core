@@ -60,12 +60,10 @@ class GalleryDownloader {
   {
     if (bonusData) {
       val writeFilesResult: WrittenFiles = writeFiles(gly, path)
-      val WrittenFiles(
-      xmlStringPath: String,
-      xmlFile: File,
-      jsonStringPath: String,
-      jsonFile: File
-      ) = writeFilesResult
+      val WrittenFiles(xmlStringPath: String,
+                       xmlFile: File,
+                       jsonStringPath: String,
+                       jsonFile: File) = writeFilesResult
 
       if (hideBonusData) {
         hideFiles(gly, path, xmlStringPath, xmlFile, jsonStringPath, jsonFile)

@@ -1,26 +1,26 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.stream
+
+import java.util.{List ⇒ JavaList}
+
+import scala.collection.JavaConverters._
 
 import org.jetbrains.annotations.NotNull
 import tk.iscorp.nhs.core.data.Gallery
-
-import java.util.{ArrayList ⇒ JArrayList}
-
-import scala.collection.JavaConverters._
 
 /**
   * Trait that defines methods to read in hentai doujins as [[tk.iscorp.nhs.core.data.Gallery]] instances
@@ -30,11 +30,10 @@ trait HentaiInStream {
   /**
     * Reads one doujin with id
     *
-    * @param id The ID of the doujin to be read
+    * @param id      The ID of the doujin to be read
     * @param isoDate Whether the doujin's upload date should be set to the ISO 8601 date version
     *
     * @throws NullPointerException If any of the parameters is `null`
-    *
     * @return The Gallery specified by the input ID. [[tk.iscorp.nhs.core.data.Gallery#dummy]] if ID doesn't point to
     *         any real doujin.
     */
@@ -51,7 +50,8 @@ trait HentaiInStream {
     *         any real doujin.
     */
   @NotNull
-  def readByID(@NotNull id: String): Gallery = readByID(id, isoDate = false)
+  def readByID(@NotNull id: String): Gallery =
+    readByID(id, isoDate = false)
 
   /**
     * Reads all doujin specified by the Scala List of IDs.
@@ -89,27 +89,22 @@ trait HentaiInStream {
     *         If any of the IDs are invalid their returned doujin will be [[tk.iscorp.nhs.core.data.Gallery#dummy]]
     */
   @NotNull
-  def readMultipleByID(@NotNull ids: JArrayList[String]): JArrayList[Gallery] =
+  def readMultipleByID(@NotNull ids: JavaList[String]): JavaList[Gallery] =
     readMultipleByID(ids, isoDate = false)
 
   /**
     * Reads all doujin specified by the ArrayList of IDs.
     *
-    * @param ids The ArrayList of IDs
+    * @param ids The Java util.List of IDs
     *
     * @throws NullPointerException If any of the parameters is `null`
-    * @return A ArrayList of Galleries read.
+    * @return A Java util.List of Galleries read.
     *         If any of the IDs are invalid their returned doujin will be [[tk.iscorp.nhs.core.data.Gallery#dummy]]
     */
   @NotNull
-  def readMultipleByID(
-      @NotNull ids: JArrayList[String],
-      @NotNull isoDate: Boolean
-  ): JArrayList[Gallery] = {
-    val galleries =
-      (for (id ← ids.asScala) yield readByID(id, isoDate)).asJavaCollection
-    new JArrayList[Gallery](galleries)
-  }
+  def readMultipleByID(@NotNull ids: JavaList[String],
+                       @NotNull isoDate: Boolean): JavaList[Gallery] =
+    (for (id ← ids.asScala) yield readByID(id, isoDate)).asJava
 
   /**
     * Reads all doujin specified by the Array of IDs.
