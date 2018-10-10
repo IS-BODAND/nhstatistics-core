@@ -17,7 +17,6 @@ package tk.iscorp.nhs.core.datagetter
 
 import java.net.URI
 
-import org.apache.commons.validator.routines.UrlValidator
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{CloseableHttpClient, HttpClients}
 import org.apache.http.util.EntityUtils
@@ -27,15 +26,15 @@ private[core] class HttpGetter() {
   @NotNull
   private val httpClient: CloseableHttpClient = HttpClients.createDefault()
   @NotNull
-  private val urlSchemes: Array[String] = Array("https")
+  private val httpRegex =
+    """https://\w+\.[a-zA-Z]+(/.++)?/?""".r.pattern
 
   @NotNull
   @NonNls
   def getResponseFromUri(@Nullable uriString: String): String =
   {
-    val urlValidator = new UrlValidator(urlSchemes)
     if (uriString == null) ""
-    else if (!urlValidator.isValid(uriString)) ""
+    else if (!httpRegex.matcher(uriString).matches()) ""
     else {
       val uri = new URI(uriString)
       val request = new HttpGet(uri)

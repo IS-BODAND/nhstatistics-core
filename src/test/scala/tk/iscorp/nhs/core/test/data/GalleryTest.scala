@@ -15,6 +15,8 @@
  ******************************************************************************/
 package tk.iscorp.nhs.core.test.data
 
+import java.io.File
+
 import org.apache.commons.io.FileUtils
 import org.junit.Assert._
 import org.junit.runner.RunWith
@@ -22,8 +24,6 @@ import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.data.hentai._
-
-import java.io.File
 
 @RunWith(classOf[JUnitRunner])
 class GalleryTest extends WordSpec {
@@ -94,28 +94,30 @@ class GalleryTest extends WordSpec {
     "xml requested" should {
       "return valid xml" in {
         val xmlString =
-          <gallery id="1" data-id="9">
+          <gallery data-id="9"  id="1">
   <name>(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)</name>
   <sec-name>(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)</sec-name>
   <parodies>
-    <parody name="pangya" amount="78"/>
+    <parody amount="78" name="pangya"/>
   </parodies>
   <characters>
-    <character name="kooh" amount="41"/>
+    <character amount="41" name="kooh"/>
   </characters>
   <tags>
-    <tag name="lolicon" amount="45693" /><tag name="catgirl" amount="5796" /><tag name="gymshorts" amount="176" />
+    <tag amount="45693" name="lolicon" />
+    <tag amount="5796" name="catgirl" />
+    <tag amount="176" name="gymshorts" />
   </tags>
   <artists>
-    <artist name="koari" amount="46" />
+    <artist amount="46" name="koari" />
   </artists>
   <groups>
-    <group name="arisan-antenna" amount="34" />
+    <group amount="34" name="arisan-antenna" />
   </groups>
   <languages>
-    <language name="Japanese" amount="129652" />
+    <language amount="129652" name="Japanese" />
   </languages>
-  <category name="Doujinshi" amount="138514" />
+  <category amount="138514" name="Doujinshi" />
   <pages size="14" />
   <upload>June 28, 2014, 2:12 p.m.</upload>
 </gallery>.toString() // fuck this shit

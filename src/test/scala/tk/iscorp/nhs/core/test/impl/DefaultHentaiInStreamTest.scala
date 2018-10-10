@@ -15,6 +15,10 @@
  ******************************************************************************/
 package tk.iscorp.nhs.core.test.impl
 
+import java.util
+
+import scala.collection.JavaConverters._
+
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
@@ -22,10 +26,6 @@ import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.stream.impl.DefaultHentaiInStream
 import tk.iscorp.nhs.core.test.GalleryDataSupplier
-
-import java.util
-
-import scala.collection.JavaConverters._
 
 @RunWith(classOf[JUnitRunner])
 class DefaultHentaiInStreamTest extends WordSpec {
@@ -47,7 +47,7 @@ class DefaultHentaiInStreamTest extends WordSpec {
     }
     "read one doujin correctly" in {
       val doujin = inStream.readByID("1")
-      assertEquals(doujin, testDoujinID1)
+      assertEquals(testDoujinID1, doujin)
     }
     "read more doujin to array" in {
       var doujin: Array[Gallery] = null
@@ -70,7 +70,7 @@ class DefaultHentaiInStreamTest extends WordSpec {
       assertEquals(arrayOfTestDoujin(1), doujin(1))
     }
     "read more doujin to ArrayList" in {
-      var doujin: util.ArrayList[Gallery] = null
+      var doujin: util.List[Gallery] = null
       val coll = List("1", "2").asJavaCollection
       doujin = inStream.readMultipleByID(new util.ArrayList[String](coll))
       assertNotNull(doujin)

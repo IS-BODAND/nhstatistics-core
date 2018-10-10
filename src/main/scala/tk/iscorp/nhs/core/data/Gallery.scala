@@ -17,7 +17,7 @@ package tk.iscorp.nhs.core.data
 
 import java.util.{ArrayList ⇒ JList, HashMap ⇒ JMap}
 
-import scala.xml.Node
+import scala.xml.{Node, XML}
 
 import org.jetbrains.annotations.{NonNls, NotNull}
 import org.json.simple.JSONObject
@@ -39,26 +39,25 @@ import tk.iscorp.nhs.core.data.hentai._
   * @param uploadDate Upload date of the doujin. Will change to some Date object.
   * @param id         ID of the doujin. Starts from 1.
   * @param dataId     ID of the doujin from the behind the scenes image storage.
-  *                   https://t.nhentai.net/galleries/&lt;dataID&gt;/1.jpg
+  *                   https://i.nhentai.net/galleries/&lt;dataID&gt;/1.jpg
   *
   * @author bodand
-  * @since 1.0
+  * @since 1.0 - Added class
+  *        1.3.5 - Changed date to OffsetDateTime
   */
-class Gallery(
-                 @NonNls @NotNull val name: String,
-                 @NonNls @NotNull val japName: String,
-                 @NonNls @NotNull val parodies: Array[HentaiParody],
-                 @NonNls @NotNull val characters: Array[HentaiCharacter],
-                 @NonNls @NotNull val tags: Array[HentaiTag],
-                 @NonNls @NotNull val artists: Array[HentaiArtist],
-                 @NonNls @NotNull val groups: Array[HentaiGroup],
-                 @NotNull val languages: Array[HentaiLanguage],
-                 @NotNull val category: HentaiCategory,
-                 @NotNull val pageCount: Int,
-                 @NonNls @NotNull val uploadDate: String,
-                 @NotNull val id: Int,
-                 @NotNull val dataId: Int
-             ) {
+class Gallery(@NonNls @NotNull val name: String,
+              @NonNls @NotNull val japName: String,
+              @NonNls @NotNull val parodies: Array[HentaiParody],
+              @NonNls @NotNull val characters: Array[HentaiCharacter],
+              @NonNls @NotNull val tags: Array[HentaiTag],
+              @NonNls @NotNull val artists: Array[HentaiArtist],
+              @NonNls @NotNull val groups: Array[HentaiGroup],
+              @NotNull val languages: Array[HentaiLanguage],
+              @NotNull val category: HentaiCategory,
+              @NotNull val pageCount: Int,
+              @NonNls @NotNull val uploadDate: String,
+              @NotNull val id: Int,
+              @NotNull val dataId: Int) {
 
   /**
     * Checks equality of with another object.
@@ -115,32 +114,33 @@ class Gallery(
     *        1.3 - added the new data-id property
     */
   def toXml: Node =
-  //fuckin indentation
-    <gallery id={s"$id"} data-id={s"$dataId"}>
-  <name>{s"$name"}</name>
-  <sec-name>{s"$japName"}</sec-name>
-  <parodies>
-    {parodies.map(_.toXml)}
-  </parodies>
-  <characters>
-    {characters.map(_.toXml)}
-  </characters>
-  <tags>
-    {tags.map(_.toXml)}
-  </tags>
-  <artists>
-    {artists.map(_.toXml)}
-  </artists>
-  <groups>
-    {groups.map(_.toXml)}
-  </groups>
-  <languages>
-    {languages.map(_.toXml)}
-  </languages>
-  {category.toXml}
-  <pages size={s"$pageCount"} />
-  <upload>{s"$uploadDate"}</upload>
-</gallery>
+    XML.loadString(
+      s"""<gallery id="$id" data-id="$dataId">
+         |  <name>$name</name>
+         |  <sec-name>$japName</sec-name>
+         |  <parodies>
+         |    ${parodies.map(_.toXml.toString()).mkString("\n    ")}
+         |  </parodies>
+         |  <characters>
+         |    ${characters.map(_.toXml.toString()).mkString("\n    ")}
+         |  </characters>
+         |  <tags>
+         |    ${tags.map(_.toXml.toString()).mkString("\n    ")}
+         |  </tags>
+         |  <artists>
+         |    ${artists.map(_.toXml.toString()).mkString("\n    ")}
+         |  </artists>
+         |  <groups>
+         |    ${groups.map(_.toXml.toString()).mkString("\n    ")}
+         |  </groups>
+         |  <languages>
+         |    ${languages.map(_.toXml.toString()).mkString("\n    ")}
+         |  </languages>
+         |  ${category.toXml.toString()}
+         |  <pages size="$pageCount" />
+         |  <upload>$uploadDate</upload>
+         |</gallery>
+         |""".stripMargin)
 
   /**
     * Returns the gallery in Json format. Order of appearance may wary from object to object.
