@@ -17,7 +17,6 @@ package tk.iscorp.nhs.core.test.data
 
 import java.io.File
 
-import org.apache.commons.io.FileUtils
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
@@ -148,9 +147,6 @@ class GalleryTest extends WordSpec {
         val gotString = gallery1
                         .toJson
                         .replaceAll("(?<=,|\\{|\"|:)\\s+(?!\\d)", "")
-
-        FileUtils.writeStringToFile(new File("exp.bodandkeep.txt"), jsonString, "utf-8")
-        FileUtils.writeStringToFile(new File("got.bodandkeep.txt"), gotString, "utf-8")
 
         assertEquals(jsonString, gotString)
       }
