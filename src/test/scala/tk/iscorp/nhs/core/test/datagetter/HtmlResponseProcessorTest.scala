@@ -15,6 +15,8 @@
  ******************************************************************************/
 package tk.iscorp.nhs.core.test.datagetter
 
+import java.io.File
+
 import org.apache.commons.io.FileUtils
 import org.junit.Assert._
 import org.junit.runner.RunWith
@@ -23,8 +25,6 @@ import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor
 import tk.iscorp.nhs.core.test.GalleryDataSupplier
-
-import java.io.File
 
 @RunWith(classOf[JUnitRunner])
 class HtmlResponseProcessorTest extends WordSpec {
@@ -68,17 +68,11 @@ class HtmlResponseProcessorTest extends WordSpec {
           val nhentaiHtmlFile =
             new File(getClass.getClassLoader.getResource("nhentaiid1.html").toURI)
           val nhPage = FileUtils.readFileToString(nhentaiHtmlFile, "utf-8")
-          "iso date not requested" in {
+          "requested" in {
 
             assertEquals(
               testGallery,
               htp.processHtmlToGallery(nhPage)
-            )
-          }
-          "iso date requested" in {
-            assertEquals(
-              testGalleryWithISODate,
-              htp.processHtmlToGallery(nhPage, isoDate = true)
             )
           }
         }

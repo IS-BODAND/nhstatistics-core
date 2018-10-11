@@ -15,6 +15,9 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data
 
+import java.time.format.DateTimeFormatter
+import java.time.{OffsetDateTime, ZoneOffset}
+
 import org.jetbrains.annotations.{NonNls, NotNull}
 import tk.iscorp.nhs.core.data.hentai._
 import tk.iscorp.nhs.core.transform.{JSONTransformable, XmlTransformable}
@@ -52,7 +55,7 @@ class Gallery(@NonNls @NotNull val name: String,
               @NotNull val languages: Array[HentaiLanguage],
               @NotNull val category: HentaiCategory,
               @NotNull val pageCount: Int,
-              @NonNls @NotNull val uploadDate: String,
+              @NonNls @NotNull val uploadDate: OffsetDateTime,
               @NotNull val id: Int,
               @NotNull val dataId: Int) extends XmlTransformable with JSONTransformable {
 
@@ -111,31 +114,31 @@ class Gallery(@NonNls @NotNull val name: String,
     *        1.3.5 - Changed to return string to reduce dependency overhead
     */
   override def toXml: String =
-      s"""<gallery id="$id" data-id="$dataId">
-         |  <name>$name</name>
-         |  <sec-name>$japName</sec-name>
-         |  <parodies>
-         |    ${parodies.map(_.toXml).mkString("\n    ")}
-         |  </parodies>
-         |  <characters>
-         |    ${characters.map(_.toXml).mkString("\n    ")}
-         |  </characters>
-         |  <tags>
-         |    ${tags.map(_.toXml).mkString("\n    ")}
-         |  </tags>
-         |  <artists>
-         |    ${artists.map(_.toXml).mkString("\n    ")}
-         |  </artists>
-         |  <groups>
-         |    ${groups.map(_.toXml).mkString("\n    ")}
-         |  </groups>
-         |  <languages>
-         |    ${languages.map(_.toXml).mkString("\n    ")}
-         |  </languages>
-         |  ${category.toXml}
-         |  <pages size="$pageCount"/>
-         |  <upload>$uploadDate</upload>
-         |</gallery>""".stripMargin
+    s"""<gallery id="$id" data-id="$dataId">
+       |  <name>$name</name>
+       |  <sec-name>$japName</sec-name>
+       |  <parodies>
+       |    ${parodies.map(_.toXml).mkString("\n    ")}
+       |  </parodies>
+       |  <characters>
+       |    ${characters.map(_.toXml).mkString("\n    ")}
+       |  </characters>
+       |  <tags>
+       |    ${tags.map(_.toXml).mkString("\n    ")}
+       |  </tags>
+       |  <artists>
+       |    ${artists.map(_.toXml).mkString("\n    ")}
+       |  </artists>
+       |  <groups>
+       |    ${groups.map(_.toXml).mkString("\n    ")}
+       |  </groups>
+       |  <languages>
+       |    ${languages.map(_.toXml).mkString("\n    ")}
+       |  </languages>
+       |  ${category.toXml}
+       |  <pages size="$pageCount"/>
+       |  <upload>${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))}</upload>
+       |</gallery>""".stripMargin
 
   /**
     * Returns the gallery in JSON format. Order of appearance may wary from object to object.
@@ -221,7 +224,7 @@ class Gallery(@NonNls @NotNull val name: String,
     */
   override def toJson: String =
     s"""{"id":$id,"pages":$pageCount,
-       |"data-id":$dataId,"upload":"$uploadDate",
+       |"data-id":$dataId,"upload":"${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))}",
        |"name":"$name",
        |"sec-name":"$japName",
        |"category":${category.toJson},
@@ -255,7 +258,7 @@ class Gallery(@NonNls @NotNull val name: String,
        |Category: ${category.toString}
        |
        |${makeStringPossiblyPlural(pageCount, "Page")}: $pageCount
-       |Uploaded: $uploadDate
+       |Uploaded: ${uploadDate.format(DateTimeFormatter.BASIC_ISO_DATE)}
      """.stripMargin
 
   private def printArtistsConditionally =
@@ -296,12 +299,10 @@ class Gallery(@NonNls @NotNull val name: String,
   private def stringifyArray(array: Array[_ <: HentaiData]): String =
     array map (_.toString) mkString ", "
 
-  private def makeStringPossiblyPlural(
-                                          amountToChangeOn: Int,
-                                          base: String,
-                                          sg: String = "",
-                                          pl: String = "s"
-                                      ): String =
+  private def makeStringPossiblyPlural(amountToChangeOn: Int,
+                                       base: String,
+                                       sg: String = "",
+                                       pl: String = "s"): String =
     s"$base${if (amountToChangeOn == 1) sg else pl}"
 }
 
@@ -314,34 +315,33 @@ object Gallery {
     *
     * @since 1.1
     */
-  def dummy(
-               name: String = "Dummy Gallery",
-               japName: String = "Dummi Garreri",
-               tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
-               parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
-               characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
-               artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
-               groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
-               languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
-               category: MangaHentai = new MangaHentai(96),
-               pageCount: Int = 85,
-               uploadDate: String = "20XX-01-01",
-               id: Int = 999999,
-               dataId: Int = 9999999
-           ): Gallery =
-    new Gallery(
-      name,
-      japName,
-      parodies,
-      characters,
-      tags,
-      artists,
-      groups,
-      languages,
-      category,
-      pageCount,
-      uploadDate,
-      id,
-      dataId
-    )
+  def dummy(name: String = "Dummy Gallery",
+            japName: String = "Dummi Garreri",
+            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
+            parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
+            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
+            artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
+            groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
+            languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
+            category: MangaHentai = new MangaHentai(96),
+            pageCount: Int = 85,
+            uploadDate: OffsetDateTime = OffsetDateTime.of(1970, 1,
+                                                           1, 0,
+                                                           0, 0,
+                                                           1, ZoneOffset.UTC),
+            id: Int = 999999,
+            dataId: Int = 9999999): Gallery =
+    new Gallery(name,
+                japName,
+                parodies,
+                characters,
+                tags,
+                artists,
+                groups,
+                languages,
+                category,
+                pageCount,
+                uploadDate,
+                id,
+                dataId)
 }

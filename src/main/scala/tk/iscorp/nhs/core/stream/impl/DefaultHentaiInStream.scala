@@ -41,6 +41,6 @@ class DefaultHentaiInStream extends HentaiInStream {
   override def readByID(id: String, isoDate: Boolean): Gallery = {
     val httpResponse =
       httpClientWrapper.getResponseFromUri(s"https://nhentai.net/g/$id")
-    htmlResponseProcessor.processHtmlToGallery(httpResponse, isoDate)
+    htmlResponseProcessor.processHtmlToGallery(httpResponse)
   }
 }

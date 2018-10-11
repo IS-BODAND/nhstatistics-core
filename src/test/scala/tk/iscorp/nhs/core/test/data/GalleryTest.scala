@@ -1,21 +1,22 @@
-/*******************************************************************************
- Copyright 2018 bodand
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ******************************************************************************/
+/** *****************************************************************************
+  * Copyright 2018 bodand
+  * *
+  * Licensed under the Apache License, Version 2.0 (the "License");
+  * you may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
+  * *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  * *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  * *****************************************************************************/
 package tk.iscorp.nhs.core.test.data
 
 import java.io.File
+import java.time.OffsetDateTime
 
 import org.junit.Assert._
 import org.junit.runner.RunWith
@@ -28,48 +29,42 @@ import tk.iscorp.nhs.core.data.hentai._
 class GalleryTest extends WordSpec {
   private var gallery1: Gallery = _
   private val gallery2eq1: Gallery =
-    new Gallery(
-      "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-      "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
-      Array(new HentaiParody("pangya", 78)),
-      Array(new HentaiCharacter("kooh", 41)),
-      Array(
-        new HentaiTag("lolicon", 45693),
-        new HentaiTag("catgirl", 5796),
-        new HentaiTag("gymshorts", 176)
-      ),
-      Array(new HentaiArtist("koari", 46)),
-      Array(new HentaiGroup("arisan-antenna", 34)),
-      Array(new JapaneseHentai(129652)),
-      new DoujinshiHentai(138514),
-      14,
-      "June 28, 2014, 2:12 p.m.",
-      1,
-      9
-    )
+    new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+                "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+                Array(new HentaiParody("pangya", 78)),
+                Array(new HentaiCharacter("kooh", 41)),
+                Array(
+                  new HentaiTag("lolicon", 45693),
+                  new HentaiTag("catgirl", 5796),
+                  new HentaiTag("gymshorts", 176)
+                ),
+                Array(new HentaiArtist("koari", 46)),
+                Array(new HentaiGroup("arisan-antenna", 34)),
+                Array(new JapaneseHentai(129652)),
+                new DoujinshiHentai(138514),
+                14,
+                OffsetDateTime.parse("2014-06-28T14:12:16.640420+00:00"),
+                1,
+                9)
   private val gallery3ne1: Gallery = Gallery.dummy()
   "A gallery" when {
     "created" should {
       "initialize" in {
-        gallery1 = new Gallery(
-          "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-          "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
-          Array(new HentaiParody("pangya", 78)),
-          Array(new HentaiCharacter("kooh", 41)),
-          Array(
-            new HentaiTag("lolicon", 45693),
-            new HentaiTag("catgirl", 5796),
-            new HentaiTag("gymshorts", 176)
-          ),
-          Array(new HentaiArtist("koari", 46)),
-          Array(new HentaiGroup("arisan-antenna", 34)),
-          Array(new JapaneseHentai(129652)),
-          new DoujinshiHentai(138514),
-          14,
-          "June 28, 2014, 2:12 p.m.",
-          1,
-          9
-        )
+        gallery1 = new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+                               "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+                               Array(new HentaiParody("pangya", 78)),
+                               Array(new HentaiCharacter("kooh", 41)),
+                               Array(new HentaiTag("lolicon", 45693),
+                                     new HentaiTag("catgirl", 5796),
+                                     new HentaiTag("gymshorts", 176)),
+                               Array(new HentaiArtist("koari", 46)),
+                               Array(new HentaiGroup("arisan-antenna", 34)),
+                               Array(new JapaneseHentai(129652)),
+                               new DoujinshiHentai(138514),
+                               14,
+                               OffsetDateTime.parse("2014-06-28T14:12:16.640420+00:00"),
+                               1,
+                               9)
         assertNotNull(gallery1)
       }
     }
@@ -84,7 +79,7 @@ class GalleryTest extends WordSpec {
           assertFalse(gallery1 == gallery3ne1)
         }
         "other isn't a gallery" in {
-          val obj = new File("Your_life_is_meaningless_and_so_is_the_universe.it_is_the_truth")
+          val obj = new File("Your_life_is_meaningless_and_so_is_the_universe.tex")
           //noinspection ComparingUnrelatedTypes
           assertFalse(gallery1 == obj)
         }
@@ -118,7 +113,7 @@ class GalleryTest extends WordSpec {
   </languages>
   <category name="Doujinshi" amount="138514" />
   <pages size="14" />
-  <upload>June 28, 2014, 2:12 p.m.</upload>
+  <upload>2014-06-28T14:12</upload>
 </gallery>.toString() // fuck this shit
         assertEquals(xmlString, gallery1.toXml)
       }
@@ -129,7 +124,7 @@ class GalleryTest extends WordSpec {
           """{"id":1,
             |"pages":14,
             |"data-id":9,
-            |"upload":"June 28, 2014, 2:12 p.m.",
+            |"upload":"2014-06-28T14:12",
             |"name":"(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
             |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
             |"category":{"name":"Doujinshi","amount":138514},
@@ -144,9 +139,7 @@ class GalleryTest extends WordSpec {
               .stripMargin
               .replaceAll("(?<=,)\\s+(?!\\d)", "")
 
-        val gotString = gallery1
-                        .toJson
-                        .replaceAll("(?<=,|\\{|\"|:)\\s+(?!\\d)", "")
+        val gotString = gallery1.toJson.replaceAll("(?<=,)\\s+(?!\\d)", "")
 
         assertEquals(jsonString, gotString)
       }

@@ -15,6 +15,8 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.datagetter
 
+import java.time.OffsetDateTime
+
 import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect._
@@ -31,7 +33,7 @@ class HtmlResponseProcessor {
   private val regexText = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
-  def processHtmlToGallery(html: String, isoDate: Boolean = false): Gallery =
+  def processHtmlToGallery(html: String): Gallery =
   {
     val document = Jsoup.parse(html)
 
@@ -121,30 +123,21 @@ class HtmlResponseProcessor {
                         .takeWhile(_ != ' ')
                         .toInt
 
-        val date = {
-          val asd = document.selectFirst("div#info div time")
-          if (isoDate) {
-            asd.attr("datetime")
-          } else {
-            asd.text()
-          }
-        }
+        val date = document.selectFirst("div#info div time").attr("datetime")
 
-        new Gallery(
-          name,
-          japName,
-          parodies,
-          characters,
-          tags,
-          artists,
-          groups,
-          languages,
-          category,
-          pageCount,
-          date,
-          id,
-          dataId
-        )
+        new Gallery(name,
+                    japName,
+                    parodies,
+                    characters,
+                    tags,
+                    artists,
+                    groups,
+                    languages,
+                    category,
+                    pageCount,
+                    OffsetDateTime.parse(date),
+                    id,
+                    dataId)
       } catch {
         case _: NullPointerException ⇒
           Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
@@ -181,20 +174,17 @@ class HtmlResponseProcessor {
   }
 
   private def getElements[HType <: HentaiData : ClassTag,
-  HTypeFact <: HentaiDataFactory[HType] : ClassTag](
-                                                       raw: Element
-                                                   )(implicit id: Int): Array[HType] =
+  HTypeFact <: HentaiDataFactory[HType] : ClassTag](raw: Element)
+                                                   (implicit id: Int): Array[HType] =
     if (raw.childNodeSize() > 0) {
       tagExtractor[HType, HTypeFact](raw.children())
     } else {
       Array.empty[HType]
     }
 
-  private def tagExtractor[E <: HentaiData : ClassTag, EFactory <: HentaiDataFactory[E] : ClassTag](
-                                                                                                       elem: Elements
-                                                                                                   )(implicit
-                                                                                                     id: Int)
-  : Array[E] =
+  private def tagExtractor[E <: HentaiData : ClassTag,
+  EFactory <: HentaiDataFactory[E] : ClassTag](elem: Elements)
+                                              (implicit id: Int): Array[E] =
   {
     val factoryClass = classTag[EFactory].runtimeClass
     val factory = factoryClass.newInstance().asInstanceOf[EFactory]

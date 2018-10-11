@@ -15,6 +15,12 @@
  ******************************************************************************/
 package tk.iscorp.nhs.core.test.impl
 
+import java.io.File
+import java.time.OffsetDateTime
+import java.util.{ArrayList ⇒ JArrayList}
+
+import scala.collection.JavaConverters._
+
 import org.apache.commons.io.FileUtils
 import org.junit.Assert._
 import org.junit.runner.RunWith
@@ -23,15 +29,10 @@ import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.stream.impl.FileHentaiOutStream
 
-import java.io.File
-import java.util.{ArrayList ⇒ JArrayList}
-
-import scala.collection.JavaConverters._
-
 @RunWith(classOf[JUnitRunner])
 class FileHentaiOutStreamTest extends WordSpec {
   private val testDoujin =
-    Gallery.dummy(name = "Test", japName = "Tesutu", uploadDate = "2018-09-15")
+    Gallery.dummy(name = "Test", japName = "Tesutu", uploadDate = OffsetDateTime.now())
   private val file = new File("testFile.bodandkeep.txt")
   private var outStream: FileHentaiOutStream = _
 

@@ -130,14 +130,7 @@ class GalleryDownloader {
   private def downloadImages(gly: Gallery, path: String): Int =
   {
     val ret = new ArrayBuffer[Int]()
-    val (pagesThird, remainder) = gly.pageCount match {
-      case n if n % 3 == 0 ⇒
-        (gly.pageCount / 3, 0)
-      case n if n % 3 == 1 ⇒
-        (gly.pageCount / 3, 1)
-      case n if n % 3 == 2 ⇒
-        (gly.pageCount / 3, 2)
-    }
+    val (pagesThird, remainder) = (gly.pageCount / 3, gly.pageCount % 3)
     val thirds =
       (
           1 until pagesThird, // 1/3
