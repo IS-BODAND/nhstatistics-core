@@ -15,13 +15,9 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data
 
-import java.util.{ArrayList ⇒ JList, HashMap ⇒ JMap}
-
-import scala.xml.{Node, XML}
-
 import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
 import tk.iscorp.nhs.core.data.hentai._
+import tk.iscorp.nhs.core.transform.{JSONTransformable, XmlTransformable}
 
 /**
   * Represents a gallery on the nhentai site. Doujin = Gallery; Doujin = Galleries ;; Japanese is nice
@@ -42,8 +38,9 @@ import tk.iscorp.nhs.core.data.hentai._
   *                   https://i.nhentai.net/galleries/&lt;dataID&gt;/1.jpg
   *
   * @author bodand
-  * @since 1.0 - Added class
+  * @since       1.0 - Added class
   *        1.3.5 - Changed date to OffsetDateTime
+  *              - Changed toXML/toJSON to return strings
   */
 class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val japName: String,
@@ -57,7 +54,7 @@ class Gallery(@NonNls @NotNull val name: String,
               @NotNull val pageCount: Int,
               @NonNls @NotNull val uploadDate: String,
               @NotNull val id: Int,
-              @NotNull val dataId: Int) {
+              @NotNull val dataId: Int) extends XmlTransformable with JSONTransformable {
 
   /**
     * Checks equality of with another object.
@@ -77,8 +74,7 @@ class Gallery(@NonNls @NotNull val name: String,
     }
 
   /**
-    * Returns the gallery in xml format. If doesn't contain any parodies for example, the parodies tag still exists,
-    * just empty.
+    * Returns the gallery in xml format in a String.
     *
     * @example
     * &lt;gallery id="1" data-id="9"&gt;<br/>
@@ -108,42 +104,41 @@ class Gallery(@NonNls @NotNull val name: String,
     * &nbsp;&nbsp;&lt;pages size="14"/&gt;<br/>
     * &nbsp;&nbsp;&lt;upload&gt;June 28, 2014, 2:12 p.m.&lt;/upload&gt;<br/>
     * &lt;/gallery&gt;<br/>
-    * @return A scala.xml.Node object with the xml data in it.
+    * @return A String with the gallery data in Xml format
     *
     * @since 1.1
-    *        1.3 - added the new data-id property
+    *        1.3   - added the new data-id property
+    *        1.3.5 - Changed to return string to reduce dependency overhead
     */
-  def toXml: Node =
-    XML.loadString(
+  override def toXml: String =
       s"""<gallery id="$id" data-id="$dataId">
          |  <name>$name</name>
          |  <sec-name>$japName</sec-name>
          |  <parodies>
-         |    ${parodies.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${parodies.map(_.toXml).mkString("\n    ")}
          |  </parodies>
          |  <characters>
-         |    ${characters.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${characters.map(_.toXml).mkString("\n    ")}
          |  </characters>
          |  <tags>
-         |    ${tags.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${tags.map(_.toXml).mkString("\n    ")}
          |  </tags>
          |  <artists>
-         |    ${artists.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${artists.map(_.toXml).mkString("\n    ")}
          |  </artists>
          |  <groups>
-         |    ${groups.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${groups.map(_.toXml).mkString("\n    ")}
          |  </groups>
          |  <languages>
-         |    ${languages.map(_.toXml.toString()).mkString("\n    ")}
+         |    ${languages.map(_.toXml).mkString("\n    ")}
          |  </languages>
-         |  ${category.toXml.toString()}
-         |  <pages size="$pageCount" />
+         |  ${category.toXml}
+         |  <pages size="$pageCount"/>
          |  <upload>$uploadDate</upload>
-         |</gallery>
-         |""".stripMargin)
+         |</gallery>""".stripMargin
 
   /**
-    * Returns the gallery in Json format. Order of appearance may wary from object to object.
+    * Returns the gallery in JSON format. Order of appearance may wary from object to object.
     *
     * @example
     * {<br/>
@@ -218,53 +213,24 @@ class Gallery(@NonNls @NotNull val name: String,
     * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
     * &nbsp;&nbsp;]<br/>
     * }
-    * @return A org.json.simple.JSONObject object of the gallery.
+    * @return A String of the gallery in JSON format
     *
     * @since 1.2
-    *        1.3 - Added the missing id field, and the new data-id field
+    *        1.3   - Added the missing id field, and the new data-id field
+    *        1.3.5 - Changed to return String to reduce dependencies
     */
-  def toJson: JSONObject =
-    new JSONObject(new JMap[String, Any]() {
-      {
-        put("id", id)
-        put("data-id", dataId)
-        put("name", name)
-        put("sec-name", japName)
-        put("category", category.toJson)
-        put("pages", new Integer(pageCount))
-        put("upload", uploadDate)
-        put("parodies", new JList[JSONObject] {
-          {
-            parodies.foreach(p ⇒ add(p.toJson))
-          }
-        })
-        put("characters", new JList[JSONObject] {
-          {
-            characters.foreach(c ⇒ add(c.toJson))
-          }
-        })
-        put("tags", new JList[JSONObject] {
-          {
-            tags.foreach(t ⇒ add(t.toJson))
-          }
-        })
-        put("artists", new JList[JSONObject] {
-          {
-            artists.foreach(a ⇒ add(a.toJson))
-          }
-        })
-        put("groups", new JList[JSONObject] {
-          {
-            groups.foreach(g ⇒ add(g.toJson))
-          }
-        })
-        put("languages", new JList[JSONObject] {
-          {
-            languages.foreach(l ⇒ add(l.toJson))
-          }
-        })
-      }
-    })
+  override def toJson: String =
+    s"""{"id":$id,"pages":$pageCount,
+       |"data-id":$dataId,"upload":"$uploadDate",
+       |"name":"$name",
+       |"sec-name":"$japName",
+       |"category":${category.toJson},
+       |"characters":[${characters.map(_.toJson).mkString(",")}],
+       |"parodies":[${parodies.map(_.toJson).mkString(",")}],
+       |"languages":[${languages.map(_.toJson).mkString(",")}],
+       |"artists":[${artists.map(_.toJson).mkString(",")}],
+       |"groups":[${groups.map(_.toJson).mkString(",")}],
+       |"tags":[${tags.map(_.toJson).mkString(",")}]}""".stripMargin
 
   /**
     * @return A pretty, printable string containing the data of the gallery.

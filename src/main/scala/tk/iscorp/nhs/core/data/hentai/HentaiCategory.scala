@@ -15,12 +15,7 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import java.util.{HashMap ⇒ JMap}
-
-import scala.xml.Node
-
 import org.jetbrains.annotations.NotNull
-import org.json.simple.JSONObject
 
 /**
   * HentaiCategory tag. Represents a category type on nhentai.
@@ -35,15 +30,10 @@ import org.json.simple.JSONObject
   * @since 1.0
   */
 sealed abstract case class HentaiCategory() extends HentaiData {
-  override def toXml: Node = <category name={s"$name"} amount={s"$amount"}/>
+  override def toXml: String = s"""<category name="$name" amount="$amount"/>"""
 
-  override def toJson: JSONObject =
-    new JSONObject(new JMap[String, Any]() {
-      {
-        put("name", name)
-        put("amount", new Integer(amount))
-      }
-    })
+  override def toJson: String =
+    s"""{"name":"$name","amount":$amount}"""
 }
 
 class MangaHentai(@NotNull override val amount: Int) extends HentaiCategory {

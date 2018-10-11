@@ -60,13 +60,13 @@ class HentaiArtistTest extends WordSpec {
     "xml asked" should {
       "return valid xml" in {
         val wanted = <artist name="testMan" amount="69"/>.toString()
-        assertEquals(wanted, testMan69.toXml.toString())
+        assertEquals(wanted, testMan69.toXml)
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"artist":{"amount":69,"name":"testMan"}}"""
-        assertEquals(wanted, testMan69.toJson.toJSONString)
+        assertEquals(wanted, testMan69.toJson)
       }
     }
   }

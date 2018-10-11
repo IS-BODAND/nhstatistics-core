@@ -15,10 +15,8 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import scala.xml.Node
-
 import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
+import tk.iscorp.nhs.core.transform.{JSONTransformable, XmlTransformable}
 
 /**
   * For different hentai information to implement, eg. artists, characters, as tags.
@@ -29,7 +27,7 @@ import org.json.simple.JSONObject
   * @author bodand
   * @since 1.0
   */
-trait HentaiData {
+trait HentaiData extends XmlTransformable with JSONTransformable {
 
   /**
     * The name of the tag.
@@ -57,7 +55,7 @@ trait HentaiData {
     */
   @NonNls
   @NotNull
-  def toXml: Node
+  override def toXml: String
 
   /**
     * Returns the data in json.
@@ -68,7 +66,7 @@ trait HentaiData {
     */
   @NonNls
   @NotNull
-  def toJson: JSONObject
+  override def toJson: String
 
   /**
     * @return A pretty, printable string of this object.

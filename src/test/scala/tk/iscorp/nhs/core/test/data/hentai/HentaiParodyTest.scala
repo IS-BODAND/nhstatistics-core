@@ -56,13 +56,13 @@ class HentaiParodyTest extends WordSpec {
     "xml asked" should {
       "return valid xml" in {
         val wanted = <parody name="testMan" amount="69"/>.toString()
-        assertEquals(wanted, testObject.toXml.toString())
+        assertEquals(wanted, testObject.toXml)
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"parody":{"amount":69,"name":"testMan"}}"""
-        assertEquals(wanted, testObject.toJson.toJSONString)
+        assertEquals(wanted, testObject.toJson)
       }
     }
   }

@@ -15,13 +15,9 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import java.util.{HashMap ⇒ JHashMap}
-
 import scala.language.existentials
-import scala.xml.Node
 
 import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
 
 /**
   * HentaiArtist tag. Represents one artist from nhentai, and the amount of their art.
@@ -32,19 +28,10 @@ import org.json.simple.JSONObject
   * @author bodand
   * @since 1.0
   */
-class HentaiArtist(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
-    extends HentaiData {
-  override def toXml: Node = <artist name={s"$name"} amount={s"$amount"} />
+class HentaiArtist(@NonNls @NotNull override val name: String,
+                   @NotNull override val amount: Int) extends HentaiData {
+  override def toXml: String = s"""<artist name="$name" amount="$amount"/>"""
 
-  override def toJson: JSONObject =
-    new JSONObject(new JHashMap[String, Any]() {
-      {
-        put("artist", new JHashMap[String, Any]() {
-          {
-            put("name", name)
-            put("amount", new Integer(amount))
-          }
-        })
-      }
-    })
+  override def toJson: String =
+    s"""{"artist":{"amount":$amount,"name":"$name"}}"""
 }

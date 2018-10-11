@@ -15,12 +15,7 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import java.util.{HashMap ⇒ JMap}
-
-import scala.xml.Node
-
 import org.jetbrains.annotations.NotNull
-import org.json.simple.JSONObject
 
 /**
   * Represents the language of the doujin.
@@ -35,19 +30,10 @@ import org.json.simple.JSONObject
   * [[OtherLanguageHentai]] exists so we don't get murdered by something fucky.
   */
 sealed abstract case class HentaiLanguage() extends HentaiData {
-  override def toXml: Node = <language name={s"$name"} amount={s"$amount"} />
+  override def toXml: String = s"""<language name="$name" amount="$amount"/>"""
 
-  override def toJson: JSONObject =
-    new JSONObject(new JMap[String, Any]() {
-      {
-        put("language", new JMap[String, Any]() {
-          {
-            put("name", name)
-            put("amount", new Integer(amount))
-          }
-        })
-      }
-    })
+  override def toJson: String =
+    s"""{"language":{"amount":$amount,"name":"$name"}}""".stripMargin
 }
 
 class EnglishHentai(@NotNull override val amount: Int) extends HentaiLanguage {

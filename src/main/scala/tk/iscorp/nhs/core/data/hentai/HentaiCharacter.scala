@@ -15,13 +15,9 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import java.util.{HashMap ⇒ JMap}
-
 import scala.language.existentials
-import scala.xml.Node
 
 import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
 
 /**
   * HentaiCharacter tag. Represents one character who appears in at least one doujin.
@@ -32,19 +28,11 @@ import org.json.simple.JSONObject
   * @author bodand
   * @since 1.0
   */
-class HentaiCharacter(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
-    extends HentaiData {
-  override def toXml: Node = <character name={s"$name"} amount={s"$amount"} />
+class HentaiCharacter(@NonNls @NotNull override val name: String,
+                      @NotNull override val amount: Int) extends HentaiData {
 
-  override def toJson: JSONObject =
-    new JSONObject(new JMap[String, Any]() {
-      {
-        put("character", new JMap[String, Any]() {
-          {
-            put("name", name)
-            put("amount", new Integer(amount))
-          }
-        })
-      }
-    })
+  override def toXml: String = s"""<character name="$name" amount="$amount"/>"""
+
+  override def toJson: String =
+    s"""{"character":{"amount":$amount,"name":"$name"}}"""
 }

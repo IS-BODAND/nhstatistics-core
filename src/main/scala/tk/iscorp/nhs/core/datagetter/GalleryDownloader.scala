@@ -115,8 +115,8 @@ class GalleryDownloader {
     val jsonStringPath = s"$path/${gly.id}.json"
     val jsonFile = new File(jsonStringPath)
 
-    val xml = gly.toXml.toString()
-    val json = gly.toJson.toJSONString
+    val xml = gly.toXml
+    val json = gly.toJson
 
     FileUtils.touch(new File(path + "/"))
     FileUtils.touch(xmlFile)

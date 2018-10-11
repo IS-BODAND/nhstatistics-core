@@ -94,56 +94,60 @@ class GalleryTest extends WordSpec {
     "xml requested" should {
       "return valid xml" in {
         val xmlString =
-          <gallery data-id="9"  id="1">
+          <gallery id="1" data-id="9" >
   <name>(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)</name>
   <sec-name>(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)</sec-name>
   <parodies>
-    <parody amount="78" name="pangya"/>
+    <parody name="pangya" amount="78" />
   </parodies>
   <characters>
-    <character amount="41" name="kooh"/>
+    <character name="kooh" amount="41" />
   </characters>
   <tags>
-    <tag amount="45693" name="lolicon" />
-    <tag amount="5796" name="catgirl" />
-    <tag amount="176" name="gymshorts" />
+    <tag name="lolicon" amount="45693" />
+    <tag name="catgirl" amount="5796" />
+    <tag name="gymshorts" amount="176" />
   </tags>
   <artists>
-    <artist amount="46" name="koari" />
+    <artist name="koari" amount="46" />
   </artists>
   <groups>
-    <group amount="34" name="arisan-antenna" />
+    <group name="arisan-antenna" amount="34" />
   </groups>
   <languages>
-    <language amount="129652" name="Japanese" />
+    <language name="Japanese" amount="129652" />
   </languages>
-  <category amount="138514" name="Doujinshi" />
+  <category name="Doujinshi" amount="138514" />
   <pages size="14" />
   <upload>June 28, 2014, 2:12 p.m.</upload>
 </gallery>.toString() // fuck this shit
-        assertEquals(xmlString, gallery1.toXml.toString())
+        assertEquals(xmlString, gallery1.toXml)
       }
     }
     "json requested" should {
       "return valid json" in {
         val jsonString =
-          """{"languages":[{"language":{"amount":129652,"name":"Japanese"}}],
+          """{"id":1,
+            |"pages":14,
+            |"data-id":9,
             |"upload":"June 28, 2014, 2:12 p.m.",
+            |"name":"(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+            |"category":{"name":"Doujinshi","amount":138514},
+            |"characters":[{"character":{"amount":41,"name":"kooh"}}],
+            |"parodies":[{"parody":{"amount":78,"name":"pangya"}}],
+            |"languages":[{"language":{"amount":129652,"name":"Japanese"}}],
+            |"artists":[{"artist":{"amount":46,"name":"koari"}}],
             |"groups":[{"group":{"amount":34,"name":"arisan-antenna"}}],
             |"tags":[{"tag":{"amount":45693,"name":"lolicon"}},
             |{"tag":{"amount":5796,"name":"catgirl"}},
-            |{"tag":{"amount":176,"name":"gymshorts"}}],
-            |"characters":[{"character":{"amount":41,"name":"kooh"}}],
-            |"parodies":[{"parody":{"amount":78,"name":"pangya"}}],
-            |"pages":14,"artists":[{"artist":{"amount":46,"name":"koari"}}],
-            |"name":"(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-            |"data-id":9,
-            |"id":1,
-            |"category":{"name":"Doujinshi","amount":138514},
-            |"sec-name":"(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)"}""".stripMargin
-            .replaceAll("(?<=,)\\s+(?!\\d)", "")
+            |{"tag":{"amount":176,"name":"gymshorts"}}]}"""
+              .stripMargin
+              .replaceAll("(?<=,)\\s+(?!\\d)", "")
 
-        val gotString = gallery1.toJson.toJSONString
+        val gotString = gallery1
+                        .toJson
+                        .replaceAll("(?<=,|\\{|\"|:)\\s+(?!\\d)", "")
 
         FileUtils.writeStringToFile(new File("exp.bodandkeep.txt"), jsonString, "utf-8")
         FileUtils.writeStringToFile(new File("got.bodandkeep.txt"), gotString, "utf-8")

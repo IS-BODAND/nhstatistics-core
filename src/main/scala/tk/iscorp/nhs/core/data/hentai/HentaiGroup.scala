@@ -15,13 +15,9 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import java.util.{HashMap ⇒ JMap}
-
 import scala.language.existentials
-import scala.xml.Node
 
 import org.jetbrains.annotations.{NonNls, NotNull}
-import org.json.simple.JSONObject
 
 /**
   * HentaiGroup tag. Represents one group with at least one doujin in them.
@@ -34,17 +30,8 @@ import org.json.simple.JSONObject
   */
 class HentaiGroup(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
     extends HentaiData {
-  override def toXml: Node = <group name={s"$name"} amount={s"$amount"} />
+  override def toXml: String = s"""<group name="$name" amount="$amount"/>"""
 
-  override def toJson: JSONObject =
-    new JSONObject(new JMap[String, Any]() {
-      {
-        put("group", new JMap[String, Any]() {
-          {
-            put("name", name)
-            put("amount", new Integer(amount))
-          }
-        })
-      }
-    })
+  override def toJson: String =
+    s"""{"group":{"amount":$amount,"name":"$name"}}"""
 }

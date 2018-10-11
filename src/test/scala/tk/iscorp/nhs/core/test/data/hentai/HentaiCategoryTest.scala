@@ -19,12 +19,7 @@ import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import tk.iscorp.nhs.core.data.hentai.{
-  DoujinshiHentai,
-  HentaiCategory,
-  MangaHentai,
-  OtherCategoryHentai
-}
+import tk.iscorp.nhs.core.data.hentai.{DoujinshiHentai, HentaiCategory, MangaHentai, OtherCategoryHentai}
 
 @RunWith(classOf[JUnitRunner])
 class HentaiCategoryTest extends WordSpec {
@@ -69,13 +64,13 @@ class HentaiCategoryTest extends WordSpec {
     "xml asked" should {
       "return valid xml" in {
         val wanted = <category name="Manga" amount="69"/>.toString()
-        assertEquals(wanted, manga69.toXml.toString())
+        assertEquals(wanted, manga69.toXml)
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"name":"Manga","amount":69}"""
-        assertEquals(wanted, manga69.toJson.toJSONString)
+        assertEquals(wanted, manga69.toJson)
       }
     }
   }

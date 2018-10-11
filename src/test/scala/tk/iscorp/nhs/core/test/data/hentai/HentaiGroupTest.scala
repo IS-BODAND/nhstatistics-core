@@ -60,13 +60,13 @@ class HentaiGroupTest extends WordSpec {
     "xml asked" should {
       "return valid xml" in {
         val wanted = <group name="testGroup" amount="69"/>.toString()
-        assertEquals(wanted, testGroup69.toXml.toString())
+        assertEquals(wanted, testGroup69.toXml)
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"group":{"amount":69,"name":"testGroup"}}"""
-        assertEquals(wanted, testGroup69.toJson.toJSONString)
+        assertEquals(wanted, testGroup69.toJson)
       }
     }
   }

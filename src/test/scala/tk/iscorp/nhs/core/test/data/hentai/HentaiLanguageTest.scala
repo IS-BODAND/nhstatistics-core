@@ -98,13 +98,13 @@ class HentaiLanguageTest extends WordSpec {
     "xml asked" should {
       "return valid xml" in {
         val wanted = <language name="English" amount="69"/>.toString()
-        assertEquals(wanted, english_69.toXml.toString())
+        assertEquals(wanted, english_69.toXml)
       }
     }
     "json asked" should {
       "return valid json" in {
         val wanted = """{"language":{"amount":69,"name":"English"}}"""
-        assertEquals(wanted, english_69.toJson.toJSONString)
+        assertEquals(wanted, english_69.toJson)
       }
     }
   }
