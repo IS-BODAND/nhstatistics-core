@@ -242,15 +242,10 @@ class Gallery(@NonNls @NotNull val name: String,
     */
   override def toString: String =
     s"""$name ${if (japName != "") s"($japName)" else ""}
-       |
        |$printParodiesConditionally
-       |
        |$printCharactersConditionally
-       |
        |$printTagsConditionally
-       |
        |$printArtistsConditionally
-       |
        |$printGroupsConditionally
        |
        |${makeStringPossiblyPlural(languages.length, "Language")}: ${stringifyArray(languages)}
@@ -262,39 +257,31 @@ class Gallery(@NonNls @NotNull val name: String,
      """.stripMargin
 
   private def printArtistsConditionally =
-    if (artists.length > 0) {
-      s"${makeStringPossiblyPlural(artists.length, "Artist")}: ${stringifyArray(artists)}"
-    } else {
-      "{No artists specified}"
-    }
+    if (artists.length > 0)
+      s"${makeStringPossiblyPlural(artists.length, "Artist")}: ${stringifyArray(artists)}\n"
+    else ""
 
   private def printTagsConditionally =
     if (tags.length > 0)
-      s"${makeStringPossiblyPlural(tags.length, "Tag")}: ${stringifyArray(tags)}"
+      s"${makeStringPossiblyPlural(tags.length, "Tag")}: ${stringifyArray(tags)}\n"
     else ""
 
   private def printCharactersConditionally =
     if (characters.length > 0) {
       s"${makeStringPossiblyPlural(characters.length, "Character")}: " +
-      s"${stringifyArray(characters)}"
-    } else {
-      "{No characters specified}"
-    }
+      s"${stringifyArray(characters)}\n"
+    } else ""
 
   private def printParodiesConditionally =
     if (parodies.length > 0) {
       s"${makeStringPossiblyPlural(parodies.length, "Parod", "y", "ies")}: " +
-      s"${stringifyArray(parodies)}"
-    } else {
-      "{No parodies specified}"
-    }
+      s"${stringifyArray(parodies)}\n"
+    } else ""
 
   private def printGroupsConditionally: String =
     if (groups.length > 0) {
-      s"${makeStringPossiblyPlural(groups.length, "Group")}: ${stringifyArray(groups)}"
-    } else {
-      "{No groups specified}"
-    }
+      s"${makeStringPossiblyPlural(groups.length, "Group")}: ${stringifyArray(groups)}\n"
+    } else ""
 
   private def stringifyArray(array: Array[_ <: HentaiData]): String =
     array map (_.toString) mkString ", "
