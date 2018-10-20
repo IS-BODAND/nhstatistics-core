@@ -8,6 +8,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/isbodand/nhstatistics-core/badge?style=flat-square)](https://www.codefactor.io/repository/github/isbodand/nhstatistics-core)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=isbodand/nhstatistics-core)](https://dependabot.com)
 [![Known Vulnerabilities](https://snyk.io/test/github/isbodand/nhstatistics-core/badge.svg?targetFile=build.gradle)](https://snyk.io/test/github/isbodand/nhstatistics-core?targetFile=build.gradle)
+[![Join the chat at https://gitter.im/nhstatistics-core/Lobby](https://badges.gitter.im/nhstatistics-core/Lobby.svg)](https://gitter.im/nhstatistics-core/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 The unofficial nhentai JVM api. Since nhentai's api does not exist* (I'm going to guess it stopped existing
 when they moved to `https://` instead of `http://` as a post on their json api only used `http://`), I made this api
