@@ -24,13 +24,12 @@ import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor
-import tk.iscorp.nhs.core.test.GalleryDataSupplier
+import tk.iscorp.nhs.core.test.TestUtils
 
 @RunWith(classOf[JUnitRunner])
 class HtmlResponseProcessorTest extends WordSpec {
   private val dummyGallery = Gallery.dummy()
-  private val testGallery = GalleryDataSupplier.no1
-  private val testGalleryWithISODate = GalleryDataSupplier.no1(true)
+  private val testGallery = TestUtils.galleryId1
   private var htp: HtmlResponseProcessor = _
   "An HtmlResponseProcessor" when {
     "created" should {

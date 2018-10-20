@@ -6,9 +6,21 @@ env:
   global:
     - CODECOV_TOKEN="63d2dc3b-32f1-4f17-aa9d-cd5191ac643a"
 
-
 script:
   - ./gradlew check
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+    - bodand@pm.me
+    on_success: never
+    on_failure: always
+  webhooks:
+    urls:
+    - "https://webhooks.gitter.im/e/bb045fea893d85db7b6c"
+    on_success: change
+    on_failure: always
+    on_start: never

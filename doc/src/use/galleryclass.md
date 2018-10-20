@@ -1,8 +1,10 @@
-The basic Gallery class represents one doujin on the nhentai site.
-The following fields are most likely useful:
- - name: String - The name of the doujin
- - tags: Array\[HentaiTag\] - All the fantasies this doujin fulfills. HentaiTag implements HentaiData.
- - languages: Array\[HentaiLanguage\] - The languages this doujin is written in. HentaiLanguage implements HentaiData.
- - id: Int - ID of the doujin.
+This class acts as the core of nhstatistics-core, IO operations are available on it, and as a bonus to the library, 
+there is a GalleryDownloader class to download these Galleries and store them in a directory/folder somewhere. 
+It represents one doujin on the the nhentai.net site. All data one can gather by opening the doujin page on nhentai is 
+in this class so it is useful for safe for work data gathering application.  
+The most likely to be useful fields are:
 
-With the toXml, and toJson methods it can turn itself into some nice xml/json.
+- `name` - The name of the doujin. It's stored in a String.
+- `tags` - The tags present on this doujin. It's an array of HentaiTag objects.
+- `id` - One of the infamous id-s that represent one doujin. It's an Int in type.
+- `languages` - Language on nhentai, including the `Translated` and `Rewrite` tags, just as on the webpage.     

@@ -13,7 +13,7 @@ Adding the dependency:
 // In your build.sbt
 libraryDependencies ++= Seq(
   // other dependencies
-  "com.github.isbodand" % "nhstatistics-core" % "1.3.5"
+  "com.github.isbodand" % "nhstatistics-core" % "==!version=="
 )
 ```
 

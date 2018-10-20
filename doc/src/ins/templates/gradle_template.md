@@ -11,6 +11,6 @@ Adding the dependency:
 // In your build.gradle
 dependencies {
     // other dependencies
-    implementation group: 'com.github.isbodand', name: 'nhstatistics-core', version: '1.3.5'
+    implementation group: 'com.github.isbodand', name: 'nhstatistics-core', version: '==!version=='
 }
 ```

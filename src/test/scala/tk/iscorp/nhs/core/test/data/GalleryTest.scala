@@ -24,28 +24,12 @@ import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.data.hentai._
+import tk.iscorp.nhs.core.test.TestUtils
 
 @RunWith(classOf[JUnitRunner])
 class GalleryTest extends WordSpec {
   private var gallery1: Gallery = _
-  private val gallery2eq1: Gallery =
-    new Gallery("(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
-                "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
-                Array(new HentaiParody("pangya", 78)),
-                Array(new HentaiCharacter("kooh", 41)),
-                Array(
-                  new HentaiTag("lolicon", 45693),
-                  new HentaiTag("catgirl", 5796),
-                  new HentaiTag("gymshorts", 176)
-                ),
-                Array(new HentaiArtist("koari", 46)),
-                Array(new HentaiGroup("arisan-antenna", 34)),
-                Array(new JapaneseHentai(129652)),
-                new DoujinshiHentai(138514),
-                14,
-                OffsetDateTime.parse("2014-06-28T14:12:16.640420+00:00"),
-                1,
-                9)
+  private val gallery2eq1: Gallery = TestUtils.galleryId1
   private val gallery3ne1: Gallery = Gallery.dummy()
   "A gallery" when {
     "created" should {

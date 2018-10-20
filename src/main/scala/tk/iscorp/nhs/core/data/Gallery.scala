@@ -253,8 +253,8 @@ class Gallery(@NonNls @NotNull val name: String,
        |Category: ${category.toString}
        |
        |${makeStringPossiblyPlural(pageCount, "Page")}: $pageCount
-       |Uploaded: ${uploadDate.format(DateTimeFormatter.BASIC_ISO_DATE)}
-     """.stripMargin
+       |Uploaded: ${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}
+       |""".stripMargin.trim
 
   private def printArtistsConditionally =
     if (artists.length > 0)

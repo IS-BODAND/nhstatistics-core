@@ -25,13 +25,13 @@ import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.stream.impl.DefaultHentaiInStream
-import tk.iscorp.nhs.core.test.GalleryDataSupplier
+import tk.iscorp.nhs.core.test.TestUtils
 
 @RunWith(classOf[JUnitRunner])
 class DefaultHentaiInStreamTest extends WordSpec {
-  private val testDoujinID1 = GalleryDataSupplier.no1
+  private val testDoujinID1 = TestUtils.galleryId1
 
-  private val testDoujinID2 = GalleryDataSupplier.no2
+  private val testDoujinID2 = TestUtils.galleryId2
 
   private val arrayOfTestDoujin: Array[Gallery] =
     Array(testDoujinID1, testDoujinID2)

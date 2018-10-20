@@ -15,19 +15,19 @@
  ******************************************************************************/
 package tk.iscorp.nhs.core.test.datagetter
 
+import java.io.{File, FileFilter}
+
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
 import tk.iscorp.nhs.core.datagetter.GalleryDownloader
-import tk.iscorp.nhs.core.test.GalleryDataSupplier
-
-import java.io.{File, FileFilter}
+import tk.iscorp.nhs.core.test.TestUtils
 
 @RunWith(classOf[JUnitRunner])
 class GalleryDownloaderTest extends WordSpec {
   private var downloader: GalleryDownloader = _
-  private val testGallery = GalleryDataSupplier.no1
+  private val testGallery = TestUtils.galleryId1
   "A downloader" when {
     "created" should {
       "initialize" in {

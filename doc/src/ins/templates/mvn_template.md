@@ -22,7 +22,7 @@ Adding the dependency:
   <dependency>
     <groupId>'com.github.isbodand</groupId>
     <artifactId>nhstatistics-core</artifactId>
-    <version>1.3.5</version>
+    <version>==!version==</version>
   </dependency>
 </dependencies>
 ```

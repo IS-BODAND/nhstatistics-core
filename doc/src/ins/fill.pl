@@ -6,16 +6,21 @@ no warnings qw/uninitialized/;
 
 # Get version
 open my $versionFile, "<:crlf", "../../../build.gradle"
-    or die 'Chaos';
+    or die 'Chaos $!';
 
 my $version = "";
 /^version '([.\d]+)'/ && ($version = $1) while (<$versionFile>);
 close $versionFile;
 say "Version found: $version";
 
+# Get all files
+opendir my $directoryOfTemplates, "./templates" or die "Chaos $!";
+my @templateFiles = grep {/\w/} readdir $directoryOfTemplates;
+close $directoryOfTemplates;
+
 # Get files
 my %filled = ();
-/.+\.pl/ || ($filled{$_} = s/\A(.+)_template.md\Z/$1.md/r) foreach (@ARGV);
+$filled{"templates/$_"} = s/\A(.+)_template.md\Z/$1.md/r foreach @templateFiles;
 
 # Fill templates
 my @templates = keys %filled;

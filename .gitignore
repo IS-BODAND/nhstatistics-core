@@ -2,6 +2,9 @@
 *.iml
 /.idea/
 
+## IntelliJ - Perl plugin
+/*.pm
+
 ## Gradle
 /.gradle/
 /build/
