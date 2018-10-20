@@ -73,7 +73,7 @@ dependencies {
     // jUnit
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // Scalactic
-    testCompile group: 'org.scalactic', name: 'scalactic_2.12', version: '3.0.5'
+    testCompile group: 'org.scalactic', name: 'scalactic_2.12', version: '3.2.0-SNAP10'
 }
 
 jar {
