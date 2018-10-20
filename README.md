@@ -5,7 +5,7 @@
 [![Release](https://jitpack.io/v/isbodand/nhstatistics-core.svg?style=flat-square)](https://jitpack.io/#isbodand/nhstatistics-core)
 [![Build Status](https://travis-ci.org/isbodand/nhstatistics-core.svg?branch=devel-1.3&style=flat-square)](https://travis-ci.org/isbodand/nhstatistics-core)
 [![codecov.io](https://codecov.io/gh/isbodand/nhstatistics-core/branch/master/graphs/badge.svg?style=flat-square)](https://codecov.io/gh/isbodand/nhstatistics-core)
-[![CodeFactor](https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core/badge?style=flat-square)](https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core)
+[![CodeFactor](https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core/badge?style=flat-square)](https://www.codefactor.io/repository/github/is-bodand/nhstatistics-core) [![Join the chat at https://gitter.im/nhstatistics-core/Lobby](https://badges.gitter.im/nhstatistics-core/Lobby.svg)](https://gitter.im/nhstatistics-core/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 The unofficial nhentai JVM api. Since nhentai's api is unavailable, (or I'm too stupid to access it,) I made this api 
 which parses the webpage to get the data. It **will** be the part of the NHentaiStatistics program which **will** be 
