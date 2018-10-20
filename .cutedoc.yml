@@ -24,8 +24,10 @@ articles:
   Installing:
     Maven: doc/src/ins/mvn.md
     Gradle: doc/src/ins/gradle.md
+    Ant: doc/src/ins/ant.md
     Sbt: doc/src/ins/sbt.md
     Mill: doc/src/ins/mill.md
+    Leiningen: doc/src/ins/leiningen.md
   Usage:
     ScalaDoc: doc/src/use/scaladoc.md
     Gallery class: doc/src/use/galleryclass.md
