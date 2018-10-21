@@ -233,31 +233,21 @@ article {
     min-height: 10px
 }
 
-.removed-bg-code {
-    font-size: 1.2em;
-    background-color: #474A4C;
+.content > .header {
+    color: #A9B7C6 !important;
+}
+
+.body {
+    margin: 0 0 0 280px;
+    padding: 0 6%;
+}
+
+.tse-scroll-content {
+    height: 100%;
 }
 
 .menu-long-logo {
     height: 15%;
-}
-
-.body {
-    padding: 0 6%;
-    margin: 0 0 0 280px;
-}
-
-.bodiv > .tse-scrollbar > .drag-handle {
-    display: none;
-}
-
-.header {
-    color: #1E2021;
-}
-
-.bodiv {
-    width: 100% !important;
-    height: 100% !important;
 }
 
 .menu-scbar {
@@ -265,6 +255,16 @@ article {
     height: 84% !important;
 }
 
-.tse-scroll-content {
-    height: 100%;
+.removed-bg-code {
+    font-size: 1.2em;
+    background-color: #474A4C;
+}
+
+.bodiv {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.bodiv > .tse-scrollbar > .drag-handle {
+    display: none;
 }

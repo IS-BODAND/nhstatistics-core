@@ -48,9 +48,6 @@ sub handle_css {
             padding => '0 6%',
             margin  => '0 0 0 280px'
         },
-        '.header'                            => {
-            color => '#1E2021'
-        },
         '.menu-scbar'                        => {
             width  => '100%!important',
             height => '84%!important'
@@ -63,6 +60,9 @@ sub handle_css {
         },
         '.bodiv>.tse-scrollbar>.drag-handle' => {
             display => 'none'
+        },
+        '.content>.header'                   => {
+            color => '#A9B7C6!important'
         }
     };
 
@@ -72,9 +72,10 @@ sub handle_css {
     close $css;
     @ARGV = ($cssFile);
     while (<ARGV>) {
-        print s/\Q.sidebar-content{margin-top:4rem}\E/.sidebar-content{height:100%}/r;
+        s/\Q.sidebar-content{margin-top:4rem}\E/.sidebar-content{height:100%}/;
+        print
     }
-    merge_lines $cssFile;
+    # merge_lines $cssFile;
 }
 
 sub handle_html {
