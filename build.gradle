@@ -116,8 +116,7 @@ check {
 task fillTemplates(type: Exec) {
     workingDir "$projectDir/doc/src/ins"
 
-    commandLine 'perl', "fill.pl",
-            "gradle_template.md", "mvn_template.md", "sbt_template.md"
+    commandLine 'perl', "fill.pl"
 }
 
 task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
@@ -125,6 +124,13 @@ task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
 
     commandLine 'cutedoc'
 }
+
+task website(type: Exec, dependsOn: cutedoc) {
+    workingDir "$projectDir/doc/src"
+
+    commandLine 'perl', 'finishup.pl'
+}
+cutedoc.finalizedBy website
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'

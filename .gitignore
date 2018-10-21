@@ -24,5 +24,6 @@
 ## Test download directories, in case humanity dies and they remain
 /dwn*/
 
-## documentation template filler backups
+## backups
 *.bak
+*~

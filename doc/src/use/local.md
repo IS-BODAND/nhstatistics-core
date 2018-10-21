@@ -6,7 +6,7 @@ for it is quite simple though; give it an html source of an nhentai page, and it
 public class LocalDoujinLoader {
     public static void main(String[] args) {
         HtmlResponseProcessor hrp = new HtmlResponseProcessor();
-        // Get the html page source from local file; I used Apache Commons IO here, but anything works
+        // Get the html page source from local file; I used Apache Commons IO here
         String htmlSource = FileUtils.readFileToString(new File("doujin.html"), "UTF-8"); 
         Gallery gallery = hrp.processHtmlToGallery(htmlSource);
         Gallery galleryWithISODate = hrp.processHtmlToGallery(htmlSource, true);
