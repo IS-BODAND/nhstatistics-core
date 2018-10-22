@@ -4271,7 +4271,7 @@ Index.PACKAGES = {
     "tk.iscorp.nhs": [],
     "tk.iscorp.nhs.core.datagetter": [{
         "name": "tk.iscorp.nhs.core.datagetter.GalleryDownloader",
-        "shortDescription": "",
+        "shortDescription": "Class that can download all images from a gallery defined by a providedGallery instance.",
         "members_class": [{
             "label": "WrittenFiles",
             "tail": "",
@@ -4424,7 +4424,7 @@ Index.PACKAGES = {
         "kind": "class"
     }, {
         "name": "tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor",
-        "shortDescription": "",
+        "shortDescription": "HtmlResponseProcessor processes the html returned by nhentai, to extractGallery instances from them.",
         "members_class": [{
             "label": "processHtmlToGallery",
             "tail": "(html: String): Gallery",

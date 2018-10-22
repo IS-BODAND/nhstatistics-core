@@ -602,7 +602,6 @@ function urlFriendlyEntity(entity) {
 }
 
 var maxJobs = 1;
-
 function setProgress() {
     var running = scheduler.numberOfJobs("search");
     maxJobs = Math.max(maxJobs, running);

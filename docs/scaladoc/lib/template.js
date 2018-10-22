@@ -288,7 +288,6 @@ $(document).ready(function () {
     if ($("#order > ol > li.group").length == 1) {
         orderGroup();
     }
-
     function findElementByHash(locationHash) {
         var temp = locationHash.replace('#', '');
         var memberSelector = '#' + escapeJquery(temp);
@@ -335,7 +334,6 @@ function orderAlpha() {
     $("#mbrsel > div.ancestors").show();
     filter();
 }
-
 function orderInherit() {
     $("#order > ol > li.inherit").removeClass("out").addClass("in");
     $("#order > ol > li.alpha").removeClass("in").addClass("out");
@@ -345,7 +343,6 @@ function orderInherit() {
     $("#mbrsel > div.ancestors").hide();
     filter();
 }
-
 function orderGroup() {
     $("#order > ol > li.group").removeClass("out").addClass("in");
     $("#order > ol > li.alpha").removeClass("in").addClass("out");
@@ -355,7 +352,6 @@ function orderGroup() {
     $("#mbrsel > div.ancestors").show();
     filter();
 }
-
 /** Prepares the DOM for inheritance-based display. To do so it will:
  *  - hide all statically-generated parents headings;
  *  - copy all members from the value and type members lists (flat members) to corresponding lists nested below the
@@ -453,7 +449,6 @@ function initInherit() {
         }
     });
 }
-
 /* filter used to take boolean scrollToMember */
 function filter() {
     var query = $.trim($("#memberfilter input").val()).toLowerCase();
@@ -547,10 +542,8 @@ function filter() {
         else
             members.hide();
     }
-
     return false;
 }
-
 /** Check if user agent is associated with a known mobile browser */
 function isMobile() {
     return /Android|webOS|Mobi|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);

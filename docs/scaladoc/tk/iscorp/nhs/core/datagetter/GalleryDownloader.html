@@ -181,10 +181,22 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="index.html"><span class="name">datagetter</span></a>
+        <a title="This package contains classes that are used for gaining some type of data." href="index.html"><span
+                class="name">datagetter</span></a>
       </span>
 
+                        <p class="shortcomment cmt">This package contains classes that are used for gaining some type of
+                            data.</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>This package contains classes that are used for gaining some
+                                type of data.</p>
+                                <p>GalleryDownloader - gets the pages from galleries
+                                    HttpResponseProcessor - gets <a href="../data/Gallery.html" class="extype"
+                                                                    name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>-s
+                                    from
+                                    html responses
+                                    private HttpGetter - gets html responses from URIs
+                                </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../index.html" class="extype" name="tk.iscorp.nhs.core">core</a></dd>
@@ -193,13 +205,17 @@
                     </li>
                     <li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">GalleryDownloader</a>
+                        <a class="class" href=""
+                           title="Class that can download all images from a gallery defined by a provided Gallery instance."></a>
+                        <a href=""
+                           title="Class that can download all images from a gallery defined by a provided Gallery instance.">GalleryDownloader</a>
                     </li>
                     <li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="HtmlResponseProcessor.html" title=""></a>
-                        <a href="HtmlResponseProcessor.html" title="">HtmlResponseProcessor</a>
+                        <a class="class" href="HtmlResponseProcessor.html"
+                           title="HtmlResponseProcessor processes the html returned by nhentai, to extract Gallery instances from them."></a>
+                        <a href="HtmlResponseProcessor.html"
+                           title="HtmlResponseProcessor processes the html returned by nhentai, to extract Gallery instances from them.">HtmlResponseProcessor</a>
                     </li>
                 </ul>
             </div>
@@ -237,6 +253,17 @@
 
 
             <div id="comment" class="fullcommenttop">
+                <div class="comment cmt"><p>Class that can download all images from a gallery defined by a provided
+                    Gallery instance.</p>
+                    <p>Most likely will be moved to a Core-Utils library or something like that.
+                    </p></div>
+                <dl class="attributes block">
+                    <dt>Since</dt>
+                    <dd><p>1.3.4</p></dd>
+                    <dt>To do</dt>
+                    <dd><span class="cmt"><p>make a normal multithreaded downloader
+      and annihilate the current one</p></span></dd>
+                </dl>
                 <div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -500,7 +527,7 @@
                                 </div>
                             </li>
                             <li name="tk.iscorp.nhs.core.datagetter.GalleryDownloader#download" visbl="pub"
-                                class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                                class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
                                 <a id="download(gly:tk.iscorp.nhs.core.data.Gallery,path:String,bonusData:Boolean,hideBonusData:Boolean):Int"></a><a
                                     id="download(Gallery,String,Boolean,Boolean):Int"></a>
                                 <span class="permalink">
@@ -524,10 +551,33 @@
                                         class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
 
-
+                                <p class="shortcomment cmt">Downloads a gallery instance's images to the specified
+                                    path.</p>
+                                <div class="fullcomment">
+                                    <div class="comment cmt"><p>Downloads a gallery instance's images to the specified
+                                        path.
+                                        Bonus data in json and xml format can be downloaded.
+                                        named {gallery's id}.json and {gallery's id}.xml respectively.
+                                        The bonus files can be specified to be hidden.
+                                        On Unix based system a . will precede their names as per hiding rules.</p>
+                                        <p>If bonusData is set to false, hideBonusData is not checked.
+                                        </p></div>
+                                    <dl class="paramcmts block">
+                                        <dt class="param">gly</dt>
+                                        <dd class="cmt"><p>The Gallery to download</p></dd>
+                                        <dt class="param">path</dt>
+                                        <dd class="cmt"><p>The path to place the pages</p></dd>
+                                        <dt class="param">bonusData</dt>
+                                        <dd class="cmt"><p>Whether to download bonus data</p></dd>
+                                        <dt class="param">hideBonusData</dt>
+                                        <dd class="cmt"><p>Whether to hide the bonus data.</p></dd>
+                                        <dt>returns</dt>
+                                        <dd class="cmt"><p>The number of pages downloaded</p></dd>
+                                    </dl>
+                                </div>
                             </li>
                             <li name="tk.iscorp.nhs.core.datagetter.GalleryDownloader#download" visbl="pub"
-                                class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                                class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
                                 <a id="download(gly:tk.iscorp.nhs.core.data.Gallery,path:String,bonusData:Boolean):Int"></a><a
                                     id="download(Gallery,String,Boolean):Int"></a>
                                 <span class="permalink">
@@ -550,10 +600,29 @@
                                         class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
 
-
+                                <p class="shortcomment cmt">Downloads a gallery instance's images to the specified
+                                    path.</p>
+                                <div class="fullcomment">
+                                    <div class="comment cmt"><p>Downloads a gallery instance's images to the specified
+                                        path.
+                                        Bonus data in json and xml format can be downloaded as hidden files,
+                                        named {gallery's id}.json and {gallery's id}.xml respectively.
+                                        On Unix based system a . will precede their names as per hiding rules.
+                                    </p></div>
+                                    <dl class="paramcmts block">
+                                        <dt class="param">gly</dt>
+                                        <dd class="cmt"><p>The Gallery to download</p></dd>
+                                        <dt class="param">path</dt>
+                                        <dd class="cmt"><p>The path to place the pages</p></dd>
+                                        <dt class="param">bonusData</dt>
+                                        <dd class="cmt"><p>Whether to download bonus data</p></dd>
+                                        <dt>returns</dt>
+                                        <dd class="cmt"><p>The number of pages downloaded</p></dd>
+                                    </dl>
+                                </div>
                             </li>
                             <li name="tk.iscorp.nhs.core.datagetter.GalleryDownloader#download" visbl="pub"
-                                class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                                class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
                                 <a id="download(gly:tk.iscorp.nhs.core.data.Gallery,path:String):Int"></a><a
                                     id="download(Gallery,String):Int"></a>
                                 <span class="permalink">
@@ -574,10 +643,26 @@
                                         class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
 
-
+                                <p class="shortcomment cmt">Downloads a gallery instance's images to the specified path
+                                    Each image will be named it's page number
+                                </p>
+                                <div class="fullcomment">
+                                    <div class="comment cmt"><p>Downloads a gallery instance's images to the specified
+                                        path
+                                        Each image will be named it's page number
+                                    </p></div>
+                                    <dl class="paramcmts block">
+                                        <dt class="param">gly</dt>
+                                        <dd class="cmt"><p>The Gallery to download</p></dd>
+                                        <dt class="param">path</dt>
+                                        <dd class="cmt"><p>The path to place the pages</p></dd>
+                                        <dt>returns</dt>
+                                        <dd class="cmt"><p>The number of pages downloaded</p></dd>
+                                    </dl>
+                                </div>
                             </li>
                             <li name="tk.iscorp.nhs.core.datagetter.GalleryDownloader#download" visbl="pub"
-                                class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                                class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
                                 <a id="download(gly:tk.iscorp.nhs.core.data.Gallery):Int"></a><a
                                     id="download(Gallery):Int"></a>
                                 <span class="permalink">
@@ -597,7 +682,22 @@
                                         class="result">: <span class="extype" name="scala.Int">Int</span></span>
       </span>
 
-
+                                <p class="shortcomment cmt">Downloads a gallery instance's images to the
+                                    {directory of the jar file}/dwn/{id of the gallery}
+                                    Each image will be named it's page number
+                                </p>
+                                <div class="fullcomment">
+                                    <div class="comment cmt"><p>Downloads a gallery instance's images to the
+                                        {directory of the jar file}/dwn/{id of the gallery}
+                                        Each image will be named it's page number
+                                    </p></div>
+                                    <dl class="paramcmts block">
+                                        <dt class="param">gly</dt>
+                                        <dd class="cmt"><p>The Gallery to download</p></dd>
+                                        <dt>returns</dt>
+                                        <dd class="cmt"><p>The number of pages downloaded</p></dd>
+                                    </dl>
+                                </div>
                             </li>
                             <li name="scala.AnyRef#eq" visbl="pub" class="indented0 " data-isabs="false"
                                 fullComment="yes" group="Ungrouped">

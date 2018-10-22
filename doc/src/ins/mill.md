@@ -16,8 +16,6 @@ object ZincWorkerWithJitPack extends ZincWorkerModule {
 Adding the custom ZincWorker and the dependency
 ```scala
 // In your build.sc
-import your.ZincWorkerWithJitPack
-
 object YourScalaProject extends ScalaModule { //or JavaModule
   // other settings
   def zincWorker = ZincWorkerWithJitPack

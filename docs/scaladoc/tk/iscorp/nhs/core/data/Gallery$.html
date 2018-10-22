@@ -181,10 +181,20 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="index.html"><span class="name">data</span></a>
+        <a title="Contains the tk.iscorp.nhs.core.data.Gallery object &amp;&amp; class used as the main class in the library."
+           href="index.html"><span class="name">data</span></a>
       </span>
 
+                        <p class="shortcomment cmt">Contains the <a href="Gallery.html" class="extype"
+                                                                    name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                            object &amp;&amp; class
+                            used as the main class in the library.</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>Contains the <a href="Gallery.html" class="extype"
+                                                                        name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                                object &amp;&amp; class
+                                used as the main class in the library.
+                            </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../index.html" class="extype" name="tk.iscorp.nhs.core">core</a></dd>
@@ -204,10 +214,40 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="hentai/index.html"><span class="name">hentai</span></a>
+        <a title="The hentai package contains all tags and the HentaiData trait to store all data from nhentai"
+           href="hentai/index.html"><span class="name">hentai</span></a>
       </span>
 
+                        <p class="shortcomment cmt">The hentai package contains all tags and the HentaiData trait to
+                            store all
+                            data from nhentai</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>The hentai package contains all tags and the HentaiData trait to
+                                store all
+                                data from nhentai</p>
+                                <p>Contents:
+                                    - the HentaiData trait, all the others implement it</p>
+                                <ul>
+                                    <li>HentaiArtist - Stores hentai artists</li>
+                                    <li>HentaiCategory - Stores the hentai's category
+                                        can be either of the following:<br/></li>
+                                    <li>MangaHentai</li>
+                                    <li>DoujinshiHentai</li>
+                                    <li>OtherCategoryHentai - if all else fails</li>
+                                    <li>HentaiCharacter - Stores characters who appear in hentai</li>
+                                    <li>HentaiGroup - Stores groups into which hentai are organized</li>
+                                    <li>HentaiLanguage - Stores the hentai's language
+                                        can be either of the following:<br/></li>
+                                    <li>EnglishHentai</li>
+                                    <li>JapaneseHentai</li>
+                                    <li>ChineseHentai</li>
+                                    <li>RewriteHentai</li>
+                                    <li>TranslatedHentai</li>
+                                    <li>OtherLanguageHentai - if all else fails</li>
+                                    <li>HentaiParody - Stores shows which the hentai &quot;parodizes&quot;</li>
+                                    <li>HentaiTag - Stores the tag which describe the hentai's contents</li>
+                                </ul>
+                            </div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="index.html" class="extype" name="tk.iscorp.nhs.core.data">data</a></dd>
@@ -215,7 +255,7 @@
                         </div>
                     </li>
                     <li class="current-entities indented5">
-                        <a class="object" href="" title=""></a>
+                        <a class="object" href="" title="Utility object mainly used for testing."></a>
                         <a class="class" href="Gallery.html" title="Represents a gallery on the nhentai site."></a>
                         <a href="Gallery.html" title="Represents a gallery on the nhentai site.">Gallery</a>
                     </li>
@@ -258,6 +298,9 @@
 
 
             <div id="comment" class="fullcommenttop">
+                <div class="comment cmt"><p>Utility object mainly used for testing.
+                    Its dummy method is used when there's an error fetching actual galleries.
+                </p></div>
                 <div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -478,29 +521,33 @@
                                         href="hentai/HentaiTag.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiTag">HentaiTag</a>] = <span
                                         class="defval"
-                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiTag(&quot;Mindfucking&quot;, 1))</a></span>'>...</span></span>, <span
-                                        name="parodies">parodies: <span class="extype"
-                                                                        name="scala.Array">Array</span>[<a
+                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiTag(&quot;Mindfucking&quot;,
+                                                         1))</a></span>'>...</span></span>, <span name="parodies">parodies: <span
+                                        class="extype" name="scala.Array">Array</span>[<a
                                         href="hentai/HentaiParody.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiParody">HentaiParody</a>] = <span
                                         class="defval"
-                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiParody(&quot;InfoSoft The Animation&quot;, 1))</a></span>'>...</span></span>, <span
+                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiParody(&quot;InfoSoft The Animation&quot;,
+                                                                   1))</a></span>'>...</span></span>, <span
                                         name="characters">characters: <span class="extype"
                                                                             name="scala.Array">Array</span>[<a
                                         href="hentai/HentaiCharacter.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiCharacter">HentaiCharacter</a>] = <span
                                         class="defval"
-                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiCharacter(&quot;genderbent-bodand&quot;, 1))</a></span>'>...</span></span>, <span
+                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiCharacter(&quot;genderbent-bodand&quot;,
+                                                                           1))</a></span>'>...</span></span>, <span
                                         name="artists">artists: <span class="extype" name="scala.Array">Array</span>[<a
                                         href="hentai/HentaiArtist.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiArtist">HentaiArtist</a>] = <span
                                         class="defval"
-                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiArtist(&quot;Broccodile&quot;, 69))</a></span>'>...</span></span>, <span
+                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiArtist(&quot;Broccodile&quot;,
+                                                                  69))</a></span>'>...</span></span>, <span
                                         name="groups">groups: <span class="extype" name="scala.Array">Array</span>[<a
                                         href="hentai/HentaiGroup.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiGroup">HentaiGroup</a>] = <span
                                         class="defval"
-                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiGroup(&quot;InfoSoft HentaiBundle&quot;, 6))</a></span>'>...</span></span>, <span
+                                        name='<span class="name"><a href="../../../../index.html">Array(new HentaiGroup(&quot;InfoSoft HentaiBundle&quot;,
+                                                               6))</a></span>'>...</span></span>, <span
                                         name="languages">languages: <span class="extype" name="scala.Array">Array</span>[<a
                                         href="hentai/HentaiLanguage.html" class="extype"
                                         name="tk.iscorp.nhs.core.data.hentai.HentaiLanguage">HentaiLanguage</a>] = <span
@@ -512,8 +559,7 @@
                                                                           name="scala.Int">Int</span> = <span
                                         class="symbol">85</span></span>, <span name="uploadDate">uploadDate: <span
                                         class="extype" name="java.time.OffsetDateTime">OffsetDateTime</span> = <span
-                                        class="defval"
-                                        name="OffsetDateTime.of(1970, 1,<br/>                                                           1, 0,<br/>                                                           0, 0,<br/>                                                           1, ZoneOffset.UTC)">...</span></span>, <span
+                                        class="defval" name="Instant.EPOCH.atOffset(ZoneOffset.UTC)">...</span></span>, <span
                                         name="id">id: <span class="extype" name="scala.Int">Int</span> = <span
                                         class="symbol">999999</span></span>, <span name="dataId">dataId: <span
                                         class="extype" name="scala.Int">Int</span> = <span class="symbol">9999999</span></span>)</span><span
@@ -523,16 +569,25 @@
 
                                 <p class="shortcomment cmt">Dummy gallery used in testing and for returning for faulty
                                     html response
-                                </p>
+                                    Can be used to test whether the processing of html was successful.</p>
                                 <div class="fullcomment">
                                     <div class="comment cmt"><p>Dummy gallery used in testing and for returning for
                                         faulty html response
-                                    </p></div>
+                                        Can be used to test whether the processing of html was successful.</p>
+                                        <p>The returned value can be overwritten by the parameters, each by their own
+                                            respective name.
+                                        </p></div>
                                     <dl class="paramcmts block">
                                         <dt>returns</dt>
-                                        <dd class="cmt"><p>A Gallery object with bullshit data</p></dd>
+                                        <dd class="cmt"><p>A Gallery object with imaginary data, and epoch creation
+                                            time.</p></dd>
                                     </dl>
                                     <dl class="attributes block">
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
+
+                                        </dd>
                                         <dt>Since</dt>
                                         <dd><p>1.1</p></dd>
                                     </dl>

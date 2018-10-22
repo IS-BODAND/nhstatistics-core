@@ -181,10 +181,20 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="index.html"><span class="name">data</span></a>
+        <a title="Contains the tk.iscorp.nhs.core.data.Gallery object &amp;&amp; class used as the main class in the library."
+           href="index.html"><span class="name">data</span></a>
       </span>
 
+                        <p class="shortcomment cmt">Contains the <a href="" class="extype"
+                                                                    name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                            object &amp;&amp; class
+                            used as the main class in the library.</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>Contains the <a href="" class="extype"
+                                                                        name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                                object &amp;&amp; class
+                                used as the main class in the library.
+                            </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../index.html" class="extype" name="tk.iscorp.nhs.core">core</a></dd>
@@ -204,10 +214,40 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="hentai/index.html"><span class="name">hentai</span></a>
+        <a title="The hentai package contains all tags and the HentaiData trait to store all data from nhentai"
+           href="hentai/index.html"><span class="name">hentai</span></a>
       </span>
 
+                        <p class="shortcomment cmt">The hentai package contains all tags and the HentaiData trait to
+                            store all
+                            data from nhentai</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>The hentai package contains all tags and the HentaiData trait to
+                                store all
+                                data from nhentai</p>
+                                <p>Contents:
+                                    - the HentaiData trait, all the others implement it</p>
+                                <ul>
+                                    <li>HentaiArtist - Stores hentai artists</li>
+                                    <li>HentaiCategory - Stores the hentai's category
+                                        can be either of the following:<br/></li>
+                                    <li>MangaHentai</li>
+                                    <li>DoujinshiHentai</li>
+                                    <li>OtherCategoryHentai - if all else fails</li>
+                                    <li>HentaiCharacter - Stores characters who appear in hentai</li>
+                                    <li>HentaiGroup - Stores groups into which hentai are organized</li>
+                                    <li>HentaiLanguage - Stores the hentai's language
+                                        can be either of the following:<br/></li>
+                                    <li>EnglishHentai</li>
+                                    <li>JapaneseHentai</li>
+                                    <li>ChineseHentai</li>
+                                    <li>RewriteHentai</li>
+                                    <li>TranslatedHentai</li>
+                                    <li>OtherLanguageHentai - if all else fails</li>
+                                    <li>HentaiParody - Stores shows which the hentai &quot;parodizes&quot;</li>
+                                    <li>HentaiTag - Stores the tag which describe the hentai's contents</li>
+                                </ul>
+                            </div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="index.html" class="extype" name="tk.iscorp.nhs.core.data">data</a></dd>
@@ -215,7 +255,7 @@
                         </div>
                     </li>
                     <li class="current-entities indented5">
-                        <a class="object" href="Gallery$.html" title=""></a>
+                        <a class="object" href="Gallery$.html" title="Utility object mainly used for testing."></a>
                         <a class="class" href="" title="Represents a gallery on the nhentai site."></a>
                         <a href="" title="Represents a gallery on the nhentai site.">Gallery</a>
                     </li>
@@ -713,6 +753,11 @@
                                         <dd><a href="" class="extype" name="tk.iscorp.nhs.core.data.Gallery">Gallery</a>
                                             → AnyRef → Any
                                         </dd>
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
+
+                                        </dd>
                                         <dt>Since</dt>
                                         <dd><p>1.0</p></dd>
                                     </dl>
@@ -1127,10 +1172,10 @@
                                                                      name="scala.Predef.String">String</span></span>
       </span>
 
-                                <p class="shortcomment cmt">Returns the gallery in JSON format.</p>
+                                <p class="shortcomment cmt">Returns the gallery in JSON format in a string;
+                                </p>
                                 <div class="fullcomment">
-                                    <div class="comment cmt"><p>Returns the gallery in JSON format. Order of appearance
-                                        may wary from object to object.
+                                    <div class="comment cmt"><p>Returns the gallery in JSON format in a string;
                                     </p></div>
                                     <dl class="paramcmts block">
                                         <dt>returns</dt>
@@ -1141,100 +1186,91 @@
                                         <dd><a href="" class="extype" name="tk.iscorp.nhs.core.data.Gallery">Gallery</a>
                                             → JSONTransformable
                                         </dd>
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
+
+                                            <span class="name">@NonNls</span><span class="args">()</span>
+
+                                        </dd>
                                         <div class="block">Example:
                                             <ol>
                                                 <li class="cmt"><p>
-                                                    {<br/>
-                                                    &nbsp;&nbsp;&quot;characters&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;character&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    41,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;kooh&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;],<br/>
-                                                    &nbsp;&nbsp;&quot;parodies&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;parody&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    78,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;pangya&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;],<br/>
-                                                    &nbsp;&nbsp;&quot;pages&quot;: 14,<br/>
-                                                    &nbsp;&nbsp;&quot;id&quot;: 1,<br/>
-                                                    &nbsp;&nbsp;&quot;data-id&quot;: 9,<br/>
-                                                    &nbsp;&nbsp;&quot;languages&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;language&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    129652,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;Japanese&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;],<br/>
-                                                    &nbsp;&nbsp;&quot;artists&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;artist&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    46,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;koari&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;],<br/>
-                                                    &nbsp;&nbsp;&quot;upload&quot;: &quot;June 28, 2014, 2:12 p.m.&quot;,<br/>
-                                                    &nbsp;&nbsp;&quot;name&quot;: &quot;(C71) [Arisan-Antenna (Koari)]
-                                                    Eat The Rich! (Sukatto Golf Pangya)&quot;,<br/>
-                                                    &nbsp;&nbsp;&quot;groups&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;group&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    34,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;arisan-antenna&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;],<br/>
-                                                    &nbsp;&nbsp;&quot;category&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;Doujinshi&quot;,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;: 138514<br/>
-                                                    &nbsp;&nbsp;},<br/>
-                                                    &nbsp;&nbsp;&quot;sec-name&quot;: &quot;(C71) [ありさんアンテナ (小蟻)] Eat
-                                                    The Rich! (スカッとゴルフ パンヤ)&quot;,<br/>
-                                                    &nbsp;&nbsp;&quot;tags&quot;: [<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;tag&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    45693,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;lolicon&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;},<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;tag&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    5796,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;catgirl&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;},<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;tag&quot;: {<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;amount&quot;:
-                                                    176,<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;:
-                                                    &quot;gymshorts&quot;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                                                    &nbsp;&nbsp;]<br/>
-                                                    }</p></li>
+                                                    <pre>
+{
+"id": 1,
+"data-id": 9,
+"name": "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+"sec-name": "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+"parodies": [
+{
+"parody": {
+"amount": 78,
+"name": "pangya"
+}
+}
+],
+"characters": [
+{
+"character": {
+"amount": 41,
+"name": "kooh"
+}
+}
+],
+"tags": [
+{
+"tag": {
+"amount": 45693,
+"name": "lolicon"
+}
+},
+{
+"tag": {
+"amount": 5796,
+"name": "catgirl"
+}
+},
+{
+"tag": {
+"amount": 176,
+"name": "gymshorts"
+}
+}
+],
+"artists": [
+{
+"artist": {
+"amount": 46,
+"name": "koari"
+}
+}
+],
+"groups": [
+{
+"group": {
+"amount": 34,
+"name": "arisan-antenna"
+}
+}
+],
+"languages": [
+{
+"language": {
+"amount": 129652,
+"name": "Japanese"
+}
+}
+],
+"category": {
+"name": "Doujinshi",
+"amount": 138514
+},
+"pages": 14,
+"upload": "2014-06-28 14:12"
+}
+</pre>
+                                                    </p></li>
                                             </ol>
                                         </div>
                                         <dt>Since</dt>
@@ -1274,6 +1310,13 @@
                                         <dd><a href="" class="extype" name="tk.iscorp.nhs.core.data.Gallery">Gallery</a>
                                             → AnyRef → Any
                                         </dd>
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
+
+                                            <span class="name">@Nls</span><span class="args">()</span>
+
+                                        </dd>
                                         <dt>Since</dt>
                                         <dd><p>1.0</p></dd>
                                     </dl>
@@ -1309,47 +1352,52 @@
                                         <dd><a href="" class="extype" name="tk.iscorp.nhs.core.data.Gallery">Gallery</a>
                                             → XmlTransformable
                                         </dd>
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
+
+                                        </dd>
                                         <div class="block">Example:
                                             <ol>
                                                 <li class="cmt"><p>
-                                                    &lt;gallery id=&quot;1&quot; data-id=&quot;9&quot;&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;name&gt;(C71) [Arisan-Antenna (Koari)] Eat The Rich!
-                                                    (Sukatto Golf Pangya)&lt;/name&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;sec-name&gt;(C71) [ありさんアンテナ (小蟻)] Eat The Rich!
-                                                    (スカッとゴルフ パンヤ)&lt;/sec-name&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;parodies&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;parody name=&quot;pangya&quot; amount=&quot;78&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/parodies&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;characters&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;character name=&quot;kooh&quot; amount=&quot;41&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/characters&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;tags&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name=&quot;lolicon&quot; amount=&quot;45693&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name=&quot;catgirl&quot; amount=&quot;5796&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name=&quot;gymshorts&quot; amount=&quot;176&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/tags&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;artists&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;artist name=&quot;koari&quot; amount=&quot;46&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/artists&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;groups&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;group name=&quot;arisan-antenna&quot;
-                                                    amount=&quot;34&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/groups&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;languages&gt;<br/>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&lt;language name=&quot;Japanese&quot;
-                                                    amount=&quot;129652&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;/languages&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;category name=&quot;Doujinshi&quot; amount=&quot;138514&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;pages size=&quot;14&quot;/&gt;<br/>
-                                                    &nbsp;&nbsp;&lt;upload&gt;June 28, 2014, 2:12
-                                                    p.m.&lt;/upload&gt;<br/>
-                                                    &lt;/gallery&gt;<br/></p></li>
+                                                    <pre>
+&lt;gallery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://iscorp.tk/is-xml/NHentaiData"
+xsi:schemaLocation="http://iscorp.tk/is-xml/NHentaiData http://users.atw.hu/bodand/info-xml/nhs-xml-data.xsd"
+id="1" data-id="9" &gt;
+&lt;name&gt;(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)&lt;/name&gt;
+&lt;sec-name&gt;(C71) [???????? (??)] Eat The Rich! (??????? ???)&lt;/sec-name&gt;
+&lt;parodies&gt;
+&lt;parody name="pangya" amount="78"/&gt;
+&lt;/parodies&gt;
+&lt;characters&gt;
+&lt;character name="kooh" amount="41"/&gt;
+&lt;/characters&gt;
+&lt;tags&gt;
+&lt;tag name="lolicon" amount="45693"/&gt;&lt;tag name="catgirl" amount="5796"/&gt;&lt;tag name="gymshorts"
+amount="176"/&gt;
+&lt;/tags&gt;
+&lt;artists&gt;
+&lt;artist name="koari" amount="46"/&gt;
+&lt;/artists&gt;
+&lt;groups&gt;
+&lt;group name="arisan-antenna" amount="34"/&gt;
+&lt;/groups&gt;
+&lt;languages&gt;
+&lt;language name="Japanese" amount="129652"/&gt;
+&lt;/languages&gt;
+&lt;category name="Doujinshi" amount="138514"/&gt;
+&lt;pages size="14"/&gt;
+&lt;upload&gt;2014-06-28 14:12&lt;/upload&gt;
+&lt;/gallery&gt;
+</pre>
+                                                    </p></li>
                                             </ol>
                                         </div>
                                         <dt>Since</dt>
-                                        <dd><p>1.1
-                                            1.3 - added the new data-id property
-                                            1.3.5 - Changed to return string to reduce dependency overhead</p></dd>
+                                        <dd><p>1.1<br/>
+                                            1.3 - added the new data-id property<br/>
+                                            1.3.5 - Changed to return string to reduce dependency overhead<br/></p></dd>
                                     </dl>
                                 </div>
                             </li>

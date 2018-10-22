@@ -182,10 +182,22 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="index.html"><span class="name">datagetter</span></a>
+        <a title="This package contains classes that are used for gaining some type of data." href="index.html"><span
+                class="name">datagetter</span></a>
       </span>
 
+                        <p class="shortcomment cmt">This package contains classes that are used for gaining some type of
+                            data.</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>This package contains classes that are used for gaining some
+                                type of data.</p>
+                                <p>GalleryDownloader - gets the pages from galleries
+                                    HttpResponseProcessor - gets <a href="../data/Gallery.html" class="extype"
+                                                                    name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>-s
+                                    from
+                                    html responses
+                                    private HttpGetter - gets html responses from URIs
+                                </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../index.html" class="extype" name="tk.iscorp.nhs.core">core</a></dd>
@@ -194,13 +206,17 @@
                     </li>
                     <li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="GalleryDownloader.html" title=""></a>
-                        <a href="GalleryDownloader.html" title="">GalleryDownloader</a>
+                        <a class="class" href="GalleryDownloader.html"
+                           title="Class that can download all images from a gallery defined by a provided Gallery instance."></a>
+                        <a href="GalleryDownloader.html"
+                           title="Class that can download all images from a gallery defined by a provided Gallery instance.">GalleryDownloader</a>
                     </li>
                     <li class="current-entities indented5">
                         <span class="separator"></span>
-                        <a class="class" href="" title=""></a>
-                        <a href="" title="">HtmlResponseProcessor</a>
+                        <a class="class" href=""
+                           title="HtmlResponseProcessor processes the html returned by nhentai, to extract Gallery instances from them."></a>
+                        <a href=""
+                           title="HtmlResponseProcessor processes the html returned by nhentai, to extract Gallery instances from them.">HtmlResponseProcessor</a>
                     </li>
                 </ul>
             </div>
@@ -238,6 +254,13 @@
 
 
             <div id="comment" class="fullcommenttop">
+                <div class="comment cmt"><p>HtmlResponseProcessor processes the html returned by nhentai, to extract
+                    <span class="extype" name="Gallery">Gallery</span> instances from them.
+                </p></div>
+                <dl class="attributes block">
+                    <dt>Since</dt>
+                    <dd><p>1.0</p></dd>
+                </dl>
                 <div class="toggleContainer block">
           <span class="toggle">
             Linear Supertypes
@@ -725,7 +748,7 @@
                                 </div>
                             </li>
                             <li name="tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor#processHtmlToGallery"
-                                visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
+                                visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
                                 <a id="processHtmlToGallery(html:String):tk.iscorp.nhs.core.data.Gallery"></a><a
                                     id="processHtmlToGallery(String):Gallery"></a>
                                 <span class="permalink">
@@ -745,7 +768,26 @@
                                                             name="tk.iscorp.nhs.core.data.Gallery">Gallery</a></span>
       </span>
 
+                                <p class="shortcomment cmt">Processes a provided html source from nhentai.</p>
+                                <div class="fullcomment">
+                                    <div class="comment cmt"><p>Processes a provided html source from nhentai.
+                                    </p></div>
+                                    <dl class="paramcmts block">
+                                        <dt class="param">html</dt>
+                                        <dd class="cmt"><p>The source to create the gallery from</p></dd>
+                                        <dt>returns</dt>
+                                        <dd class="cmt"><p>The constructed Gallery instance</p></dd>
+                                    </dl>
+                                    <dl class="attributes block">
+                                        <dt>Annotations</dt>
+                                        <dd>
+                                            <span class="name">@NotNull</span><span class="args">()</span>
 
+                                            <span class="name">@NonNls</span><span class="args">()</span>
+
+                                        </dd>
+                                    </dl>
+                                </div>
                             </li>
                             <li name="scala.AnyRef#synchronized" visbl="pub" class="indented0 " data-isabs="false"
                                 fullComment="yes" group="Ungrouped">

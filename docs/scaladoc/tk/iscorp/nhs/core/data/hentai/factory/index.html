@@ -182,10 +182,20 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="../../index.html"><span class="name">data</span></a>
+        <a title="Contains the tk.iscorp.nhs.core.data.Gallery object &amp;&amp; class used as the main class in the library."
+           href="../../index.html"><span class="name">data</span></a>
       </span>
 
+                        <p class="shortcomment cmt">Contains the <a href="../../Gallery.html" class="extype"
+                                                                    name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                            object &amp;&amp; class
+                            used as the main class in the library.</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>Contains the <a href="../../Gallery.html" class="extype"
+                                                                        name="tk.iscorp.nhs.core.data.Gallery">tk.iscorp.nhs.core.data.Gallery</a>
+                                object &amp;&amp; class
+                                used as the main class in the library.
+                            </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../../../index.html" class="extype" name="tk.iscorp.nhs.core">core</a></dd>
@@ -205,10 +215,40 @@
         <span class="kind">package</span>
       </span>
                         <span class="symbol">
-        <a title="" href="../index.html"><span class="name">hentai</span></a>
+        <a title="The hentai package contains all tags and the HentaiData trait to store all data from nhentai"
+           href="../index.html"><span class="name">hentai</span></a>
       </span>
 
+                        <p class="shortcomment cmt">The hentai package contains all tags and the HentaiData trait to
+                            store all
+                            data from nhentai</p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>The hentai package contains all tags and the HentaiData trait to
+                                store all
+                                data from nhentai</p>
+                                <p>Contents:
+                                    - the HentaiData trait, all the others implement it</p>
+                                <ul>
+                                    <li>HentaiArtist - Stores hentai artists</li>
+                                    <li>HentaiCategory - Stores the hentai's category
+                                        can be either of the following:<br/></li>
+                                    <li>MangaHentai</li>
+                                    <li>DoujinshiHentai</li>
+                                    <li>OtherCategoryHentai - if all else fails</li>
+                                    <li>HentaiCharacter - Stores characters who appear in hentai</li>
+                                    <li>HentaiGroup - Stores groups into which hentai are organized</li>
+                                    <li>HentaiLanguage - Stores the hentai's language
+                                        can be either of the following:<br/></li>
+                                    <li>EnglishHentai</li>
+                                    <li>JapaneseHentai</li>
+                                    <li>ChineseHentai</li>
+                                    <li>RewriteHentai</li>
+                                    <li>TranslatedHentai</li>
+                                    <li>OtherLanguageHentai - if all else fails</li>
+                                    <li>HentaiParody - Stores shows which the hentai &quot;parodizes&quot;</li>
+                                    <li>HentaiTag - Stores the tag which describe the hentai's contents</li>
+                                </ul>
+                            </div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../../index.html" class="extype" name="tk.iscorp.nhs.core.data">data</a>
@@ -232,7 +272,24 @@
         <span class="name">factory</span>
       </span>
 
+                        <p class="shortcomment cmt">The factory package has factories to construct <a
+                                href="../HentaiData.html" class="extype"
+                                name="tk.iscorp.nhs.core.data.hentai.HentaiData">tk.iscorp.nhs.core.data.hentai.HentaiData</a>
+                            implementors
+                            Except the HentaiCategory who is currently constructed in-place and doesn't have a factory.
+                        </p>
                         <div class="fullcomment">
+                            <div class="comment cmt"><p>The factory package has factories to construct <a
+                                    href="../HentaiData.html" class="extype"
+                                    name="tk.iscorp.nhs.core.data.hentai.HentaiData">tk.iscorp.nhs.core.data.hentai.HentaiData</a>
+                                implementors
+                                Except the HentaiCategory who is currently constructed in-place and doesn't have a
+                                factory.
+                                All classes can be constructed normally, these are used by the library to get around
+                                type-erasure in
+                                <a href="../../../datagetter/HtmlResponseProcessor.html" class="extype"
+                                   name="tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor">tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor</a>
+                            </p></div>
                             <dl class="attributes block">
                                 <dt>Definition Classes</dt>
                                 <dd><a href="../index.html" class="extype"
@@ -319,7 +376,24 @@
             </h4>
 
 
-            <div id="comment" class="fullcommenttop"></div>
+            <div id="comment" class="fullcommenttop">
+                <div class="comment cmt"><p>The factory package has factories to construct <a href="../HentaiData.html"
+                                                                                              class="extype"
+                                                                                              name="tk.iscorp.nhs.core.data.hentai.HentaiData">tk.iscorp.nhs.core.data.hentai.HentaiData</a>
+                    implementors
+                    Except the HentaiCategory who is currently constructed in-place and doesn't have a factory.
+                    All classes can be constructed normally, these are used by the library to get around type-erasure in
+                    <a href="../../../datagetter/HtmlResponseProcessor.html" class="extype"
+                       name="tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor">tk.iscorp.nhs.core.datagetter.HtmlResponseProcessor</a>
+                </p></div>
+                <div class="toggleContainer block">
+          <span class="toggle">
+            Linear Supertypes
+          </span>
+                    <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span
+                            class="extype" name="scala.Any">Any</span></div>
+                </div>
+            </div>
 
 
             <div id="template">
@@ -534,7 +608,12 @@
                 </div>
 
                 <div id="inheritedMembers">
-
+                    <div class="parent" name="scala.AnyRef">
+                        <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+                    </div>
+                    <div class="parent" name="scala.Any">
+                        <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+                    </div>
 
                 </div>
 
