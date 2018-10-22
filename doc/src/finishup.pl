@@ -134,9 +134,10 @@ HTML
         print_scrollbar_styling_headers if $. == 16;
         print_scrollbar_fallback if $. == 17;
         print_menu_scrollbar_styling_begin if $. == 65;
-        print_scrollbar_styling_end if $. == 96 || $. == 562;
+        print_scrollbar_styling_end if $. == 96;
         print_main_scrollbar_styling_begin if $. == 98;
-        print_scrollbar_js if $. == 564
+        print_scrollbar_styling_end if m{</article>};
+        print_scrollbar_js if m{</section>}
     }
 
     @ARGV = ($htmlFile);
