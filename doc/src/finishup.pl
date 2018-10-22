@@ -136,7 +136,7 @@ HTML
         print_menu_scrollbar_styling_begin if $. == 65;
         print_scrollbar_styling_end if $. == 96;
         print_main_scrollbar_styling_begin if $. == 98;
-        print_scrollbar_styling_end if m{</article>};
+        print_scrollbar_styling_end if $. > 550 && m{</article>};
         print_scrollbar_js if m{</section>}
     }
 

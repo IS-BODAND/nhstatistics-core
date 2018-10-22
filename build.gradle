@@ -116,7 +116,8 @@ check {
 task fillTemplates(type: Exec) {
     workingDir "$projectDir/doc/src/ins"
 
-    commandLine 'perl', "fill.pl"
+    commandLine 'perl', "fill.pl",
+            "gradle_template.md", "mvn_template.md", "sbt_template.md"
 }
 
 task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
@@ -125,37 +126,13 @@ task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
     commandLine 'cutedoc'
 }
 
-
-task cutedocFinishup(type: Exec, dependsOn: cutedoc) {
+task website(type: Exec, dependsOn: cutedoc) {
     workingDir "$projectDir/doc/src"
 
     commandLine 'perl', 'finishup.pl'
 }
-cutedoc.finalizedBy cutedocFinishup
+cutedoc.finalizedBy website
 
-task websiteDocs {
-    doLast {
-        fillTemplates.execute()
-        cutedoc.execute()
-    }
-}
-
-task websiteScaladoc() {
-    doLast {
-        File scalaDocOrig = new File("$projectDir/build/docs/scaladoc")
-        File scalaDocPublished = new File("$projectDir/docs/scaladoc")
-        try {
-            FileUtils.copyDirectory(scalaDocOrig, scalaDocPublished, true)
-        } catch (Exception e) {
-            e.printStackTrace()
-        }
-    }
-}
-
-task website() {
-    websiteDocs.execute()
-    websiteScaladoc.execute()
-}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
