@@ -27,8 +27,26 @@ import org.jetbrains.annotations.{NonNls, NotNull}
   */
 class HentaiTag(@NonNls @NotNull override val name: String,
                 @NotNull override val amount: Int) extends HentaiData {
+  /**
+    * Returns the data in xml in a String
+    *
+    * @return A scala.xml.Node object with name and amount attributes.
+    *
+    * @example &lt;tag name="caffeine overdose" amount="2"/&gt;
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
+    */
   override def toXml: String = s"""<tag name="$name" amount="$amount"/>"""
 
+  /**
+    * Returns the data in json in a String
+    *
+    * @return A org.simple.json.JSONObject object with fields name and amount.
+    *
+    * @example {"tag":{"amount":2,"name":"caffeine overdose"}}
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
+    */
   override def toJson: String =
     s"""{"tag":{"amount":$amount,"name":"$name"}}"""
 }

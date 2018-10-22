@@ -21,19 +21,37 @@ import scala.collection.mutable.ArrayBuffer
 import scala.language.{postfixOps, reflectiveCalls}
 import scala.reflect._
 
+import org.jetbrains.annotations.{NonNls, NotNull}
 import org.jsoup.Jsoup
 import org.jsoup.nodes.{Element, Node}
 import org.jsoup.select.{Elements, NodeVisitor}
-import tk.iscorp.nhs.core.Utils
+import org.slf4j.LoggerFactory
 import tk.iscorp.nhs.core.data.Gallery
 import tk.iscorp.nhs.core.data.hentai._
 import tk.iscorp.nhs.core.data.hentai.factory._
 
+/**
+  * HtmlResponseProcessor processes the html returned by nhentai, to extract
+  * [[Gallery]] instances from them.
+  *
+  * @since 1.0
+  * @author bodand
+  */
 class HtmlResponseProcessor {
+  private val logger = LoggerFactory.getLogger("HTMLProcessor")
   private val regexText = "([\\s\\w.-]+)\\s+".r
   private val regexNumberWithCommaEmparethised = "\\((\\d+)(?:,(\\d+))?\\)".r
 
-  def processHtmlToGallery(html: String): Gallery =
+  /**
+    * Processes a provided html source from nhentai.
+    *
+    * @param html The source to create the gallery from
+    *
+    * @return The constructed Gallery instance
+    */
+  @NotNull
+  @NonNls
+  def processHtmlToGallery(@NotNull @NonNls html: String): Gallery =
   {
     val document = Jsoup.parse(html)
 
@@ -41,14 +59,14 @@ class HtmlResponseProcessor {
 
     implicit val id: Int = try {
       document
-      .selectFirst("div#cover>a")
-      .attr("href")
-      .substring(3)
-      .takeWhile(_ != '/')
-      .toInt
+          .selectFirst("div#cover>a")
+          .attr("href")
+          .substring(3)
+          .takeWhile(_ != '/')
+          .toInt
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error(
+        logger.error(
           "√-1 => Error getting hentai id. Most likely means that it was deleted. " +
           s"Continuing to try, don't expect much."
         )
@@ -57,16 +75,16 @@ class HtmlResponseProcessor {
     }
 
     val dataId = try {
-      Utils.logger.debug(document.toString)
+      logger.debug(document.toString)
       document
-      .selectFirst("div#cover>a>img")
-      .attr("data-src")
-      .substring(32)
-      .takeWhile(c ⇒ c.isDigit)
-      .toInt
+          .selectFirst("div#cover>a>img")
+          .attr("data-src")
+          .substring(32)
+          .takeWhile(c ⇒ c.isDigit)
+          .toInt
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error(
+        logger.error(
           s"${if (id != 0) id else "√-1"} => Error getting data id. Most likely means that it was " +
           s"deleted. Continuing to try, don't expect much."
         )
@@ -78,7 +96,7 @@ class HtmlResponseProcessor {
       document.selectFirst("div#info h1").childNode(0).toString
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.error(
+        logger.error(
           s"${if (id != 0) id else "√-1"} => Error getting hentai name. Most likely means that it " +
           s"was deleted. Continuing to try, don't expect much."
         )
@@ -89,12 +107,12 @@ class HtmlResponseProcessor {
       document.selectFirst("div#info h2").childNode(0).toString
     } catch {
       case _: NullPointerException ⇒
-        Utils.logger.info(s"$id => Gallery has no secondary/japanese name")
+        logger.info(s"$id => Gallery has no secondary/japanese name")
         ""
     }
 
     if (fault >= 2) {
-      Utils.logger.error(
+      logger.error(
         s"$id => Error getting doujin data. Assuming it is deleted, returning with dummy Gallery."
       )
       Gallery.dummy()
@@ -118,10 +136,10 @@ class HtmlResponseProcessor {
         val category: HentaiCategory = getCategory(allTags.remove(0))
 
         val pageCount = document
-                        .selectFirst("div#info>div")
-                        .ownText()
-                        .takeWhile(_ != ' ')
-                        .toInt
+            .selectFirst("div#info>div")
+            .ownText()
+            .takeWhile(_ != ' ')
+            .toInt
 
         val date = document.selectFirst("div#info div time").attr("datetime")
 
@@ -140,7 +158,7 @@ class HtmlResponseProcessor {
                     dataId)
       } catch {
         case _: NullPointerException ⇒
-          Utils.logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
+          logger.error(s"""Error getting data for "$name" using dummy Gallery data""")
           Gallery.dummy()
       }
     }
@@ -154,7 +172,7 @@ class HtmlResponseProcessor {
       case regexNumberWithCommaEmparethised(n, m) ⇒
         if (m != null) n + m toInt else n toInt
       case _ ⇒
-        Utils.logger.error(s"""Error parsing category amount: "$name"""")
+        logger.error(s"""Error parsing category amount: "$name"""")
         0
     }
     name match {
@@ -163,7 +181,7 @@ class HtmlResponseProcessor {
       case "doujinshi" ⇒
         new DoujinshiHentai(amount)
       case _ ⇒
-        Utils.logger.warn(
+        logger.warn(
           s"Hentai category not found, this is most likely some kind of error. Category\n" +
           s"\tfound: $name\n" +
           s"\texpected: manga|doujinshi"
@@ -208,7 +226,7 @@ class HtmlResponseProcessor {
               )
               tmpInUse = false
             case _ ⇒
-              Utils.logger.error(s"""$id => Error parsing tag: "${node.toString}"""")
+              logger.error(s"""$id => Error parsing tag: "${node.toString}"""")
           }
         }
 

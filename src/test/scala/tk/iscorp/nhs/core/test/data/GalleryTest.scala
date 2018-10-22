@@ -97,7 +97,7 @@ class GalleryTest extends WordSpec {
   </languages>
   <category name="Doujinshi" amount="138514" />
   <pages size="14" />
-  <upload>2014-06-28T14:12</upload>
+  <upload>2014-06-28 14:12</upload>
 </gallery>.toString() // fuck this shit
         assertEquals(xmlString, gallery1.toXml)
       }

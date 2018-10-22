@@ -22,6 +22,17 @@ import tk.iscorp.nhs.core.data.hentai._
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiLanguage]]
   */
 class HentaiLanguageFactory extends HentaiDataFactory[HentaiLanguage] {
+
+  /**
+    * Constructs a new HentaiData implementor object
+    *
+    * @param name   Name of the HentaiData implementor to store
+    * @param amount Amount of doujin associated with the HentaiData implementor
+    * @param id     Implicit. ID of the doujin this HentaiData is got from.
+    *               Only used in logging.
+    *
+    * @return A new HentaiData object
+    */
   override def construct(name: String, amount: Int)(implicit id: Int): HentaiLanguage =
     name match {
       case "english" ⇒

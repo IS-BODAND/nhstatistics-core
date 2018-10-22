@@ -1,6 +1,6 @@
-Getting multiple doujin is just as easy as it is to get one doujin with HentaiInStream. 
-The readMultipleByID method takes an Array, a Scala List, or a Java ArrayList of Strings as an input and returns a 
-corresponding data structure of read Gallery objects.
+`HentaiInStream` can read multiple doujin at once by using the `HentaiInStream#readMultipleByID` which takes an argument
+of multiple Strings in an Array, a Scala List, or a Java util.List. The returned value always uses the same collection
+which was used to provide the Strings. i.e Here, we supplied an Array of String and it returned Array of Gallery. 
 
 ```java
 // Java
@@ -13,12 +13,10 @@ public class MultipleDoujinGetterCLI {
 ```
 ```scala
 // Scala
-object DoujinGetterCLI {
+object MultipleDoujinGetterCLI {
   def main(args: Array[String]): Unit = {
     val inStream = new DefaultHentaiInStream
     val doujin: Array[Gallery] = inStream.readMultipleByID(args)
   }
 }
 ```
-
-The readMultipleByID currently can also take the second boolean parameter for the ISO compliant date.

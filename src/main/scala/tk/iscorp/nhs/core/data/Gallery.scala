@@ -16,9 +16,9 @@
 package tk.iscorp.nhs.core.data
 
 import java.time.format.DateTimeFormatter
-import java.time.{OffsetDateTime, ZoneOffset}
+import java.time.{Instant, OffsetDateTime, ZoneOffset}
 
-import org.jetbrains.annotations.{NonNls, NotNull}
+import org.jetbrains.annotations.{Nls, NonNls, NotNull, Nullable}
 import tk.iscorp.nhs.core.data.hentai._
 import tk.iscorp.nhs.core.transform.{JSONTransformable, XmlTransformable}
 
@@ -52,12 +52,12 @@ class Gallery(@NonNls @NotNull val name: String,
               @NonNls @NotNull val tags: Array[HentaiTag],
               @NonNls @NotNull val artists: Array[HentaiArtist],
               @NonNls @NotNull val groups: Array[HentaiGroup],
-              @NotNull val languages: Array[HentaiLanguage],
-              @NotNull val category: HentaiCategory,
-              @NotNull val pageCount: Int,
+              @NonNls @NotNull val languages: Array[HentaiLanguage],
+              @NonNls @NotNull val category: HentaiCategory,
+              @NonNls @NotNull val pageCount: Int,
               @NonNls @NotNull val uploadDate: OffsetDateTime,
-              @NotNull val id: Int,
-              @NotNull val dataId: Int) extends XmlTransformable with JSONTransformable {
+              @NonNls @NotNull val id: Int,
+              @NonNls @NotNull val dataId: Int) extends XmlTransformable with JSONTransformable {
 
   /**
     * Checks equality of with another object.
@@ -69,50 +69,59 @@ class Gallery(@NonNls @NotNull val name: String,
     *
     * @since 1.0
     */
-  override def equals(obj: scala.Any): Boolean =
+  @NotNull
+  override def equals(@Nullable obj: scala.Any): Boolean =
+  {
     obj match {
       case glr: Gallery ⇒
         glr.id == this.id
+      case null ⇒ false
       case _ ⇒ false
     }
+  }
+
 
   /**
     * Returns the gallery in xml format in a String.
     *
     * @example
-    * &lt;gallery id="1" data-id="9"&gt;<br/>
-    * &nbsp;&nbsp;&lt;name&gt;(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)&lt;/name&gt;<br/>
-    * &nbsp;&nbsp;&lt;sec-name&gt;(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)&lt;/sec-name&gt;<br/>
-    * &nbsp;&nbsp;&lt;parodies&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;parody name="pangya" amount="78"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/parodies&gt;<br/>
-    * &nbsp;&nbsp;&lt;characters&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;character name="kooh" amount="41"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/characters&gt;<br/>
-    * &nbsp;&nbsp;&lt;tags&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name="lolicon" amount="45693"/&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name="catgirl" amount="5796"/&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;tag name="gymshorts" amount="176"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/tags&gt;<br/>
-    * &nbsp;&nbsp;&lt;artists&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;artist name="koari" amount="46"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/artists&gt;<br/>
-    * &nbsp;&nbsp;&lt;groups&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;group name="arisan-antenna" amount="34"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/groups&gt;<br/>
-    * &nbsp;&nbsp;&lt;languages&gt;<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&lt;language name="Japanese" amount="129652"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;/languages&gt;<br/>
-    * &nbsp;&nbsp;&lt;category name="Doujinshi" amount="138514"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;pages size="14"/&gt;<br/>
-    * &nbsp;&nbsp;&lt;upload&gt;June 28, 2014, 2:12 p.m.&lt;/upload&gt;<br/>
-    * &lt;/gallery&gt;<br/>
+    * <pre>
+    * &lt;gallery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    * xmlns="http://iscorp.tk/is-xml/NHentaiData"
+    * xsi:schemaLocation="http://iscorp.tk/is-xml/NHentaiData http://users.atw.hu/bodand/info-xml/nhs-xml-data.xsd"
+    * id="1" data-id="9" &gt;
+    * &lt;name&gt;(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)&lt;/name&gt;
+    * &lt;sec-name&gt;(C71) [???????? (??)] Eat The Rich! (??????? ???)&lt;/sec-name&gt;
+    * &lt;parodies&gt;
+    * &lt;parody name="pangya" amount="78"/&gt;
+    * &lt;/parodies&gt;
+    * &lt;characters&gt;
+    * &lt;character name="kooh" amount="41"/&gt;
+    * &lt;/characters&gt;
+    * &lt;tags&gt;
+    * &lt;tag name="lolicon" amount="45693"/&gt;&lt;tag name="catgirl" amount="5796"/&gt;&lt;tag name="gymshorts"
+    * amount="176"/&gt;
+    * &lt;/tags&gt;
+    * &lt;artists&gt;
+    * &lt;artist name="koari" amount="46"/&gt;
+    * &lt;/artists&gt;
+    * &lt;groups&gt;
+    * &lt;group name="arisan-antenna" amount="34"/&gt;
+    * &lt;/groups&gt;
+    * &lt;languages&gt;
+    * &lt;language name="Japanese" amount="129652"/&gt;
+    * &lt;/languages&gt;
+    * &lt;category name="Doujinshi" amount="138514"/&gt;
+    * &lt;pages size="14"/&gt;
+    * &lt;upload&gt;2014-06-28 14:12&lt;/upload&gt;
+    * &lt;/gallery&gt;</pre>
     * @return A String with the gallery data in Xml format
     *
-    * @since 1.1
-    *        1.3   - added the new data-id property
-    *        1.3.5 - Changed to return string to reduce dependency overhead
+    * @since 1.1<br />
+    *        1.3   - added the new data-id property<br />
+    *        1.3.5 - Changed to return string to reduce dependency overhead<br />
     */
+  @NotNull
   override def toXml: String =
     s"""<gallery id="$id" data-id="$dataId">
        |  <name>$name</name>
@@ -137,91 +146,94 @@ class Gallery(@NonNls @NotNull val name: String,
        |  </languages>
        |  ${category.toXml}
        |  <pages size="$pageCount"/>
-       |  <upload>${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))}</upload>
+       |  <upload>${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</upload>
        |</gallery>""".stripMargin
 
   /**
-    * Returns the gallery in JSON format. Order of appearance may wary from object to object.
+    * Returns the gallery in JSON format in a string;
     *
     * @example
-    * {<br/>
-    * &nbsp;&nbsp;"characters": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"character": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 41,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "kooh"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;],<br/>
-    * &nbsp;&nbsp;"parodies": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"parody": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 78,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "pangya"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;],<br/>
-    * &nbsp;&nbsp;"pages": 14,<br/>
-    * &nbsp;&nbsp;"id": 1,<br/>
-    * &nbsp;&nbsp;"data-id": 9,<br/>
-    * &nbsp;&nbsp;"languages": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"language": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 129652,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "Japanese"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;],<br/>
-    * &nbsp;&nbsp;"artists": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"artist": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 46,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "koari"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;],<br/>
-    * &nbsp;&nbsp;"upload": "June 28, 2014, 2:12 p.m.",<br/>
-    * &nbsp;&nbsp;"name": "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",<br/>
-    * &nbsp;&nbsp;"groups": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"group": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 34,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "arisan-antenna"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;],<br/>
-    * &nbsp;&nbsp;"category": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;"name": "Doujinshi",<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;"amount": 138514<br/>
-    * &nbsp;&nbsp;},<br/>
-    * &nbsp;&nbsp;"sec-name": "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",<br/>
-    * &nbsp;&nbsp;"tags": [<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tag": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 45693,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "lolicon"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;},<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tag": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 5796,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "catgirl"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;},<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tag": {<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount": 176,<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "gymshorts"<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-    * &nbsp;&nbsp;]<br/>
+    * <pre>
+    * {
+    * "id": 1,
+    * "data-id": 9,
+    * "name": "(C71) [Arisan-Antenna (Koari)] Eat The Rich! (Sukatto Golf Pangya)",
+    * "sec-name": "(C71) [ありさんアンテナ (小蟻)] Eat The Rich! (スカッとゴルフ パンヤ)",
+    * "parodies": [
+    * {
+    * "parody": {
+    * "amount": 78,
+    * "name": "pangya"
     * }
+    * }
+    * ],
+    * "characters": [
+    * {
+    * "character": {
+    * "amount": 41,
+    * "name": "kooh"
+    * }
+    * }
+    * ],
+    * "tags": [
+    * {
+    * "tag": {
+    * "amount": 45693,
+    * "name": "lolicon"
+    * }
+    * },
+    * {
+    * "tag": {
+    * "amount": 5796,
+    * "name": "catgirl"
+    * }
+    * },
+    * {
+    * "tag": {
+    * "amount": 176,
+    * "name": "gymshorts"
+    * }
+    * }
+    * ],
+    * "artists": [
+    * {
+    * "artist": {
+    * "amount": 46,
+    * "name": "koari"
+    * }
+    * }
+    * ],
+    * "groups": [
+    * {
+    * "group": {
+    * "amount": 34,
+    * "name": "arisan-antenna"
+    * }
+    * }
+    * ],
+    * "languages": [
+    * {
+    * "language": {
+    * "amount": 129652,
+    * "name": "Japanese"
+    * }
+    * }
+    * ],
+    * "category": {
+    * "name": "Doujinshi",
+    * "amount": 138514
+    * },
+    * "pages": 14,
+    * "upload": "2014-06-28 14:12"
+    * }</pre>
     * @return A String of the gallery in JSON format
     *
     * @since 1.2
     *        1.3   - Added the missing id field, and the new data-id field
     *        1.3.5 - Changed to return String to reduce dependencies
     */
+  @NotNull
+  @NonNls
   override def toJson: String =
     s"""{"id":$id,"pages":$pageCount,
        |"data-id":$dataId,"upload":"${uploadDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))}",
@@ -240,6 +252,8 @@ class Gallery(@NonNls @NotNull val name: String,
     *
     * @since 1.0
     */
+  @NotNull
+  @Nls
   override def toString: String =
     s"""$name ${if (japName != "") s"($japName)" else ""}
        |$printParodiesConditionally
@@ -293,42 +307,43 @@ class Gallery(@NonNls @NotNull val name: String,
     s"$base${if (amountToChangeOn == 1) sg else pl}"
 }
 
+/**
+  * Utility object mainly used for testing.
+  * Its dummy method is used when there's an error fetching actual galleries.
+  */
 object Gallery {
 
   /**
     * Dummy gallery used in testing and for returning for faulty html response
+    * Can be used to test whether the processing of html was successful.
     *
-    * @return A Gallery object with bullshit data
+    * The returned value can be overwritten by the parameters, each by their own
+    * respective name.
+    *
+    * @return A Gallery object with imaginary data, and epoch creation time.
     *
     * @since 1.1
     */
+  @NotNull
   def dummy(name: String = "Dummy Gallery",
             japName: String = "Dummi Garreri",
-            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking", 1)),
-            parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation", 1)),
-            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand", 1)),
-            artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile", 69)),
-            groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle", 6)),
+            tags: Array[HentaiTag] = Array(new HentaiTag("Mindfucking",
+                                                         1)),
+            parodies: Array[HentaiParody] = Array(new HentaiParody("InfoSoft The Animation",
+                                                                   1)),
+            characters: Array[HentaiCharacter] = Array(new HentaiCharacter("genderbent-bodand",
+                                                                           1)),
+            artists: Array[HentaiArtist] = Array(new HentaiArtist("Broccodile",
+                                                                  69)),
+            groups: Array[HentaiGroup] = Array(new HentaiGroup("InfoSoft HentaiBundle",
+                                                               6)),
             languages: Array[HentaiLanguage] = Array(new EnglishHentai(69)),
             category: MangaHentai = new MangaHentai(96),
             pageCount: Int = 85,
-            uploadDate: OffsetDateTime = OffsetDateTime.of(1970, 1,
-                                                           1, 0,
-                                                           0, 0,
-                                                           1, ZoneOffset.UTC),
-            id: Int = 999999,
-            dataId: Int = 9999999): Gallery =
-    new Gallery(name,
-                japName,
-                parodies,
-                characters,
-                tags,
-                artists,
-                groups,
-                languages,
-                category,
-                pageCount,
-                uploadDate,
-                id,
-                dataId)
+            uploadDate: OffsetDateTime = Instant.EPOCH.atOffset(ZoneOffset.UTC),
+            id: Int = 999999, dataId: Int = 9999999): Gallery =
+  {
+    new Gallery(name, japName, parodies, characters, tags, artists, groups,
+                languages, category, pageCount, uploadDate, id, dataId)
+  }
 }

@@ -125,12 +125,29 @@ task cutedoc(type: Exec, dependsOn: [scaladoc, classes, fillTemplates]) {
     commandLine 'cutedoc'
 }
 
-task website(type: Exec, dependsOn: cutedoc) {
+task websiteDocs(type: Exec, dependsOn: cutedoc) {
     workingDir "$projectDir/doc/src"
 
     commandLine 'perl', 'finishup.pl'
 }
-cutedoc.finalizedBy website
+websiteDocs.mustRunAfter cutedoc
+
+task websiteScaladoc() {
+    doLast {
+        File scalaDocOrig = new File("$projectDir/build/docs/scaladoc")
+        File scalaDocPublished = new File("$projectDir/docs/scaladoc")
+        try {
+            FileUtils.copyDirectory(scalaDocOrig, scalaDocPublished, true)
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+    }
+}
+
+task website() {
+    websiteDocs.execute()
+    websiteScaladoc.execute()
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'

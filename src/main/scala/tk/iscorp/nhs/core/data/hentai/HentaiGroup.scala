@@ -30,8 +30,26 @@ import org.jetbrains.annotations.{NonNls, NotNull}
   */
 class HentaiGroup(@NonNls @NotNull override val name: String, @NotNull override val amount: Int)
     extends HentaiData {
+  /**
+    * Returns the data in xml in a String
+    *
+    * @return A scala.xml.Node object with name and amount attributes.
+    *
+    * @example &lt;group name="InfoSoft HentaiBundle" amount="42"/&gt;
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
+    */
   override def toXml: String = s"""<group name="$name" amount="$amount"/>"""
 
+  /**
+    * Returns the data in json in a String
+    *
+    * @return A org.simple.json.JSONObject object with fields name and amount.
+    *
+    * @example {"group":{"amount":42,"name":"InfoSoft HentaiBundle"}}
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
+    */
   override def toJson: String =
     s"""{"group":{"amount":$amount,"name":"$name"}}"""
 }

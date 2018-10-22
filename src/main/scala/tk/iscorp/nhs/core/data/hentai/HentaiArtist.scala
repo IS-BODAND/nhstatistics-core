@@ -30,8 +30,28 @@ import org.jetbrains.annotations.{NonNls, NotNull}
   */
 class HentaiArtist(@NonNls @NotNull override val name: String,
                    @NotNull override val amount: Int) extends HentaiData {
-  override def toXml: String = s"""<artist name="$name" amount="$amount"/>"""
 
+  /**
+    * Returns the data in xml in a String
+    *
+    * @return A scala.xml.Node object with name and amount attributes.
+    *
+    * @example &lt;artist name="Broccodile" amount="69"/&gt;
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
+    */
+  override def toXml: String =
+    s"""<artist name="$name" amount="$amount"/>"""
+
+  /**
+    * Returns the data in json in a String
+    *
+    * @return A org.simple.json.JSONObject object with fields name and amount.
+    *
+    * @example {"artist":"amount":69,"name":"Broccodile"}
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
+    */
   override def toJson: String =
     s"""{"artist":{"amount":$amount,"name":"$name"}}"""
 }

@@ -30,8 +30,27 @@ import org.jetbrains.annotations.NotNull
   * @since 1.0
   */
 sealed abstract case class HentaiCategory() extends HentaiData {
-  override def toXml: String = s"""<category name="$name" amount="$amount"/>"""
+  /**
+    * Returns the data in xml in a String
+    *
+    * @return A scala.xml.Node object with name and amount attributes.
+    *
+    * @example &lt;category name="Manga" amount="1234567"/&gt;
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
+    */
+  override def toXml: String =
+    s"""<category name="$name" amount="$amount"/>"""
 
+  /**
+    * Returns the data in json in a String
+    *
+    * @return A org.simple.json.JSONObject object with fields name and amount.
+    *
+    * @example {"name":"Manga","amount":1234567}
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
+    */
   override def toJson: String =
     s"""{"name":"$name","amount":$amount}"""
 }

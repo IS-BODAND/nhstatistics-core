@@ -15,7 +15,7 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.data.hentai
 
-import org.jetbrains.annotations.{NonNls, NotNull}
+import org.jetbrains.annotations.{NonNls, NotNull, Nullable}
 import tk.iscorp.nhs.core.transform.{JSONTransformable, XmlTransformable}
 
 /**
@@ -44,25 +44,28 @@ trait HentaiData extends XmlTransformable with JSONTransformable {
     * @since 1.0
     */
   @NotNull
+  @NonNls
   def amount: Int
 
   /**
-    * Returns the data in xml.
+    * Returns the data in xml in a String
     *
     * @return A scala.xml.Node object with name and amount attributes.
     *
-    * @since 1.1
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
     */
   @NonNls
   @NotNull
   override def toXml: String
 
   /**
-    * Returns the data in json.
+    * Returns the data in json in a String
     *
     * @return A org.simple.json.JSONObject object with fields name and amount.
     *
-    * @since 1.2
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
     */
   @NonNls
   @NotNull
@@ -91,9 +94,11 @@ trait HentaiData extends XmlTransformable with JSONTransformable {
     * @since 1.0
     */
   @NotNull
-  override def equals(obj: scala.Any): Boolean = obj match {
-    case hd: HentaiData ⇒
-      hd.name == this.name && hd.amount == this.amount
-    case _ ⇒ false
-  }
+  override def equals(@Nullable obj: scala.Any): Boolean =
+    obj match {
+      case hd: HentaiData ⇒
+        hd.name == this.name && hd.amount == this.amount
+      case null ⇒ false //i know this is useless
+      case _ ⇒ false
+    }
 }

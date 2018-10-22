@@ -21,6 +21,17 @@ import tk.iscorp.nhs.core.data.hentai.HentaiCharacter
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiCharacter]]
   */
 class HentaiCharacterFactory extends HentaiDataFactory[HentaiCharacter] {
+
+  /**
+    * Constructs a new HentaiData implementor object
+    *
+    * @param name   Name of the HentaiData implementor to store
+    * @param amount Amount of doujin associated with the HentaiData implementor
+    * @param id     Implicit. ID of the doujin this HentaiData is got from.
+    *               Only used in logging.
+    *
+    * @return A new HentaiData object
+    */
   override def construct(name: String, amount: Int)(implicit id: Int): HentaiCharacter =
     new HentaiCharacter(name, amount)
 }

@@ -1,7 +1,8 @@
-Getting a doujin is just the easiest thing with the NHStatistics Core library. All you need is to implement the 
-HentaiInStream trait (interface with implementable stuff, for Java people), and you can use that to get your doijin. 
-Thankfully I already implemented one default version which should always work. It's a trait(interface) because of 
-inner conflicts, but as I said the implemented DefaultHentaiInStream should work.
+The library offers two Streams for doujin IO, both are traits with default implementations. These are just called streams,
+they do not implement Java's Stream interfaces, nor behave as if they did.
+
+Let's start with the doujin input. For that the `HentaiInStream` trait has been declared, which is implemented in
+`DefaultHentaiInStream` and most likely doesn't need to be reimplemented.
 
 Now using this DefaultHentaiInStream class is really easy:
 ```java
@@ -24,6 +25,4 @@ object DoujinGetterCLI {
 ```
 
 Now both of these snippets read one doujin specified by the user supplied command line argument. 
-  
-If a second true value is supplied to readByID it reads the upload date as ISO 8601 compliant. In later 
-releases this will be removed and some kind of Date class will be used to store the date.
+

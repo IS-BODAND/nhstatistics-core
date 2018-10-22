@@ -21,6 +21,17 @@ import tk.iscorp.nhs.core.data.hentai.HentaiParody
   * Factory for a [[tk.iscorp.nhs.core.data.hentai.HentaiParody]]
   */
 class HentaiParodyFactory extends HentaiDataFactory[HentaiParody] {
+
+  /**
+    * Constructs a new HentaiData implementor object
+    *
+    * @param name   Name of the HentaiData implementor to store
+    * @param amount Amount of doujin associated with the HentaiData implementor
+    * @param id     Implicit. ID of the doujin this HentaiData is got from.
+    *               Only used in logging.
+    *
+    * @return A new HentaiData object
+    */
   override def construct(name: String, amount: Int)(implicit id: Int): HentaiParody =
     new HentaiParody(name, amount)
 }

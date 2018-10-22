@@ -30,8 +30,26 @@ import org.jetbrains.annotations.NotNull
   * [[OtherLanguageHentai]] exists so we don't get murdered by something fucky.
   */
 sealed abstract case class HentaiLanguage() extends HentaiData {
+  /**
+    * Returns the data in xml in a String
+    *
+    * @return A scala.xml.Node object with name and amount attributes.
+    *
+    * @example &gt;language name="English" amount="123456789"/&gt;
+    * @since 1.1<br />
+    *        1.3.5 - Returns in String to reduce overhead
+    */
   override def toXml: String = s"""<language name="$name" amount="$amount"/>"""
 
+  /**
+    * Returns the data in json in a String
+    *
+    * @return A org.simple.json.JSONObject object with fields name and amount.
+    *
+    * @example {"language":{"amount":123456789,"name":"English"}}
+    * @since 1.2<br>
+    *        1.3.5 - Returns in String to reduce library overhead
+    */
   override def toJson: String =
     s"""{"language":{"amount":$amount,"name":"$name"}}""".stripMargin
 }

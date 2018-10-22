@@ -28,18 +28,75 @@ import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import tk.iscorp.nhs.core.data.Gallery
 
+/**
+  * Class that can download all images from a gallery defined by a provided
+  * Gallery instance.
+  *
+  * Most likely will be moved to a Core-Utils library or something like that.
+  *
+  * @since 1.3.4
+  * @author bodand
+  * @todo make a normal multithreaded downloader
+  *       and annihilate the current one
+  */
 class GalleryDownloader {
   private val logger = LoggerFactory.getLogger("Downloader")
 
+  /**
+    * Downloads a gallery instance's images to the
+    * {directory of the jar file}/dwn/{id of the gallery}
+    * Each image will be named it's page number
+    *
+    * @param gly The Gallery to download
+    *
+    * @return The number of pages downloaded
+    */
   def download(gly: Gallery): Int =
     download(gly, s"dwn/${gly.id}")
 
+  /**
+    * Downloads a gallery instance's images to the specified path
+    * Each image will be named it's page number
+    *
+    * @param gly  The Gallery to download
+    * @param path The path to place the pages
+    *
+    * @return The number of pages downloaded
+    */
   def download(gly: Gallery, path: String): Int =
     download(gly, path, bonusData = false)
 
+  /**
+    * Downloads a gallery instance's images to the specified path.
+    * Bonus data in json and xml format can be downloaded as hidden files,
+    * named {gallery's id}.json and {gallery's id}.xml respectively.
+    * On Unix based system a . will precede their names as per hiding rules.
+    *
+    * @param gly       The Gallery to download
+    * @param path      The path to place the pages
+    * @param bonusData Whether to download bonus data
+    *
+    * @return The number of pages downloaded
+    */
   def download(gly: Gallery, path: String, bonusData: Boolean): Int =
     download(gly, path, bonusData, hideBonusData = true)
 
+  /**
+    * Downloads a gallery instance's images to the specified path.
+    * Bonus data in json and xml format can be downloaded.
+    * named {gallery's id}.json and {gallery's id}.xml respectively.
+    * The bonus files can be specified to be hidden.
+    * On Unix based system a . will precede their names as per hiding rules.
+    *
+    * If bonusData is set to false, hideBonusData is not checked.
+    *
+    * @param gly           The Gallery to download
+    * @param path          The path to place the pages
+    * @param bonusData     Whether to download bonus data
+    * @param hideBonusData Whether to hide the bonus data.
+    *
+    * @return The number of pages downloaded
+    */
   def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int =
   {
     logger.info(s"Downloading gallery ${gly.name}")

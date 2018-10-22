@@ -8,3 +8,7 @@ The most likely to be useful fields are:
 - `tags` - The tags present on this doujin. It's an array of HentaiTag objects.
 - `id` - One of the infamous id-s that represent one doujin. It's an Int in type.
 - `languages` - Language on nhentai, including the `Translated` and `Rewrite` tags, just as on the webpage.     
+
+The class implements the `JSONTransformable` and `XmlTransformable` traits thus it can return a legal JSON or XML by
+calling toJson or toXml respectively. It is returned in a string to reduce library overhead, you need to process it with
+your preferred JSON/XML parser library.
