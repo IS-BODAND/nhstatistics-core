@@ -99,7 +99,8 @@ class GalleryTest extends WordSpec {
   <pages size="14" />
   <upload>2014-06-28 14:12</upload>
 </gallery>.toString() // fuck this shit
-        assertEquals(xmlString, gallery1.toXml)
+        assertEquals(xmlString,
+                     gallery1.toXml.toString.replaceAll("\\r(?=\\n)", ""))
       }
     }
     "json requested" should {
