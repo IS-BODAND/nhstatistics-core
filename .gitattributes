@@ -1,0 +1,3 @@
+## Don't make GitHub think this is an  HTML project somehow
+/docs/* linguist-detectable=false
+/src/test/resources/* linguist-detectable=false
