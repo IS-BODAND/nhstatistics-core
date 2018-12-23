@@ -37,7 +37,7 @@ plugins {
 import org.apache.commons.io.FileUtils
 
 group 'com.github.isbodand'
-version '1.3.5'
+version '1.3.6'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -50,7 +50,7 @@ repositories {
 
 dependencies {
     // Scala - Standard library
-    provided group: 'org.scala-lang', name: 'scala-library', version: '2.12.7'
+    provided group: 'org.scala-lang', name: 'scala-library', version: '2.12.8'
 
     // Jetbrains Annotations - Annotating
     implementation group: 'org.jetbrains', name: 'annotations', version: '15.0'

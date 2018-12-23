@@ -15,18 +15,14 @@
   * *****************************************************************************/
 package tk.iscorp.nhs.core.datagetter
 
-import java.io.{File, IOException}
+import java.io.File
 import java.net.URI
 import java.nio.file.{FileSystems, Files, Path}
-
-import scala.collection.mutable.ArrayBuffer
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
 
 import org.apache.commons.io.FileUtils
 import org.slf4j.LoggerFactory
 import tk.iscorp.nhs.core.data.Gallery
+import tk.iscorp.nhs.core.datagetter.downloader.{DefaultImageDownloader, ImageDownloader}
 
 /**
   * Class that can download all images from a gallery defined by a provided
@@ -40,7 +36,7 @@ import tk.iscorp.nhs.core.data.Gallery
   *       and annihilate the current one
   */
 class GalleryDownloader {
-  private val logger = LoggerFactory.getLogger("Downloader")
+  private val logger = LoggerFactory.getLogger("GalleryDownloader<" + toString.dropWhile(_ != '@').drop(1) + ">")
 
   /**
     * Downloads a gallery instance's images to the
@@ -97,8 +93,7 @@ class GalleryDownloader {
     *
     * @return The number of pages downloaded
     */
-  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int =
-  {
+  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int = {
     logger.info(s"Downloading gallery ${gly.name}")
 
     FileUtils.deleteQuietly(new File(path))
@@ -113,8 +108,7 @@ class GalleryDownloader {
   private def createBonusDataIfNeeded(gly: Gallery,
                                       path: String,
                                       bonusData: Boolean,
-                                      hideBonusData: Boolean): Any =
-  {
+                                      hideBonusData: Boolean): Unit = {
     if (bonusData) {
       val writeFilesResult: WrittenFiles = writeFiles(gly, path)
       val WrittenFiles(xmlStringPath: String,
@@ -133,8 +127,7 @@ class GalleryDownloader {
                         xmlStringPath: String,
                         xmlFile: File,
                         jsonStringPath: String,
-                        jsonFile: File): Any =
-  {
+                        jsonFile: File): Unit = {
     val xmlPath = FileSystems.getDefault.getPath(xmlStringPath)
     val jsonPath = FileSystems.getDefault.getPath(jsonStringPath)
 
@@ -145,8 +138,7 @@ class GalleryDownloader {
     }
   }
 
-  private def hideOnNix(gly: Gallery, path: String, xmlFile: File, jsonFile: File): Unit =
-  {
+  private def hideOnNix(gly: Gallery, path: String, xmlFile: File, jsonFile: File): Unit = {
     val hiddenXmlFile = new File(s"$path/.${gly.id}.xml")
     val hiddenJsonFile = new File(s"$path/.${gly.id}.json")
 
@@ -154,8 +146,7 @@ class GalleryDownloader {
     FileUtils.moveFile(jsonFile, hiddenJsonFile)
   }
 
-  private def hideOnWin(xmlPath: Path, jsonPath: Path): Path =
-  {
+  private def hideOnWin(xmlPath: Path, jsonPath: Path): Unit = {
     Files.setAttribute(xmlPath, "dos:hidden", true)
     Files.setAttribute(jsonPath, "dos:hidden", true)
   }
@@ -165,8 +156,7 @@ class GalleryDownloader {
                           jsonStringPath: String,
                           jsonFile: File)
 
-  private def writeFiles(gly: Gallery, path: String): WrittenFiles =
-  {
+  private def writeFiles(gly: Gallery, path: String): WrittenFiles = {
     val xmlStringPath = s"$path/${gly.id}.xml"
     val xmlFile = new File(xmlStringPath)
     val jsonStringPath = s"$path/${gly.id}.json"
@@ -175,7 +165,6 @@ class GalleryDownloader {
     val xml = gly.toXml
     val json = gly.toJson
 
-    FileUtils.touch(new File(path + "/"))
     FileUtils.touch(xmlFile)
     FileUtils.touch(jsonFile)
 
@@ -184,58 +173,24 @@ class GalleryDownloader {
     WrittenFiles(xmlStringPath, xmlFile, jsonStringPath, jsonFile)
   }
 
-  private def downloadImages(gly: Gallery, path: String): Int =
-  {
-    val ret = new ArrayBuffer[Int]()
-    val (pagesThird, remainder) = (gly.pageCount / 3, gly.pageCount % 3)
-    val thirds =
-      (
-          1 until pagesThird, // 1/3
-          pagesThird until pagesThird * 2, // 2(1/3)
-          pagesThird * 2 to pagesThird * 3 + remainder // remaining
-      )
-
-    val f1 = Future {
-      downloadThird(gly, path, thirds._1)
-    }
-    val f2 = Future {
-      downloadThird(gly, path, thirds._2)
-    }
-    val f3 = Future {
-      downloadThird(gly, path, thirds._3)
-    }
-
-    ret += Await.result(f1, Duration.Inf)
-    ret += Await.result(f2, Duration.Inf)
-    ret += Await.result(f3, Duration.Inf)
-
-    ret.sum
-  }
-
-  private def downloadThird(gly: Gallery, path: String, range: Range): Int =
-  {
-    var pagesDownloaded: Int = 0
-    for {
-      i ← range
-      dataId = gly.dataId
-    } {
-      val page = new File(s"$path/$i.jpg")
-      val url = new URI(s"https://i.nhentai.net/galleries/$dataId/$i.jpg").toURL
-
-      logger.debug(s"Downloading page $i")
+  private def downloadImages(gly: Gallery, path: String): Int = {
+    val downloader: ImageDownloader = {
       try {
-        FileUtils.copyURLToFile(url, page)
+        val akkaDownloaderClass = Class.forName("tk.iscorp.nhs.utils.AkkaImageDownloader")
+        akkaDownloaderClass.newInstance().asInstanceOf[ImageDownloader]
       } catch {
-        case e: IOException ⇒
-          logger.error(s"Error downloading page $i")
-          logger.error(e.getMessage)
-      }
-
-      if (page.exists()) {
-        pagesDownloaded += 1
+        case _: Exception ⇒
+          new DefaultImageDownloader
       }
     }
-    pagesDownloaded
+
+    val urls =
+      for {
+        i <- 1 to gly.pageCount
+        dataId = gly.dataId
+      } yield new URI(s"https://i.nhentai.net/galleries/$dataId/$i.jpg").toURL
+
+    downloader.downloadImages(urls, path)
   }
 
   private def isWindows: Boolean = System.getProperty("os.name").startsWith("Windows")
