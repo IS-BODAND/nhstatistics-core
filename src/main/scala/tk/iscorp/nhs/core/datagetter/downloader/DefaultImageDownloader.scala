@@ -3,7 +3,6 @@ package tk.iscorp.nhs.core.datagetter.downloader
 import java.io.{File, IOException}
 import java.net.URL
 
-import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -14,9 +13,7 @@ import org.slf4j.LoggerFactory
 class DefaultImageDownloader extends ImageDownloader {
   private val logger = LoggerFactory.getLogger("DefaultImageDownloader<" + toString.dropWhile(_ != '@').drop(1) + ">")
 
-  def downloadImages(gly: Seq[URL], path: String): Int = {
-    val ret = new ArrayBuffer[Int]()
-
+  def downloadImages(gly: Seq[URL], path: String): Unit = {
     val (firstThird, twoThirds) = gly.zipWithIndex.splitAt((gly.size * 1 / 3).ceil.toInt)
     val (secondThird, thirdThird) = twoThirds.splitAt((gly.size * 1 / 2).ceil.toInt)
 
@@ -30,15 +27,12 @@ class DefaultImageDownloader extends ImageDownloader {
       downloadList(thirdThird, path)
     }
 
-    ret += Await.result(f1, Duration.Inf)
-    ret += Await.result(f2, Duration.Inf)
-    ret += Await.result(f3, Duration.Inf)
-
-    ret.sum
+    Await.ready(f1, Duration.Inf)
+    Await.ready(f2, Duration.Inf)
+    Await.ready(f3, Duration.Inf)
   }
 
-  private def downloadList(urls: Seq[(URL, Int)], path: String): Int = {
-    var pagesDownloaded = 0
+  private def downloadList(urls: Seq[(URL, Int)], path: String): Unit = {
     urls.foreach { case (url, i) ⇒
       val pageFile = new File(s"$path/$i.jpg")
       try {
@@ -48,11 +42,6 @@ class DefaultImageDownloader extends ImageDownloader {
           logger.error(s"Error downloading page $i")
           logger.error(e.getMessage)
       }
-
-      if (pageFile.exists()) {
-        pagesDownloaded += 1
-      }
     }
-    pagesDownloaded
   }
 }

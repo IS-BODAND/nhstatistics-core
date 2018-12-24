@@ -47,7 +47,7 @@ class GalleryDownloader {
     *
     * @return The number of pages downloaded
     */
-  def download(gly: Gallery): Int =
+  def download(gly: Gallery): Unit =
     download(gly, s"dwn/${gly.id}")
 
   /**
@@ -59,7 +59,7 @@ class GalleryDownloader {
     *
     * @return The number of pages downloaded
     */
-  def download(gly: Gallery, path: String): Int =
+  def download(gly: Gallery, path: String): Unit =
     download(gly, path, bonusData = false)
 
   /**
@@ -74,7 +74,7 @@ class GalleryDownloader {
     *
     * @return The number of pages downloaded
     */
-  def download(gly: Gallery, path: String, bonusData: Boolean): Int =
+  def download(gly: Gallery, path: String, bonusData: Boolean): Unit =
     download(gly, path, bonusData, hideBonusData = true)
 
   /**
@@ -93,16 +93,14 @@ class GalleryDownloader {
     *
     * @return The number of pages downloaded
     */
-  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Int = {
+  def download(gly: Gallery, path: String, bonusData: Boolean, hideBonusData: Boolean): Unit = {
     logger.info(s"Downloading gallery ${gly.name}")
 
     FileUtils.deleteQuietly(new File(path))
 
-    val pagesDownloaded = downloadImages(gly, path)
+    downloadImages(gly, path)
 
     createBonusDataIfNeeded(gly, path, bonusData, hideBonusData)
-
-    pagesDownloaded
   }
 
   private def createBonusDataIfNeeded(gly: Gallery,
@@ -173,7 +171,7 @@ class GalleryDownloader {
     WrittenFiles(xmlStringPath, xmlFile, jsonStringPath, jsonFile)
   }
 
-  private def downloadImages(gly: Gallery, path: String): Int = {
+  private def downloadImages(gly: Gallery, path: String): Unit = {
     val downloader: ImageDownloader = {
       try {
         val akkaDownloaderClass = Class.forName("tk.iscorp.nhs.utils.AkkaImageDownloader")
