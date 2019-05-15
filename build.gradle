@@ -60,7 +60,7 @@ dependencies {
     // Apache HttpComponents HttpClient - HTTP library
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.7'
     // jSoup - HTML Parser
-    implementation group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+    implementation group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
 
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     runtime group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3', optional
