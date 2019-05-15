@@ -30,7 +30,7 @@ plugins {
     id 'maven'
     id 'jacoco'
     id 'nebula.optional-base' version '3.0.3'
-    id 'nebula.provided-base' version '3.0.3'
+    id 'nebula.provided-base' version '5.0.3'
 }
 
 
