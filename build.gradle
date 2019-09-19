@@ -50,7 +50,7 @@ repositories {
 
 dependencies {
     // Scala - Standard library
-    provided group: 'org.scala-lang', name: 'scala-library', version: '2.12.8'
+    provided group: 'org.scala-lang', name: 'scala-library', version: '2.13.1'
 
     // Jetbrains Annotations - Annotating
     implementation group: 'org.jetbrains', name: 'annotations', version: '17.0.0'
