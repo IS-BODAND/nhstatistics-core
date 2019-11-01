@@ -62,7 +62,7 @@ dependencies {
     // jSoup - HTML Parser
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
 
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.29'
     runtime group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3', optional
 
     // Frameworks
